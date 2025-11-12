@@ -1,0 +1,21 @@
+.sign-in {
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+  }
+
+  .sign-in__submit-btn {
+    background: #000;
+    transition: background 0.2s;
+
+    &:hover {
+      cursor: pointer;
+      background: rgba($color: #000000, $alpha: 0.8);
+    }
+
+    &:disabled {
+      background: rgb(157, 157, 157);
+    }
+  }
+}

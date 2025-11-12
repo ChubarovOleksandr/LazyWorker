@@ -1,16 +1,19 @@
-import { useForm } from 'react-hook-form';
-
-import { getSafetyString } from '../../utils/get-safety-string';
+import { Text } from '@radix-ui/themes';
 
 import './textField.scss';
+
+type TextTypesEnum = 'text' | 'password' | 'email' | 'number';
 
 interface TextFieldProps {
   name: string;
   required?: boolean;
-  type?: string;
+  type?: TextTypesEnum;
   placeholder?: string;
   style?: React.CSSProperties;
   label?: string;
+  minLength?: number;
+  maxLength?: number;
+  register: any;
 }
 
 export const TextField = ({
@@ -20,18 +23,18 @@ export const TextField = ({
   name,
   placeholder,
   required = false,
+  minLength,
+  maxLength,
+  register,
 }: TextFieldProps) => {
-  const { register } = useForm();
-
   return (
     <label className="textField-label" style={style}>
-      <span className="textField-text">{label}</span>
+      <Text size="2">{label}</Text>
       <input
         className="textField-input"
-        name={name}
         type={type}
         placeholder={placeholder}
-        {...(register(name), { required })}
+        {...register(name, { required, minLength, maxLength })}
       />
     </label>
   );

@@ -1,13 +1,11 @@
 import { useEffect } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 import { RoutesEnum } from '@enums/routes';
 import { isExist } from '@utils/format';
 
-import './authPage.scss';
-
-export const AuthPage = () => {
+export const useAuthNavigate = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -23,10 +21,4 @@ export const AuthPage = () => {
 
     return () => unsubscribe();
   }, [navigate]);
-
-  return (
-    <div className="auth">
-      <Outlet />
-    </div>
-  );
 };

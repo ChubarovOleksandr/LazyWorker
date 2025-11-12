@@ -13,8 +13,6 @@ export const useCheckAuth = () => {
 
   useEffect(() => {
     if (!isExist(currentUser) && !location.pathname.includes(RoutesEnum.Auth)) {
-      console.log(location.pathname);
-
       navigate(RoutesEnum.Auth, { replace: true });
     }
   }, [currentUser]);
