@@ -2,6 +2,7 @@ import parser from '@typescript-eslint/parser';
 import eslintPluginReact from 'eslint-plugin-react';
 import eslintPluginReactHooks from 'eslint-plugin-react-hooks';
 import eslintPluginSimpleImportSort from 'eslint-plugin-simple-import-sort';
+import eslintPluginUnusedImports from 'eslint-plugin-unused-imports';
 
 export default [
   {
@@ -17,9 +18,11 @@ export default [
     plugins: {
       react: eslintPluginReact,
       'react-hooks': eslintPluginReactHooks,
+      'unused-imports': eslintPluginUnusedImports,
       'simple-import-sort': eslintPluginSimpleImportSort,
     },
     rules: {
+      'unused-imports/no-unused-imports': 'error',
       'sort-imports': 'off',
       'simple-import-sort/imports': [
         'error',

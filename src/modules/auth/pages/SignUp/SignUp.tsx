@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Button, Flex } from '@radix-ui/themes';
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { Button, Flex, Text } from '@radix-ui/themes';
 
 import { FormError } from '@modules/auth/components/FormError';
 import { FormTitle } from '@modules/auth/components/FormTitle';
+import { GoogleIcon } from '@modules/auth/components/GoogleIcon';
 import { formConfig } from '@configs/formConfig';
 import { RoutesEnum } from '@enums/routes';
-import { getSafetyString } from '@utils/get-safety-string';
 
 import { TextField } from 'src/ui/inputField/TextField';
 import { Link } from 'src/ui/link/Link';
 
+import { useSignUp } from './hooks/useSignUp';
 import { SignUpFieldsEnum } from './enum';
 import { SignUpFormInterface } from './interface';
 
@@ -26,15 +26,7 @@ export const SignUp = () => {
     formState: { isSubmitting },
   } = useForm<SignUpFormInterface>();
 
-  const onSubmit = async ({ email, password }: SignUpFormInterface) => {
-    try {
-      const auth = getAuth();
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(userCredential);
-    } catch (responseError: any) {
-      setFormError(getSafetyString(responseError?.message));
-    }
-  };
+  const { defaultSignUp, signUpWithGoogle } = useSignUp({ setFormError });
 
   return (
     <Flex justify={'center'} align={'center'} direction={'column'} className="sign-up">
@@ -44,7 +36,7 @@ export const SignUp = () => {
       />
       <FormError error={formError} />
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(defaultSignUp)}>
         <TextField
           name={SignUpFieldsEnum.Email}
           label="Почта"
@@ -72,6 +64,19 @@ export const SignUp = () => {
           type="submit"
         >
           Создать аккаунт
+        </Button>
+        <Button
+          mt={'4'}
+          size={'3'}
+          type="button"
+          onClick={signUpWithGoogle}
+          disabled={isSubmitting}
+          className="sign-up__google-btn"
+        >
+          <GoogleIcon width="24" height="24" />
+          <Text color="gray" highContrast>
+            Зарегистрироваться
+          </Text>
         </Button>
       </form>
 

@@ -1,5 +1,7 @@
 import { Text } from '@radix-ui/themes';
 
+import { isExist } from '@utils/format';
+
 import './textField.scss';
 
 type TextTypesEnum = 'text' | 'password' | 'email' | 'number';
@@ -29,7 +31,7 @@ export const TextField = ({
 }: TextFieldProps) => {
   return (
     <label className="textField-label" style={style}>
-      <Text size="2">{label}</Text>
+      {isExist(label) && <Text size="2">{label}</Text>}
       <input
         className="textField-input"
         type={type}

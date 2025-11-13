@@ -1,19 +1,17 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Button, Callout, Flex } from '@radix-ui/themes';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { Button, Flex, Text } from '@radix-ui/themes';
 
 import { FormError } from '@modules/auth/components/FormError';
 import { FormTitle } from '@modules/auth/components/FormTitle';
+import { GoogleIcon } from '@modules/auth/components/GoogleIcon';
 import { formConfig } from '@configs/formConfig';
 import { RoutesEnum } from '@enums/routes';
-import { isExist } from '@utils/format';
 
 import { TextField } from 'src/ui/inputField/TextField';
 import { Link } from 'src/ui/link/Link';
 
-import { getSafetyString } from '../../../../utils/get-safety-string';
-
+import { useSignIn } from './hooks/useSignIn';
 import { SignInFieldsEnum } from './enum';
 import { SignInFormInterface } from './interface';
 
@@ -28,22 +26,14 @@ export const SignIn = () => {
     formState: { isSubmitting },
   } = useForm<SignInFormInterface>();
 
-  const onSubmit = async ({ email, password }: SignInFormInterface) => {
-    try {
-      const auth = getAuth();
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log(userCredential);
-    } catch (responseError: any) {
-      setFormError(getSafetyString(responseError?.message));
-    }
-  };
+  const { defaultSignIn, signInWithGoogle } = useSignIn({ setFormError });
 
   return (
     <Flex justify={'center'} align={'center'} direction="column" className="sign-in">
       <FormTitle mainLabel="Вход" secondLabel="С возвращением! Пожалуйста введите ваши данные" />
       <FormError error={formError} />
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(defaultSignIn)}>
         <TextField
           name={SignInFieldsEnum.Email}
           label="Почта"
@@ -77,6 +67,19 @@ export const SignIn = () => {
           type="submit"
         >
           Войти
+        </Button>
+        <Button
+          mt="4"
+          size="3"
+          type="button"
+          onClick={signInWithGoogle}
+          disabled={isSubmitting}
+          className="sign-in__google-btn"
+        >
+          <GoogleIcon width="24" height="24" />
+          <Text color="gray" highContrast>
+            Авторизоваться
+          </Text>
         </Button>
       </form>
       <Link
