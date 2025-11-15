@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { Theme } from '@radix-ui/themes';
 
-import App from './App.tsx';
+import { App } from './App';
 
 import '@radix-ui/themes/styles.css';
 import './styles/nullstyle.scss';

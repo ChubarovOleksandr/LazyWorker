@@ -32,6 +32,7 @@ export default [
             ['^node:'],
             ['^\\u0000'],
             [
+              '^@layouts/',
               '^@pages/',
               '^@modules/',
               '^@components/',

@@ -31,7 +31,8 @@
       "@components/*": ["src/components/*"],
       "@enums/*": ["src/enums/*"],
       "@hooks/*": ["src/hooks/*"],
-      "@utils/*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"],
+      "@layouts/*": ["src/layouts/*"]
     }
   },
   "include": ["src", "declarations.d.ts"]

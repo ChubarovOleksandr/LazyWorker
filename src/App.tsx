@@ -1,33 +1,32 @@
 import { Route, Routes } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 
-import { AuthModule } from '@modules/auth/AuthModule';
-import { ResetPassword } from '@modules/auth/pages/ResetPassword/ResetPassword';
-import { SignIn } from '@modules/auth/pages/SignIn/SignIn';
-import { SignUp } from '@modules/auth/pages/SignUp/SignUp';
-import { MainModule } from '@modules/main/MainModule';
-import { NavigationModule } from '@modules/navbar/NavigationModule';
+import { AuthorizedLayout } from '@layouts/AuthorizedLayout.tsx/AuthorizedLayout';
+import { NavigationLayout } from '@layouts/NavigationLayout/NavigationLayout';
+import { MainPage } from '@pages/Main/MainPage';
+import { NotFoundPage } from '@pages/NotFound/NotFoundPage';
+import { ResetPasswordPage } from '@pages/ResetPassword/ResetPasswordPage';
+import { SignInPage } from '@pages/SignIn/SignInPage';
+import { SignUpPage } from '@pages/SignUp/SignUpPage';
 import { firebaseConfig } from '@configs/firebaseConfig';
 import { RoutesEnum } from '@enums/routes';
-import { useCheckAuth } from '@hooks/useCheckAuth';
 
-function App() {
+export function App() {
   initializeApp(firebaseConfig);
-
-  useCheckAuth();
 
   return (
     <Routes>
-      <Route path={RoutesEnum.Auth} element={<AuthModule />}>
-        <Route path={RoutesEnum.SignIn} element={<SignIn />} />
-        <Route path={RoutesEnum.SignUp} element={<SignUp />} />
-        <Route path={RoutesEnum.ResetPassword} element={<ResetPassword />} />
+      <Route path={RoutesEnum.SignIn} element={<SignInPage />} />
+      <Route path={RoutesEnum.SignUp} element={<SignUpPage />} />
+      <Route path={RoutesEnum.ResetPassword} element={<ResetPasswordPage />} />
+
+      <Route element={<AuthorizedLayout />}>
+        <Route element={<NavigationLayout />}>
+          <Route path={RoutesEnum.Main} index element={<MainPage />} />
+        </Route>
       </Route>
-      <Route element={<NavigationModule />}>
-        <Route path={RoutesEnum.Main} index element={<MainModule />} />
-      </Route>
+
+      <Route path={RoutesEnum.NotFoundPage} element={<NotFoundPage />} />
     </Routes>
   );
 }
-
-export default App;
