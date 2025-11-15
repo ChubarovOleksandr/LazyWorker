@@ -1,0 +1,28 @@
+.navbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 10px 5px;
+  padding: 2px;
+  background: #f2faff;
+  border-radius: 10px;
+  box-shadow: rgb(171, 171, 171) 0px 0px 7px;
+  height: 97vh;
+  .navbar__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    margin: 0 0 3px;
+
+    &:hover {
+      background: #e0e8f0;
+    }
+    &.active {
+      background: rgb(47, 47, 47);
+    }
+  }
+}

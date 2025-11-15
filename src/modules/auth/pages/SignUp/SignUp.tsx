@@ -17,6 +17,9 @@ import { SignUpFormInterface } from './interface';
 
 import './signUp.scss';
 
+// TODO ADD SECOND PASSWORD FIELD AND CHECK ON EQUALITY
+// OR ADD GENERATING STRONG PASSWORD USING getASecureRandomPassword()
+
 export const SignUp = () => {
   const [formError, setFormError] = useState<string>();
 
@@ -75,7 +78,7 @@ export const SignUp = () => {
         >
           <GoogleIcon width="24" height="24" />
           <Text color="gray" highContrast>
-            Зарегистрироваться
+            Зарегистрироваться c Google
           </Text>
         </Button>
       </form>

@@ -6,6 +6,7 @@ import { ResetPassword } from '@modules/auth/pages/ResetPassword/ResetPassword';
 import { SignIn } from '@modules/auth/pages/SignIn/SignIn';
 import { SignUp } from '@modules/auth/pages/SignUp/SignUp';
 import { MainModule } from '@modules/main/MainModule';
+import { NavigationModule } from '@modules/navbar/NavigationModule';
 import { firebaseConfig } from '@configs/firebaseConfig';
 import { RoutesEnum } from '@enums/routes';
 import { useCheckAuth } from '@hooks/useCheckAuth';
@@ -22,7 +23,9 @@ function App() {
         <Route path={RoutesEnum.SignUp} element={<SignUp />} />
         <Route path={RoutesEnum.ResetPassword} element={<ResetPassword />} />
       </Route>
-      <Route path={RoutesEnum.Main} index element={<MainModule />} />
+      <Route element={<NavigationModule />}>
+        <Route path={RoutesEnum.Main} index element={<MainModule />} />
+      </Route>
     </Routes>
   );
 }

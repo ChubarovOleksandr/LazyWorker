@@ -78,7 +78,7 @@ export const SignIn = () => {
         >
           <GoogleIcon width="24" height="24" />
           <Text color="gray" highContrast>
-            Авторизоваться
+            Авторизоваться с Google
           </Text>
         </Button>
       </form>
