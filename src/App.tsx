@@ -1,24 +1,25 @@
 import { Route, Routes } from 'react-router-dom';
-import { initializeApp } from 'firebase/app';
+
+import '@configs/firebaseConfig';
 
 import { AuthorizedLayout } from '@layouts/AuthorizedLayout.tsx/AuthorizedLayout';
 import { NavigationLayout } from '@layouts/NavigationLayout/NavigationLayout';
+import { UnauthorizedLayout } from '@layouts/UnauthorizedLayout/UnauthorizedLayout';
 import { MainPage } from '@pages/Main/MainPage';
 import { NotFoundPage } from '@pages/NotFound/NotFoundPage';
 import { ResetPasswordPage } from '@pages/ResetPassword/ResetPasswordPage';
 import { SignInPage } from '@pages/SignIn/SignInPage';
 import { SignUpPage } from '@pages/SignUp/SignUpPage';
-import { firebaseConfig } from '@configs/firebaseConfig';
 import { RoutesEnum } from '@enums/routes';
 
-export function App() {
-  initializeApp(firebaseConfig);
-
+export const App = () => {
   return (
     <Routes>
-      <Route path={RoutesEnum.SignIn} element={<SignInPage />} />
-      <Route path={RoutesEnum.SignUp} element={<SignUpPage />} />
-      <Route path={RoutesEnum.ResetPassword} element={<ResetPasswordPage />} />
+      <Route element={<UnauthorizedLayout />}>
+        <Route path={RoutesEnum.SignIn} element={<SignInPage />} />
+        <Route path={RoutesEnum.SignUp} element={<SignUpPage />} />
+        <Route path={RoutesEnum.ResetPassword} element={<ResetPasswordPage />} />
+      </Route>
 
       <Route element={<AuthorizedLayout />}>
         <Route element={<NavigationLayout />}>
@@ -29,4 +30,4 @@ export function App() {
       <Route path={RoutesEnum.NotFoundPage} element={<NotFoundPage />} />
     </Routes>
   );
-}
+};

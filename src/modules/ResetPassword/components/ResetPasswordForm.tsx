@@ -41,7 +41,9 @@ export const ResetPasswordForm = () => {
       <Dialog.Root open={isEmailSend} defaultOpen={false}>
         <Dialog.Content>
           <Flex justify={'center'} align={'start'} direction={'column'}>
-            <Text>Письмо успешно отправлено. В случае если письмо не пришло, проверьте "Спам"</Text>
+            <Text>
+              Письмо успешно отправлено. В случае, если письмо не пришло, проверьте "Спам"
+            </Text>
             <Button color="gray" highContrast mt={'4'} size={'3'} style={{ alignSelf: 'flex-end' }}>
               <Link
                 to={RoutesEnum.SignIn}

@@ -8,6 +8,15 @@
   border-radius: 10px;
   box-shadow: rgb(171, 171, 171) 0px 0px 7px;
   height: 97vh;
+
+  .top .navbar__item {
+    margin: 0 0 3px 0;
+  }
+
+  .bottom .navbar__item {
+    margin-top: 3px 0 0 0;
+  }
+
   .navbar__item {
     display: flex;
     justify-content: center;
@@ -16,7 +25,6 @@
     height: 36px;
     border-radius: 8px;
     transition: all 0.2s;
-    margin: 0 0 3px;
 
     &:hover {
       background: #e0e8f0;

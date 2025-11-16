@@ -1,0 +1,11 @@
+.accordionRoot {
+  .accordionItem {
+    .accordionTrigger {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      gap: 5px;
+    }
+  }
+}
