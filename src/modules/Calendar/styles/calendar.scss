@@ -5,6 +5,8 @@
   box-shadow: rgb(171, 171, 171) 0px 0px 7px;
   flex: 65%;
   max-width: 65%;
+  max-height: 550px;
+  overflow-y: scroll;
 
   .table {
     &__column-header {
