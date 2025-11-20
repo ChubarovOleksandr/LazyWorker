@@ -43,3 +43,57 @@
     cursor: pointer;
   }
 }
+
+.select-date__content {
+  padding: 0 !important;
+
+  .select-date__section {
+    &-item {
+      transition: background-color 0.2s ease;
+      padding: 10px 15px;
+      cursor: pointer;
+      &:hover {
+        background-color: #f0f0f0;
+      }
+    }
+
+    &:first-child {
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .rdp-selected .rdp-day_button {
+      background-color: #00a3c7;
+      color: #fff;
+      border: none;
+    }
+
+    .rdp-root {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .rdp-today:not(.rdp-outside) {
+      font-weight: 600;
+      color: #00a3c7;
+      background: none;
+    }
+
+    .rdp-chevron {
+      width: 16px;
+      height: 16px;
+      fill: #565656;
+    }
+    .rdp-caption_label {
+      font-weight: 600;
+      font-size: 14px;
+      color: #222;
+    }
+    .rdp-day,
+    .rdp-day_button {
+      width: 35px;
+      height: 35px;
+      font-size: 14px;
+    }
+  }
+}

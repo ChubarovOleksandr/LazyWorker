@@ -1,7 +1,13 @@
+import { getAuth, signOut } from 'firebase/auth';
 import { ChartNoAxesGantt, ClipboardClock, LogOut, Settings, SquareChartGantt } from 'lucide-react';
 
 import { NavBarItemInterface } from '@layouts/NavigationLayout/interface/interface';
 import { RoutesEnum } from '@enums/routes';
+
+const onSignOut = () => {
+  const auth = getAuth();
+  signOut(auth);
+};
 
 export const navbarList: NavBarItemInterface[] = [
   {
@@ -24,5 +30,11 @@ export const navbarList: NavBarItemInterface[] = [
     linkTo: RoutesEnum.NotFoundPage,
     title: 'Настройки',
   },
-  { icon: LogOut, linkTo: RoutesEnum.SignIn, title: 'Выйти', isBottom: true },
+  {
+    icon: LogOut,
+    linkTo: RoutesEnum.SignIn,
+    title: 'Выйти',
+    onClick: onSignOut,
+    isBottom: true,
+  },
 ];

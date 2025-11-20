@@ -6,4 +6,5 @@ export interface NavBarItemInterface {
   linkTo: string;
   title: string;
   isBottom?: boolean;
+  onClick?: any;
 }

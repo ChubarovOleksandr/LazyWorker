@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 
 import { createClassName } from '@utils/create-class-name';
+import { noop } from '@utils/noop';
 
 import { NavBarItemInterface } from '../interface/interface';
 
@@ -14,6 +15,7 @@ export const NavigationItem = ({ item }: NavigationItemProps) => (
   <NavLink
     title={item.title}
     to={item.linkTo}
+    onClick={item.onClick ?? noop}
     className={createClassName('navbar__item', {
       condition: item.isBottom,
       value: 'bottom',

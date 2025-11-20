@@ -7,11 +7,13 @@ import { Accordion } from 'radix-ui';
 
 import { TaskInterface } from 'src/interfaces/taskType';
 
+import { TaskGroupTitleEnum } from '../enums/enum';
+
 import { UpcomingAddTask } from './UpcomingAddTask';
 import { UpcomingTaskRow } from './UpcomingTaskRow';
 
 interface Props {
-  title: string;
+  title: TaskGroupTitleEnum;
   tasks: TaskInterface[];
   isOpened: boolean;
 }
@@ -59,7 +61,7 @@ export const UpcomingTaskBlock = ({ tasks, title, isOpened }: Props) => {
           </SortableContext>
         </DndContext>
 
-        <UpcomingAddTask />
+        <UpcomingAddTask period={title} />
       </Accordion.Content>
     </Accordion.Item>
   );

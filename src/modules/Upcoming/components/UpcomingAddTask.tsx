@@ -1,7 +1,15 @@
 import { Box, Dialog, Flex, Text } from '@radix-ui/themes';
 import { Plus } from 'lucide-react';
 
-export const UpcomingAddTask = () => {
+import { TaskGroupTitleEnum } from '../enums/enum';
+
+import { UpcomingTaskForm } from './UpcomingTaskForm';
+
+interface Props {
+  period: TaskGroupTitleEnum;
+}
+
+export const UpcomingAddTask = ({ period }: Props) => {
   return (
     <Box mt={'2'} mb={'1'} pb={'2'}>
       <Dialog.Root>
@@ -14,7 +22,7 @@ export const UpcomingAddTask = () => {
           </Flex>
         </Dialog.Trigger>
 
-        <Dialog.Content></Dialog.Content>
+        <UpcomingTaskForm period={period} />
       </Dialog.Root>
     </Box>
   );

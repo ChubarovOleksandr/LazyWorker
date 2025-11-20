@@ -9,9 +9,11 @@ type TextTypesEnum = 'text' | 'password' | 'email' | 'number';
 interface TextFieldProps {
   name: string;
   required?: boolean;
+  autoFocus?: boolean;
   type?: TextTypesEnum;
   placeholder?: string;
   style?: React.CSSProperties;
+  inputStyle?: React.CSSProperties;
   label?: string;
   minLength?: number;
   maxLength?: number;
@@ -20,6 +22,8 @@ interface TextFieldProps {
 
 export const TextField = ({
   style,
+  inputStyle,
+  autoFocus = false,
   type = 'text',
   label,
   name,
@@ -36,6 +40,8 @@ export const TextField = ({
         className="textField-input"
         type={type}
         placeholder={placeholder}
+        style={inputStyle}
+        autoFocus={autoFocus}
         {...register(name, { required, minLength, maxLength })}
       />
     </label>
