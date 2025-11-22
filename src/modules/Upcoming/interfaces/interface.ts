@@ -1,3 +1,5 @@
+import { TaskPriorityEnum } from '@enums/priority';
+
 import { UpcomingTaskDateVariantEnum, UpcomingTaskFieldsEnum } from '../enums/enum';
 
 export interface UpcomingTaskDateVariant {
@@ -8,5 +10,6 @@ export interface UpcomingTaskDateVariant {
 export interface UpcomingTaskAddFormInterface {
   [UpcomingTaskFieldsEnum.Title]: string;
   [UpcomingTaskFieldsEnum.Description]?: string;
+  [UpcomingTaskFieldsEnum.Priority]: TaskPriorityEnum;
   [UpcomingTaskFieldsEnum.Date]: string;
 }

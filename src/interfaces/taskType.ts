@@ -5,8 +5,7 @@ export interface TaskInterface {
   title: string;
   details?: string;
   priority: TaskPriorityEnum;
-  dateStart?: string;
-  dateEnd?: string;
   id: string;
   status: TaskStatusEnum;
+  group?: string[];
 }

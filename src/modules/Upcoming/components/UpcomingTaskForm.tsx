@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Dialog, Flex, Heading, TextArea } from '@radix-ui/themes';
+import { Button, Dialog, Flex, Heading, TextArea } from '@radix-ui/themes';
 
 import { TextField } from 'src/ui/TextField/TextField';
 
@@ -12,17 +12,19 @@ import { UpcomingTaskPriority } from './UpcomingTaskPriority';
 
 interface Props {
   period: TaskGroupTitleEnum;
+  register: ReturnType<typeof useForm<UpcomingTaskAddFormInterface>>['register'];
+  setValue: ReturnType<typeof useForm<UpcomingTaskAddFormInterface>>['setValue'];
+  handleSave: () => void;
+  handleClose: () => void;
 }
 
-export const UpcomingTaskForm = ({ period }: Props) => {
-  const { register, setValue, watch, getValues } = useForm<UpcomingTaskAddFormInterface>();
-
-  const allValues = watch();
-
-  React.useEffect(() => {
-    console.log(getValues());
-  }, [allValues]);
-
+export const UpcomingTaskForm = ({
+  period,
+  register,
+  setValue,
+  handleSave,
+  handleClose,
+}: Props) => {
   return (
     <Dialog.Content>
       <Heading size="3" mb="4">
@@ -45,12 +47,20 @@ export const UpcomingTaskForm = ({ period }: Props) => {
         required
       />
 
-      <Flex mt={'3'} mb={'3'}>
+      <Flex mt={'3'} mb={'3'} gap={'2'}>
         <UpcomingTaskDate period={period} setValue={setValue} />
         <UpcomingTaskPriority setValue={setValue} />
       </Flex>
 
       <TextArea {...register(UpcomingTaskFieldsEnum.Description)} placeholder="Описание" />
+      <Flex align={'center'} justify={'end'} gap={'5'} mt={'5'}>
+        <Button variant="ghost" size={'3'} onClick={handleClose}>
+          Закрыть
+        </Button>
+        <Button variant="solid" onClick={handleSave}>
+          Сохранить
+        </Button>
+      </Flex>
     </Dialog.Content>
   );
 };

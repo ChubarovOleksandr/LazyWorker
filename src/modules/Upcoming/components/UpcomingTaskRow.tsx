@@ -6,7 +6,7 @@ import { Flame, Grip } from 'lucide-react';
 
 import { TaskPriorityEnum } from '@enums/priority';
 import { TaskStatusEnum } from '@enums/taskStatus';
-import { isEmptyString, isExist } from '@utils/format';
+import { isEmptyString } from '@utils/format';
 
 import { TaskInterface } from 'src/interfaces/taskType';
 
@@ -15,7 +15,7 @@ interface Props {
 }
 
 export const UpcomingTaskRow = ({ task }: Props) => {
-  const { title, details, priority, dateEnd, id, status } = task;
+  const { title, details, priority, id, status } = task;
 
   const [isTaskDone, setIsTaskDone] = useState(status === TaskStatusEnum.Done);
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: id });
@@ -66,7 +66,6 @@ export const UpcomingTaskRow = ({ task }: Props) => {
               Важно
             </Badge>
           )}
-          {isExist(dateEnd) && <Text size={'1'}>До: {dateEnd}</Text>}
           <Checkbox checked={isTaskDone} onCheckedChange={isDone => setIsTaskDone(!!isDone)} />
         </Flex>
       </Flex>

@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import '@configs/firebaseConfig';
 
-import { AuthorizedLayout } from '@layouts/AuthorizedLayout.tsx/AuthorizedLayout';
+import { AuthorizedLayout } from '@layouts/AuthorizedLayout/AuthorizedLayout';
 import { NavigationLayout } from '@layouts/NavigationLayout/NavigationLayout';
 import { UnauthorizedLayout } from '@layouts/UnauthorizedLayout/UnauthorizedLayout';
 import { MainPage } from '@pages/Main/MainPage';

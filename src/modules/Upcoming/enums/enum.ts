@@ -8,6 +8,7 @@ export enum UpcomingTaskFieldsEnum {
   Title = 'title',
   Description = 'description',
   Date = 'date',
+  Priority = 'Priority',
 }
 
 export enum UpcomingTaskDateVariantEnum {
