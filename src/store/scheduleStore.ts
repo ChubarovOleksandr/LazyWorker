@@ -1,16 +1,33 @@
-import { makeAutoObservable } from 'mobx';
+import { toast } from 'react-toastify';
+import { makeAutoObservable, runInAction } from 'mobx';
 
 import { CalendarDataType } from 'src/interfaces/dateDataType';
+import { scheduleService } from 'src/service/scheduleService/scheduleService';
 
 class ScheduleStore {
   schedule: CalendarDataType = {};
+  loading = false;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  setSchedule(data: CalendarDataType) {
-    this.schedule = data;
+  async loadSchedule() {
+    this.loading = true;
+
+    try {
+      const scheduleData = await scheduleService.getSchedule();
+
+      runInAction(() => {
+        this.schedule = scheduleData;
+        this.loading = false;
+      });
+    } catch (error) {
+      runInAction(() => {
+        toast.error('Ошибка при загрузке расписания. Попробуйте еще раз');
+        this.loading = false;
+      });
+    }
   }
 }
 
