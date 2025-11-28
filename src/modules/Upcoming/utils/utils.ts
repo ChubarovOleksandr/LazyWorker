@@ -1,6 +1,8 @@
 import dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
 
+import { isExist } from '@utils/format';
+
 import { CalendarDataType } from 'src/interfaces/dateDataType';
 import { TaskInterface } from 'src/interfaces/taskType';
 
@@ -27,7 +29,9 @@ const getNextWeekTasks = (allTasks: CalendarDataType) => {
   for (let i = 2; i <= DAYS_IN_WEEK; i++) {
     const requiredDate = dayjs().add(i, 'day').format('DD-MM-YYYY');
 
-    result.push(...allTasks[requiredDate].tasks);
+    if (isExist(allTasks[requiredDate])) {
+      result.push(...allTasks[requiredDate].tasks);
+    }
   }
 
   return result;

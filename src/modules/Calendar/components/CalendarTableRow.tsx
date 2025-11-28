@@ -1,12 +1,19 @@
 import { Table } from '@radix-ui/themes';
 
-export const CalendarTableRow = () => {
+import { CalendarDateInterface } from '../interfaces/interfaces';
+
+import { CalendarTableCell } from './CalendarTableCell';
+
+interface Props {
+  week: CalendarDateInterface[];
+}
+
+export const CalendarTableRow = ({ week }: Props) => {
   return (
     <Table.Row>
-      <Table.RowHeaderCell className="table__cell">1</Table.RowHeaderCell>
-      {Array.from({ length: 6 }).map((_, index) => {
-        return <Table.Cell className="table__cell">{index + 2}</Table.Cell>;
-      })}
+      {week.map((day, index) => (
+        <CalendarTableCell day={day} key={index} />
+      ))}
     </Table.Row>
   );
 };

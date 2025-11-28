@@ -1,3 +1,3 @@
 export enum CollectionNamesEnum {
-  Schedule = 'schedule',
+  Schedule = 'Schedule',
 }

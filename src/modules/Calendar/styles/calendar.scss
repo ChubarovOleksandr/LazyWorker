@@ -5,10 +5,15 @@
   box-shadow: rgb(171, 171, 171) 0px 0px 7px;
   flex: 65%;
   max-width: 65%;
-  max-height: 550px;
+  max-height: 700px;
   overflow-y: scroll;
 
   .table {
+    table {
+      table-layout: fixed;
+      width: 100%;
+    }
+
     &__column-header {
       text-align: center;
     }
@@ -16,8 +21,40 @@
     &__cell {
       height: 100px;
       border-left: 1px solid #0009321f;
+      position: relative;
+      padding: 5px;
+
       &:last-child {
         border-right: 1px solid #0009321f;
+      }
+
+      &-date {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 3px;
+        right: 3px;
+        width: 25px;
+        height: 25px;
+        &.current-day {
+          font-weight: bold;
+          font-size: 16px;
+        }
+      }
+
+      &-list {
+        padding-top: 25px;
+      }
+
+      &-task {
+        margin-bottom: 5px;
+
+        &-title {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       }
     }
   }

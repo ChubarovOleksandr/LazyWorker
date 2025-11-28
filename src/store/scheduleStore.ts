@@ -24,7 +24,9 @@ class ScheduleStore {
       });
     } catch (error) {
       runInAction(() => {
-        toast.error('Ошибка при загрузке расписания. Попробуйте еще раз');
+        toast.error('Ошибка при загрузке расписания. Попробуйте еще раз', {
+          toastId: 'scheduleLoadError',
+        });
         this.loading = false;
       });
     }
