@@ -14,13 +14,13 @@ const DAYS_IN_WEEK = 7;
 const getTodayTasks = (allTasks: CalendarDataType) => {
   const today = dayjs().format('DD-MM-YYYY');
 
-  return allTasks[today].tasks;
+  return allTasks[today]?.tasks ?? [];
 };
 
 const getTomorrowTasks = (allTasks: CalendarDataType) => {
   const today = dayjs().add(1, 'day').format('DD-MM-YYYY');
 
-  return allTasks[today].tasks;
+  return allTasks[today]?.tasks ?? [];
 };
 
 const getNextWeekTasks = (allTasks: CalendarDataType) => {

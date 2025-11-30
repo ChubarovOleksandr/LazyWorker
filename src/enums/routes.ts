@@ -1,7 +1,8 @@
 export enum RoutesEnum {
   Main = '/',
-  NotFoundPage = '*',
+  NotFound = '*',
   SignUp = '/sign-up',
   SignIn = '/sign-in',
+  ComingSoon = '/coming-soon',
   ResetPassword = '/reset-password',
 }

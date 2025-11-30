@@ -17,17 +17,17 @@ export const navbarList: NavBarItemInterface[] = [
   },
   {
     icon: ClipboardClock,
-    linkTo: RoutesEnum.SignIn,
-    title: 'Главная',
+    linkTo: RoutesEnum.ComingSoon,
+    title: 'События',
   },
   {
     icon: ChartNoAxesGantt,
-    linkTo: RoutesEnum.SignUp,
-    title: 'Главная',
+    linkTo: RoutesEnum.ComingSoon,
+    title: 'Список задач',
   },
   {
     icon: Settings,
-    linkTo: RoutesEnum.NotFoundPage,
+    linkTo: RoutesEnum.ComingSoon,
     title: 'Настройки',
   },
   {

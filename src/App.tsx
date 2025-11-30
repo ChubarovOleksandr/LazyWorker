@@ -4,6 +4,7 @@ import '@configs/firebaseConfig';
 
 import { AuthorizationLayout } from '@layouts/AuthorizationLayout/UnauthorizedLayout';
 import { NavigationLayout } from '@layouts/NavigationLayout/NavigationLayout';
+import { ComingSoonPage } from '@pages/ComingSoon/ComingSoonPage';
 import { MainPage } from '@pages/Main/MainPage';
 import { NotFoundPage } from '@pages/NotFound/NotFoundPage';
 import { ResetPasswordForm } from '@modules/ResetPassword';
@@ -24,7 +25,8 @@ export const App = () => {
         <Route path={RoutesEnum.Main} index element={<MainPage />} />
       </Route>
 
-      <Route path={RoutesEnum.NotFoundPage} element={<NotFoundPage />} />
+      <Route path={RoutesEnum.NotFound} element={<NotFoundPage />} />
+      <Route path={RoutesEnum.ComingSoon} element={<ComingSoonPage />} />
     </Routes>
   );
 };
