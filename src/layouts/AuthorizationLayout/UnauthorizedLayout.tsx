@@ -1,6 +1,7 @@
 import { Outlet, useNavigate } from 'react-router-dom';
-import { Flex, Spinner } from '@radix-ui/themes';
+import { Flex } from '@radix-ui/themes';
 
+import { PageLoader } from '@components/Loader/Loader';
 import { RoutesEnum } from '@enums/routes';
 import { useAuth } from '@hooks/useAuth';
 import { isExist } from '@utils/format';
@@ -10,8 +11,7 @@ export const AuthorizationLayout = () => {
   const { user, loading } = useAuth();
 
   if (loading) {
-    // TODO STYLE AND CHANGE SPINNER
-    return <Spinner size={'3'} />;
+    return <PageLoader />;
   }
 
   if (isExist(user)) {

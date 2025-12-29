@@ -1,7 +1,8 @@
 import { Outlet } from 'react-router-dom';
-import { Flex, Spinner } from '@radix-ui/themes';
+import { Flex } from '@radix-ui/themes';
 import { observer } from 'mobx-react-lite';
 
+import { PageLoader } from '@components/Loader/Loader';
 import { useAuth } from '@hooks/useAuth';
 
 import { scheduleStore } from 'src/store/scheduleStore';
@@ -21,8 +22,7 @@ export const NavigationLayout = observer(() => {
   useSchedule(true, user?.uid);
 
   if (isCheckingAuth || isLoadingSchedule) {
-    // TODO STYLE AND CHANGE SPINNER
-    return <Spinner size={'3'} />;
+    return <PageLoader />;
   }
 
   return (
