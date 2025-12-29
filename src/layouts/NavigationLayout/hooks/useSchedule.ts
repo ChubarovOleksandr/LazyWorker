@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 
+import { isExist } from '@utils/format';
+
 import { scheduleStore } from 'src/store/scheduleStore';
 
-export const useSchedule = (autoLoad: boolean = true) => {
+export const useSchedule = (autoLoad: boolean = true, userId: string) => {
   useEffect(() => {
-    if (autoLoad) {
-      scheduleStore.loadSchedule();
+    if (autoLoad && isExist(userId)) {
+      scheduleStore.loadSchedule(userId);
     }
-  }, []);
-
-  return scheduleStore;
+  }, [userId]);
 };

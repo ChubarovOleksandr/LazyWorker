@@ -1,6 +1,5 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Button, Dialog, Flex, Heading, TextArea } from '@radix-ui/themes';
+import { Button, Dialog, Flex, Text, TextArea } from '@radix-ui/themes';
 
 import { TextField } from 'src/ui/TextField/TextField';
 
@@ -27,9 +26,11 @@ export const UpcomingTaskForm = ({
 }: Props) => {
   return (
     <Dialog.Content>
-      <Heading size="3" mb="4">
-        Создать новую задачу
-      </Heading>
+      <Dialog.Title>
+        <Text size={'3'} mb={'4'}>
+          Создать новую задачу
+        </Text>
+      </Dialog.Title>
       <TextField
         name={UpcomingTaskFieldsEnum.Title}
         type="text"
@@ -52,7 +53,7 @@ export const UpcomingTaskForm = ({
         <UpcomingTaskPriority setValue={setValue} />
       </Flex>
 
-      <TextArea {...register(UpcomingTaskFieldsEnum.Description)} placeholder="Описание" />
+      <TextArea {...register(UpcomingTaskFieldsEnum.Details)} placeholder="Описание" />
       <Flex align={'center'} justify={'end'} gap={'5'} mt={'5'}>
         <Button variant="ghost" size={'3'} onClick={handleClose}>
           Закрыть

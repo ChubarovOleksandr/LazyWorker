@@ -1,9 +1,17 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import { Box, Dialog, Flex, Text } from '@radix-ui/themes';
 import { Plus } from 'lucide-react';
+import { observer } from 'mobx-react-lite';
+import { v4 as uuidv4 } from 'uuid';
 
 import { TaskPriorityEnum } from '@enums/priority';
+import { TaskStatusEnum } from '@enums/taskStatus';
+import { useAuth } from '@hooks/useAuth';
+
+import { TaskInterface } from 'src/interfaces/taskType';
+import { scheduleStore } from 'src/store/scheduleStore';
 
 import { TaskGroupTitleEnum, UpcomingTaskFieldsEnum } from '../enums/enum';
 import { UpcomingTaskAddFormInterface } from '../interfaces/interface';
@@ -17,17 +25,34 @@ interface Props {
 const defaultFormValues: UpcomingTaskAddFormInterface = {
   [UpcomingTaskFieldsEnum.Priority]: TaskPriorityEnum.Default,
   [UpcomingTaskFieldsEnum.Title]: '',
-  [UpcomingTaskFieldsEnum.Description]: '',
+  [UpcomingTaskFieldsEnum.Details]: '',
   [UpcomingTaskFieldsEnum.Date]: null,
 };
 
-export const UpcomingAddTask = ({ period }: Props) => {
+export const UpcomingAddTask = observer(({ period }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const { register, setValue, handleSubmit, reset } = useForm<UpcomingTaskAddFormInterface>({
     defaultValues: defaultFormValues,
   });
 
-  const handleSave = (fields: UpcomingTaskAddFormInterface) => {
+  const { user } = useAuth();
+
+  // TODO ADD SHOWING VALIDATING ERROR UNDER THE FIELD
+  const handleSave = async (fields: UpcomingTaskAddFormInterface) => {
+    const newTask: TaskInterface = {
+      title: fields[UpcomingTaskFieldsEnum.Title],
+      details: fields[UpcomingTaskFieldsEnum.Details],
+      priority: fields[UpcomingTaskFieldsEnum.Priority],
+      id: uuidv4(),
+      status: TaskStatusEnum.InProgress,
+    };
+
+    try {
+      await scheduleStore.addTask(newTask, fields[UpcomingTaskFieldsEnum.Date], user.uid);
+    } catch (error) {
+      toast.error('Ошибка при сохранении данных');
+    }
+
     reset();
     setIsOpen(false);
   };
@@ -59,4 +84,4 @@ export const UpcomingAddTask = ({ period }: Props) => {
       </Dialog.Root>
     </Box>
   );
-};
+});

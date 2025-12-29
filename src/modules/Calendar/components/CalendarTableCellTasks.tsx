@@ -12,7 +12,7 @@ export const CalendarTableCellTasks = ({ tasks }: Pick<CalendarDateInterface, 't
       <ul className="table__cell-list">
         {tasks.map((task, index) => {
           if (index > 1) {
-            return <React.Fragment />;
+            return <React.Fragment key={index} />;
           }
 
           return (

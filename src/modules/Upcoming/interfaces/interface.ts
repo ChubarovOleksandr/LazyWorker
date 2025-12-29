@@ -9,7 +9,7 @@ export interface UpcomingTaskDateVariant {
 
 export interface UpcomingTaskAddFormInterface {
   [UpcomingTaskFieldsEnum.Title]: string;
-  [UpcomingTaskFieldsEnum.Description]?: string;
+  [UpcomingTaskFieldsEnum.Details]?: string;
   [UpcomingTaskFieldsEnum.Priority]: TaskPriorityEnum;
   [UpcomingTaskFieldsEnum.Date]: string;
 }

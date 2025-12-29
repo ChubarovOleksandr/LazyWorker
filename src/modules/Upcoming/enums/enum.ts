@@ -6,9 +6,9 @@ export enum TaskGroupTitleEnum {
 
 export enum UpcomingTaskFieldsEnum {
   Title = 'title',
-  Description = 'description',
+  Details = 'details',
   Date = 'date',
-  Priority = 'Priority',
+  Priority = 'priority',
 }
 
 export enum UpcomingTaskDateVariantEnum {

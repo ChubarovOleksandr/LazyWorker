@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { toJS } from 'mobx';
 import { Accordion } from 'radix-ui';
+
+import { scheduleStore } from 'src/store/scheduleStore';
 
 import { TaskGroupTitleEnum } from '../enums/enum';
 import { getTaskForGroup } from '../utils/utils';
 
-import { mockData } from './mock';
 import { UpcomingTaskBlock } from './UpcomingTaskBlock';
 
 const defaultTaskBlockPeriod = Object.values(TaskGroupTitleEnum);
@@ -23,7 +25,7 @@ export const UpcomingTaskGroups = () => {
         <UpcomingTaskBlock
           key={groupTitle}
           title={groupTitle}
-          tasks={getTaskForGroup(groupTitle, mockData)}
+          tasks={getTaskForGroup(groupTitle, toJS(scheduleStore.schedule))}
           isOpened={openedItems.includes(groupTitle)}
         />
       ))}

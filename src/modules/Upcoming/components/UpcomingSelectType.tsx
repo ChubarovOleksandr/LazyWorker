@@ -16,7 +16,7 @@ export const UpcomingSelectType = () => {
               </Flex>
             </Select.Item>
             {selectorMockData.map(option => (
-              <Select.Item value={option}>
+              <Select.Item value={option} key={option}>
                 <Text size="1">{option}</Text>
               </Select.Item>
             ))}
