@@ -1,13 +1,16 @@
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 import weekday from 'dayjs/plugin/weekday';
 
 import { CalendarDataType } from 'src/interfaces/dateDataType';
 
+import { isNotEmptyArray } from '../../../utils/format';
 import { CalendarDateInterface } from '../interfaces/interfaces';
 
 dayjs.extend(weekday);
+dayjs.extend(customParseFormat);
 
-export const prepareCalendarRows = (data: CalendarDataType) => {
+export const prepareCalendarRows = (schedule: CalendarDataType, selectedPeriod: string) => {
   const result: CalendarDateInterface[][] = [];
   const firstDayOfMonth = dayjs().date(1).weekday(); // 0 is Monday
   const daysInMonth = dayjs().daysInMonth();
@@ -21,8 +24,9 @@ export const prepareCalendarRows = (data: CalendarDataType) => {
   }
 
   for (let i = 1; i <= daysInMonth; i++) {
-    const dateKey = dayjs().date(i).format('DD-MM-YYYY');
-    const dateData: CalendarDateInterface = data[dateKey] ?? { events: [], tasks: [] };
+    const dateKey = dayjs(selectedPeriod, 'MM-YYYY').date(i).format('DD-MM-YYYY');
+    const dateData: CalendarDateInterface = schedule[dateKey] ?? { events: [], tasks: [] };
+
     dateData.date = String(i);
 
     week.push(dateData);
@@ -33,9 +37,15 @@ export const prepareCalendarRows = (data: CalendarDataType) => {
     }
   }
 
-  if (week.length > 0) {
+  if (isNotEmptyArray(week)) {
     result.push(week);
   }
 
   return result;
+};
+
+// format selected period (10-2025) to "October, 2025" in russian locale
+export const formatSelectedPeriodDate = (value: string) => {
+  const formattedValue = dayjs(value, 'MM-YYYY', 'ru', true).format('MMMM, YYYY');
+  return formattedValue.charAt(0).toUpperCase() + formattedValue.slice(1);
 };

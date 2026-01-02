@@ -1,14 +1,20 @@
 import { Table } from '@radix-ui/themes';
-import { toJS } from 'mobx';
+import { observer } from 'mobx-react-lite';
 
-import { scheduleStore } from 'src/store/scheduleStore';
-
+import { mockCalendarData } from '../__test__/mockData';
+import { calendarStore } from '../store/calendarStore';
 import { prepareCalendarRows } from '../utils/utils';
 
 import { CalendarTableRow } from './CalendarTableRow';
 
-export const CalendarTableBody = () => {
-  const preparedRows = prepareCalendarRows(toJS(scheduleStore.schedule));
+export const CalendarTableBody = observer(() => {
+  const { selectedPeriod } = calendarStore;
+
+  const preparedRows = prepareCalendarRows(
+    // toJS(scheduleStore.schedule),
+    mockCalendarData,
+    selectedPeriod,
+  );
 
   return (
     <Table.Body>
@@ -17,4 +23,4 @@ export const CalendarTableBody = () => {
       ))}
     </Table.Body>
   );
-};
+});

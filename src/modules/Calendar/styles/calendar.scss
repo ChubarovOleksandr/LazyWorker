@@ -8,6 +8,10 @@
   max-height: 700px;
   overflow-y: scroll;
 
+  .chevron {
+    cursor: pointer;
+  }
+
   .table {
     table {
       table-layout: fixed;
