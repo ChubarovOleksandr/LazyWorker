@@ -2,9 +2,9 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import weekday from 'dayjs/plugin/weekday';
 
-import { CalendarDataType } from 'src/interfaces/dateDataType';
+import { CalendarDataType } from '@interfaces/dateDataType';
+import { isNotEmptyArray } from '@utils/format';
 
-import { isNotEmptyArray } from '../../../utils/format';
 import { CalendarDateInterface } from '../interfaces/interfaces';
 
 dayjs.extend(weekday);

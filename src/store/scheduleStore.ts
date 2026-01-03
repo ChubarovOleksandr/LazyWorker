@@ -1,9 +1,9 @@
 import { toast } from 'react-toastify';
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import { CalendarDataType } from 'src/interfaces/dateDataType';
-import { TaskInterface } from 'src/interfaces/taskType';
-import { scheduleService } from 'src/service/scheduleService/scheduleService';
+import { scheduleService } from '@service/scheduleService/scheduleService';
+import { CalendarDataType } from '@interfaces/dateDataType';
+import { TaskInterface } from '@interfaces/taskType';
 
 import { isExist } from '../utils/format';
 

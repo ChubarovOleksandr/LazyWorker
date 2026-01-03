@@ -1,9 +1,8 @@
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 import { db } from '@configs/firebaseConfig';
+import { CalendarDataType } from '@interfaces/dateDataType';
 import { CollectionNamesEnum } from '@enums/collectionNames';
-
-import { CalendarDataType } from 'src/interfaces/dateDataType';
 
 export const scheduleService = {
   getSchedule: async (userId: string): Promise<CalendarDataType> => {

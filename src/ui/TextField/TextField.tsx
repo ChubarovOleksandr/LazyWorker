@@ -2,23 +2,10 @@ import { Text } from '@radix-ui/themes';
 
 import { isExist } from '@utils/format';
 
+import { TextFieldProps } from './interface';
+import { getRegisterOptions } from './utils';
+
 import './textField.scss';
-
-type TextTypesEnum = 'text' | 'password' | 'email' | 'number';
-
-interface TextFieldProps {
-  name: string;
-  required?: boolean;
-  autoFocus?: boolean;
-  type?: TextTypesEnum;
-  placeholder?: string;
-  style?: React.CSSProperties;
-  inputStyle?: React.CSSProperties;
-  label?: string;
-  minLength?: number;
-  maxLength?: number;
-  register: any;
-}
 
 export const TextField = ({
   style,
@@ -42,7 +29,7 @@ export const TextField = ({
         placeholder={placeholder}
         style={inputStyle}
         autoFocus={autoFocus}
-        {...register(name, { required, minLength, maxLength })}
+        {...register(name, getRegisterOptions({ required, minLength, maxLength }))}
       />
     </label>
   );

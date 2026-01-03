@@ -1,10 +1,9 @@
 import dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
 
+import { CalendarDataType } from '@interfaces/dateDataType';
+import { TaskInterface } from '@interfaces/taskType';
 import { isExist } from '@utils/format';
-
-import { CalendarDataType } from 'src/interfaces/dateDataType';
-import { TaskInterface } from 'src/interfaces/taskType';
 
 import { TaskGroupTitleEnum, UpcomingTaskDateVariantEnum } from '../enums/enum';
 import { UpcomingTaskDateVariant } from '../interfaces/interface';

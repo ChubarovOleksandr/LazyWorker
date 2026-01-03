@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { DayPicker } from 'react-day-picker';
 import { UseFormSetValue } from 'react-hook-form';
 import { Button, Flex, Popover, Text } from '@radix-ui/themes';
@@ -36,15 +37,24 @@ const iconsDateMap = {
 };
 
 export const UpcomingTaskDate = ({ period, setValue }: Props) => {
+  const [isOpenDatePopover, setIsOpenDatePopover] = useState(false);
+
+  const closeDatePopover = () => {
+    setIsOpenDatePopover(false);
+  };
+
   const {
     selectedDate,
     dateToShow,
     setSelectedDate: onDateSelect,
     handleSelectVariant,
-  } = useSelectDate(period, setValue);
+  } = useSelectDate(period, setValue, closeDatePopover);
 
   return (
-    <Popover.Root>
+    <Popover.Root
+      open={isOpenDatePopover}
+      onOpenChange={() => setIsOpenDatePopover(prevState => !prevState)}
+    >
       <Popover.Trigger>
         <Button size={'2'} variant="outline" aria-label="Выбрать дату" color="gray">
           <Calendar width="18" height="18" />

@@ -4,11 +4,10 @@ import { CSS } from '@dnd-kit/utilities';
 import { Badge, Box, Checkbox, Flex, HoverCard, Text } from '@radix-ui/themes';
 import { Flame, Grip } from 'lucide-react';
 
+import { TaskInterface } from '@interfaces/taskType';
 import { TaskPriorityEnum } from '@enums/priority';
 import { TaskStatusEnum } from '@enums/taskStatus';
 import { isEmptyString } from '@utils/format';
-
-import { TaskInterface } from 'src/interfaces/taskType';
 
 interface Props {
   task: TaskInterface;

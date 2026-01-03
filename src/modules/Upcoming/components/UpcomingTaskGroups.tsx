@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { toJS } from 'mobx';
 import { Accordion } from 'radix-ui';
 
-import { scheduleStore } from 'src/store/scheduleStore';
+import { scheduleStore } from '@store/scheduleStore';
 
 import { TaskGroupTitleEnum } from '../enums/enum';
 import { getTaskForGroup } from '../utils/utils';

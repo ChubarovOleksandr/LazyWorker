@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 
+import { scheduleStore } from '@store/scheduleStore';
 import { isExist } from '@utils/format';
-
-import { scheduleStore } from 'src/store/scheduleStore';
 
 export const useSchedule = (autoLoad: boolean = true, userId: string) => {
   useEffect(() => {

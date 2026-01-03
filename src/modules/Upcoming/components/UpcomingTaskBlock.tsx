@@ -5,7 +5,7 @@ import { Box, Flex, Text } from '@radix-ui/themes';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Accordion } from 'radix-ui';
 
-import { TaskInterface } from 'src/interfaces/taskType';
+import { TaskInterface } from '@interfaces/taskType';
 
 import { TaskGroupTitleEnum } from '../enums/enum';
 

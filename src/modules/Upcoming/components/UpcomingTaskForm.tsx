@@ -1,7 +1,7 @@
-import { useForm } from 'react-hook-form';
+import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { Button, Dialog, Flex, Text, TextArea } from '@radix-ui/themes';
 
-import { TextField } from 'src/ui/TextField/TextField';
+import { TextField } from '@ui/TextField/TextField';
 
 import { TaskGroupTitleEnum, UpcomingTaskFieldsEnum } from '../enums/enum';
 import { UpcomingTaskAddFormInterface } from '../interfaces/interface';
@@ -11,8 +11,8 @@ import { UpcomingTaskPriority } from './UpcomingTaskPriority';
 
 interface Props {
   period: TaskGroupTitleEnum;
-  register: ReturnType<typeof useForm<UpcomingTaskAddFormInterface>>['register'];
-  setValue: ReturnType<typeof useForm<UpcomingTaskAddFormInterface>>['setValue'];
+  register: UseFormRegister<UpcomingTaskAddFormInterface>;
+  setValue: UseFormSetValue<UpcomingTaskAddFormInterface>;
   handleSave: () => void;
   handleClose: () => void;
 }

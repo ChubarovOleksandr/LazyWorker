@@ -3,13 +3,12 @@ import { useForm } from 'react-hook-form';
 import { Button, Dialog, Flex, Text } from '@radix-ui/themes';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 
+import { FormError } from '@ui/FormError/FormError';
+import { FormTitles } from '@ui/FormTitles/FormTitles';
+import { Link } from '@ui/Link/Link';
+import { TextField } from '@ui/TextField/TextField';
 import { formConfig } from '@configs/formConfig';
 import { RoutesEnum } from '@enums/routes';
-
-import { FormError } from 'src/ui/FormError/FormError';
-import { FormTitles } from 'src/ui/FormTitles/FormTitles';
-import { Link } from 'src/ui/Link/Link';
-import { TextField } from 'src/ui/TextField/TextField';
 
 import { ResetPasswordFieldsEnum } from '../enum/enum';
 import { ResetPasswordFormInterface } from '../interface/interface';

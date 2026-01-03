@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { Box, Dialog, Flex, Text } from '@radix-ui/themes';
@@ -6,12 +6,11 @@ import { Plus } from 'lucide-react';
 import { observer } from 'mobx-react-lite';
 import { v4 as uuidv4 } from 'uuid';
 
+import { scheduleStore } from '@store/scheduleStore';
+import { useAuth } from '@hooks/useAuth';
+import { TaskInterface } from '@interfaces/taskType';
 import { TaskPriorityEnum } from '@enums/priority';
 import { TaskStatusEnum } from '@enums/taskStatus';
-import { useAuth } from '@hooks/useAuth';
-
-import { TaskInterface } from 'src/interfaces/taskType';
-import { scheduleStore } from 'src/store/scheduleStore';
 
 import { TaskGroupTitleEnum, UpcomingTaskFieldsEnum } from '../enums/enum';
 import { UpcomingTaskAddFormInterface } from '../interfaces/interface';
@@ -30,11 +29,21 @@ const defaultFormValues: UpcomingTaskAddFormInterface = {
 };
 
 export const UpcomingAddTask = observer(({ period }: Props) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { register, setValue, handleSubmit, reset } = useForm<UpcomingTaskAddFormInterface>({
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<UpcomingTaskAddFormInterface>({
     defaultValues: defaultFormValues,
   });
 
+  useEffect(() => {
+    console.log(errors);
+  }, [errors]);
+
+  const [isOpen, setIsOpen] = useState(false);
   const { user } = useAuth();
 
   // TODO ADD SHOWING VALIDATING ERROR UNDER THE FIELD

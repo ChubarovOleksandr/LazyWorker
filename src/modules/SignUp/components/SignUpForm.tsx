@@ -2,14 +2,13 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, Flex, Text } from '@radix-ui/themes';
 
+import { FormError } from '@ui/FormError/FormError';
+import { FormTitles } from '@ui/FormTitles/FormTitles';
+import { GoogleIcon } from '@ui/GoogleIcon/GoogleIcon';
+import { Link } from '@ui/Link/Link';
+import { TextField } from '@ui/TextField/TextField';
 import { formConfig } from '@configs/formConfig';
 import { RoutesEnum } from '@enums/routes';
-
-import { FormError } from 'src/ui/FormError/FormError';
-import { FormTitles } from 'src/ui/FormTitles/FormTitles';
-import { GoogleIcon } from 'src/ui/GoogleIcon/GoogleIcon';
-import { Link } from 'src/ui/Link/Link';
-import { TextField } from 'src/ui/TextField/TextField';
 
 import { SignUpFieldsEnum } from '../enum/enum';
 import { useSignUp } from '../hooks/useSignUp';

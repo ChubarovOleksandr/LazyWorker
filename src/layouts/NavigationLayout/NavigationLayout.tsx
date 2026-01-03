@@ -2,10 +2,9 @@ import { Outlet } from 'react-router-dom';
 import { Flex } from '@radix-ui/themes';
 import { observer } from 'mobx-react-lite';
 
+import { scheduleStore } from '@store/scheduleStore';
 import { PageLoader } from '@components/Loader/Loader';
 import { useAuth } from '@hooks/useAuth';
-
-import { scheduleStore } from 'src/store/scheduleStore';
 
 import { NavigationBar } from './components/NavigationBar';
 import { useCheckAuth } from './hooks/useCheckAuth';

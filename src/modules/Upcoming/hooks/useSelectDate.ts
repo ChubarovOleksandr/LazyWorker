@@ -34,6 +34,7 @@ const getDateByLabel = (label: UpcomingTaskDateVariantEnum): Date => {
 export const useSelectDate = (
   defaultDate: TaskGroupTitleEnum,
   setValue: UseFormSetValue<UpcomingTaskAddFormInterface>,
+  closeDatePopover: () => void,
 ) => {
   const [selectedDate, setSelectedDate] = useState<Date>(
     isExist(defaultDate) ? getDateByGroupTitle(defaultDate) : null,
@@ -43,6 +44,7 @@ export const useSelectDate = (
     setSelectedDate(date);
     const formattedDate = isExist(date) ? dayjs(date).format('DD-MM-YYYY') : null;
     setValue(UpcomingTaskFieldsEnum.Date, formattedDate);
+    closeDatePopover();
   };
 
   const dateToShow = useMemo(() => {
@@ -54,6 +56,7 @@ export const useSelectDate = (
 
     setSelectedDate(dateFromVariant);
     setValue(UpcomingTaskFieldsEnum.Date, dayjs(dateFromVariant).format('DD-MM-YYYY'));
+    closeDatePopover();
   };
 
   useEffect(() => {

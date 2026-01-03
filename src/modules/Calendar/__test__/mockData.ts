@@ -1,7 +1,6 @@
+import { CalendarDataType } from '@interfaces/dateDataType';
 import { TaskPriorityEnum } from '@enums/priority';
 import { TaskStatusEnum } from '@enums/taskStatus';
-
-import { CalendarDataType } from 'src/interfaces/dateDataType';
 
 export const mockCalendarData: CalendarDataType = {
   '10-11-2025': {

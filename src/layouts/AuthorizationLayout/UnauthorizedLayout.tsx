@@ -2,8 +2,8 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { Flex } from '@radix-ui/themes';
 
 import { PageLoader } from '@components/Loader/Loader';
-import { RoutesEnum } from '@enums/routes';
 import { useAuth } from '@hooks/useAuth';
+import { RoutesEnum } from '@enums/routes';
 import { isExist } from '@utils/format';
 
 export const AuthorizationLayout = () => {

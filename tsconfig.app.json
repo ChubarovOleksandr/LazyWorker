@@ -26,11 +26,16 @@
     "paths": {
       "@assets/*": ["src/assets/*"],
       "@configs/*": ["src/configs/*"],
+      "@service/*": ["src/service/*"],
       "@pages/*": ["src/pages/*"],
       "@modules/*": ["src/modules/*"],
+      "@store/*": ["src/store/*"],
+      "@providers/*": ["src/providers/*"],
       "@components/*": ["src/components/*"],
-      "@enums/*": ["src/enums/*"],
+      "@ui/*": ["src/ui/*"],
       "@hooks/*": ["src/hooks/*"],
+      "@interfaces/*": ["src/interfaces/*"],
+      "@enums/*": ["src/enums/*"],
       "@utils/*": ["src/utils/*"],
       "@layouts/*": ["src/layouts/*"]
     }
