@@ -1,0 +1,45 @@
+.global-search {
+  position: relative;
+  &__label {
+    position: relative;
+
+    input {
+      width: 600px;
+      height: 40px;
+      border-radius: 8px;
+      background: #f2faff;
+      box-shadow: rgb(171, 171, 171) 0px 0px 7px;
+      padding: 0 40px 0 10px;
+    }
+
+    .isNotEmpty {
+      border-radius: 8px 8px 0 0;
+    }
+  }
+  &__find-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  &__suggestions {
+    position: absolute;
+    width: 600px;
+    box-shadow: rgb(171, 171, 171) 0px 0px 7px;
+    border-radius: 0 0 8px 8px;
+    backdrop-filter: blur(6px);
+  }
+  &__suggestion {
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    &:hover {
+      background: rgba(230, 240, 255, 0.3);
+    }
+  }
+  &__delete-btn {
+    cursor: pointer;
+    opacity: 0.6;
+  }
+}
