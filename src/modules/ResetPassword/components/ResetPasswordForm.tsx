@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { Button, Dialog, Flex, Text } from '@radix-ui/themes';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 
+import { TextField } from '@components/TextField/TextField';
 import { FormError } from '@ui/FormError/FormError';
 import { FormTitles } from '@ui/FormTitles/FormTitles';
 import { Link } from '@ui/Link/Link';
-import { TextField } from '@ui/TextField/TextField';
 import { formConfig } from '@configs/formConfig';
 import { RoutesEnum } from '@enums/routes';
 
@@ -20,11 +20,12 @@ export const ResetPasswordForm = () => {
   const [formError, setFormError] = useState<string>();
   const [isEmailSend, setIsEmailSend] = useState(false);
 
+  const methods = useForm<ResetPasswordFormInterface>();
+
   const {
-    register,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm<ResetPasswordFormInterface>();
+  } = methods;
 
   const onSubmit = ({ email }: ResetPasswordFormInterface) => {
     handleResetAttempt(async () => {
@@ -61,29 +62,30 @@ export const ResetPasswordForm = () => {
       />
       <FormError error={formError} />
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <TextField
-          required
-          type="email"
-          label="Почта"
-          placeholder="Введите вашу почту"
-          name={ResetPasswordFieldsEnum.Email}
-          minLength={formConfig.email.minLength}
-          maxLength={formConfig.email.maxLength}
-          register={register}
-        />
-        <Button
-          mt={'4'}
-          size={'3'}
-          loading={isSubmitting}
-          type="submit"
-          color="gray"
-          highContrast
-          className="reset-password__send-btn"
-        >
-          Отправить
-        </Button>
-      </form>
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <TextField
+            required
+            type="email"
+            label="Почта"
+            placeholder="Введите вашу почту"
+            name={ResetPasswordFieldsEnum.Email}
+            minLength={formConfig.email.minLength}
+            maxLength={formConfig.email.maxLength}
+          />
+          <Button
+            mt={'4'}
+            size={'3'}
+            loading={isSubmitting}
+            type="submit"
+            color="gray"
+            highContrast
+            className="reset-password__send-btn"
+          >
+            Отправить
+          </Button>
+        </form>
+      </FormProvider>
       <Link
         to={RoutesEnum.SignIn}
         textProps={{ size: '2', weight: 'bold' }}

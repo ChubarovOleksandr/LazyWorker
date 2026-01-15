@@ -1,5 +1,3 @@
-import { UseFormRegister } from 'react-hook-form';
-
 type TextFieldTypes = 'text' | 'password' | 'email' | 'number';
 
 export interface TextFieldProps {
@@ -13,5 +11,4 @@ export interface TextFieldProps {
   label?: string;
   minLength?: number;
   maxLength?: number;
-  register: UseFormRegister<any>;
 }

@@ -1,7 +1,9 @@
-import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
-import { Button, Dialog, Flex, Text, TextArea } from '@radix-ui/themes';
+import { useFormContext } from 'react-hook-form';
+import { Button, Dialog, Flex, Text } from '@radix-ui/themes';
 
-import { TextField } from '@ui/TextField/TextField';
+import { TextAreaField } from '@components/TextAreaField/TextAreaField';
+import { TextField } from '@components/TextField/TextField';
+import { formConfig } from '@configs/formConfig';
 
 import { TaskGroupTitleEnum, UpcomingTaskFieldsEnum } from '../enums/enum';
 import { UpcomingTaskAddFormInterface } from '../interfaces/interface';
@@ -11,19 +13,13 @@ import { UpcomingTaskPriority } from './UpcomingTaskPriority';
 
 interface Props {
   period: TaskGroupTitleEnum;
-  register: UseFormRegister<UpcomingTaskAddFormInterface>;
-  setValue: UseFormSetValue<UpcomingTaskAddFormInterface>;
-  handleSave: () => void;
+  handleSave: (fields: UpcomingTaskAddFormInterface) => Promise<void>;
   handleClose: () => void;
 }
 
-export const UpcomingTaskForm = ({
-  period,
-  register,
-  setValue,
-  handleSave,
-  handleClose,
-}: Props) => {
+export const UpcomingTaskForm = ({ period, handleSave, handleClose }: Props) => {
+  const { register, setValue, handleSubmit } = useFormContext<UpcomingTaskAddFormInterface>();
+
   return (
     <Dialog.Content>
       <Dialog.Title>
@@ -43,22 +39,21 @@ export const UpcomingTaskForm = ({
         style={{ marginBottom: '0' }}
         autoFocus
         minLength={3}
-        maxLength={255}
-        register={register}
+        maxLength={formConfig.defaultMaxLength}
         required
       />
 
       <Flex mt={'3'} mb={'3'} gap={'2'}>
-        <UpcomingTaskDate period={period} setValue={setValue} />
-        <UpcomingTaskPriority setValue={setValue} />
+        <UpcomingTaskDate period={period} />
+        <UpcomingTaskPriority />
       </Flex>
 
-      <TextArea {...register(UpcomingTaskFieldsEnum.Details)} placeholder="Описание" />
+      <TextAreaField name={UpcomingTaskFieldsEnum.Details} placeholder="Описание" />
       <Flex align={'center'} justify={'end'} gap={'5'} mt={'5'}>
         <Button variant="ghost" size={'3'} onClick={handleClose}>
           Закрыть
         </Button>
-        <Button variant="solid" onClick={handleSave}>
+        <Button variant="solid" onClick={handleSubmit(handleSave)}>
           Сохранить
         </Button>
       </Flex>

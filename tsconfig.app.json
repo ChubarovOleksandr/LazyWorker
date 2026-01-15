@@ -30,7 +30,6 @@
       "@pages/*": ["src/pages/*"],
       "@modules/*": ["src/modules/*"],
       "@store/*": ["src/store/*"],
-      "@providers/*": ["src/providers/*"],
       "@components/*": ["src/components/*"],
       "@ui/*": ["src/ui/*"],
       "@hooks/*": ["src/hooks/*"],

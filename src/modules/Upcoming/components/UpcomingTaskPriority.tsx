@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { UseFormSetValue } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { Select, Text } from '@radix-ui/themes';
 
 import { TaskPriorityEnum } from '@enums/priority';
@@ -7,11 +7,8 @@ import { TaskPriorityEnum } from '@enums/priority';
 import { UpcomingTaskFieldsEnum } from '../enums/enum';
 import { UpcomingTaskAddFormInterface } from '../interfaces/interface';
 
-interface Props {
-  setValue: UseFormSetValue<UpcomingTaskAddFormInterface>;
-}
-
-export const UpcomingTaskPriority = ({ setValue }: Props) => {
+export const UpcomingTaskPriority = () => {
+  const { setValue } = useFormContext<UpcomingTaskAddFormInterface>();
   const [selectedPriority, setSelectedPriority] = useState<TaskPriorityEnum>(
     TaskPriorityEnum.Default,
   );

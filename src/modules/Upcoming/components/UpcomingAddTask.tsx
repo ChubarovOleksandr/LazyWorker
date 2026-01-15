@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { Box, Dialog, Flex, Text } from '@radix-ui/themes';
 import { Plus } from 'lucide-react';
@@ -29,24 +29,15 @@ const defaultFormValues: UpcomingTaskAddFormInterface = {
 };
 
 export const UpcomingAddTask = observer(({ period }: Props) => {
-  const {
-    register,
-    setValue,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<UpcomingTaskAddFormInterface>({
+  const methods = useForm<UpcomingTaskAddFormInterface>({
     defaultValues: defaultFormValues,
   });
 
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
+  const { reset } = methods;
 
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useAuth();
 
-  // TODO ADD SHOWING VALIDATING ERROR UNDER THE FIELD
   const handleSave = async (fields: UpcomingTaskAddFormInterface) => {
     const newTask: TaskInterface = {
       title: fields[UpcomingTaskFieldsEnum.Title],
@@ -83,13 +74,9 @@ export const UpcomingAddTask = observer(({ period }: Props) => {
           </Flex>
         </Dialog.Trigger>
 
-        <UpcomingTaskForm
-          period={period}
-          register={register}
-          setValue={setValue}
-          handleClose={handleClose}
-          handleSave={handleSubmit(handleSave)}
-        />
+        <FormProvider {...methods}>
+          <UpcomingTaskForm period={period} handleClose={handleClose} handleSave={handleSave} />
+        </FormProvider>
       </Dialog.Root>
     </Box>
   );

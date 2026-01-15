@@ -7,6 +7,7 @@ import { NavigationLayout } from '@layouts/NavigationLayout/NavigationLayout';
 import { ComingSoonPage } from '@pages/ComingSoon/ComingSoonPage';
 import { MainPage } from '@pages/Main/MainPage';
 import { NotFoundPage } from '@pages/NotFound/NotFoundPage';
+import { SearchPage } from '@pages/Search/SearchPage';
 import { ResetPasswordForm } from '@modules/ResetPassword';
 import { SignInForm } from '@modules/SignIn';
 import { SignUpForm } from '@modules/SignUp';
@@ -22,6 +23,7 @@ export const App = () => {
       </Route>
 
       <Route element={<NavigationLayout />}>
+        <Route path={RoutesEnum.Search} element={<SearchPage />} />
         <Route path={RoutesEnum.Main} index element={<MainPage />} />
       </Route>
 

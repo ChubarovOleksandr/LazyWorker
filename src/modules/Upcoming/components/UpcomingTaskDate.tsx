@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { DayPicker } from 'react-day-picker';
-import { UseFormSetValue } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { Button, Flex, Popover, Text } from '@radix-ui/themes';
 import { ru } from 'date-fns/locale';
 import { Calendar, Calendar1, CalendarClock, Sofa, Sun } from 'lucide-react';
@@ -16,7 +16,6 @@ import 'react-day-picker/dist/style.css';
 
 interface Props {
   period: TaskGroupTitleEnum;
-  setValue: UseFormSetValue<UpcomingTaskAddFormInterface>;
 }
 
 const defaultIconSize = 20;
@@ -36,8 +35,9 @@ const iconsDateMap = {
   ),
 };
 
-export const UpcomingTaskDate = ({ period, setValue }: Props) => {
+export const UpcomingTaskDate = ({ period }: Props) => {
   const [isOpenDatePopover, setIsOpenDatePopover] = useState(false);
+  const { setValue } = useFormContext<UpcomingTaskAddFormInterface>();
 
   const closeDatePopover = () => {
     setIsOpenDatePopover(false);

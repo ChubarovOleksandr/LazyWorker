@@ -1,5 +1,12 @@
 import { getAuth, signOut } from 'firebase/auth';
-import { ChartNoAxesGantt, ClipboardClock, LogOut, Settings, SquareChartGantt } from 'lucide-react';
+import {
+  ChartNoAxesGantt,
+  ClipboardClock,
+  LogOut,
+  Search,
+  Settings,
+  SquareChartGantt,
+} from 'lucide-react';
 
 import { NavBarItemInterface } from '@layouts/NavigationLayout/interface/interface';
 import { RoutesEnum } from '@enums/routes';
@@ -10,6 +17,11 @@ const onSignOut = () => {
 };
 
 export const navbarList: NavBarItemInterface[] = [
+  {
+    icon: Search,
+    linkTo: RoutesEnum.Search,
+    title: 'Поиск',
+  },
   {
     icon: SquareChartGantt,
     linkTo: RoutesEnum.Main,

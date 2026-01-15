@@ -7,4 +7,5 @@ export const formConfig = {
     minLength: 6,
     maxLength: 60,
   },
+  defaultMaxLength: 255,
 };

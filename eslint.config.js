@@ -1,4 +1,5 @@
 import parser from '@typescript-eslint/parser';
+import eslintPluginImport from 'eslint-plugin-import';
 import eslintPluginReact from 'eslint-plugin-react';
 import eslintPluginReactHooks from 'eslint-plugin-react-hooks';
 import eslintPluginSimpleImportSort from 'eslint-plugin-simple-import-sort';
@@ -15,14 +16,42 @@ export default [
         ecmaFeatures: { jsx: true },
       },
     },
+    settings: {
+      react: { version: 'detect' },
+      'import/parsers': {
+        '@typescript-eslint/parser': ['.ts', '.tsx'],
+      },
+      'import/resolver': {
+        typescript: {
+          alwaysTryTypes: true,
+          project: './tsconfig.app.json',
+        },
+        node: true,
+      },
+    },
     plugins: {
       react: eslintPluginReact,
       'react-hooks': eslintPluginReactHooks,
       'unused-imports': eslintPluginUnusedImports,
       'simple-import-sort': eslintPluginSimpleImportSort,
+      import: eslintPluginImport,
     },
     rules: {
       'unused-imports/no-unused-imports': 'error',
+      'import/no-restricted-paths': [
+        'error',
+        {
+          zones: [
+            {
+              target: './src/!(modules)/**/*',
+              from: './src/modules/**/*',
+              except: ['**/index.*'],
+              message:
+                'Доступ к внутренностям модуля запрещен. Используйте Public API (@modules/ModuleName)',
+            },
+          ],
+        },
+      ],
       'sort-imports': 'off',
       'simple-import-sort/imports': [
         'error',
@@ -35,7 +64,6 @@ export default [
               '^@layouts/',
               '^@service/',
               '^@store/',
-              '^providers/',
               '^@pages/',
               '^@modules/',
               '^@components/',
@@ -54,9 +82,6 @@ export default [
         },
       ],
       'simple-import-sort/exports': 'error',
-    },
-    settings: {
-      react: { version: 'detect' },
     },
   },
 ];
