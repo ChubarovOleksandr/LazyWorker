@@ -1,12 +1,14 @@
-import { useState } from 'react';
 import { closestCenter, DndContext, DragEndEvent } from '@dnd-kit/core';
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { Box, Flex, Text } from '@radix-ui/themes';
+import dayjs from 'dayjs';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Accordion } from 'radix-ui';
 
+import { scheduleStore } from '@store/scheduleStore';
 import { TaskInterface } from '@interfaces/taskType';
 
+import { isNotEmptyArray } from '../../../utils/format';
 import { TaskGroupTitleEnum } from '../enums/enum';
 
 import { UpcomingAddTask } from './UpcomingAddTask';
@@ -19,17 +21,26 @@ interface Props {
 }
 
 export const UpcomingTaskBlock = ({ tasks, title, isOpened }: Props) => {
-  const [items, setItems] = useState(tasks);
+  const isEnableDrag = isNotEmptyArray(tasks) && title !== TaskGroupTitleEnum.NextWeek;
+
+  const updateTasksOrder = (newTasks: TaskInterface[]) => {
+    const isToday = title === TaskGroupTitleEnum.Today;
+    const dateKey = isToday
+      ? dayjs().format('DD-MM-YYYY')
+      : dayjs().add(1, 'day').format('DD-MM-YYYY');
+
+    scheduleStore.setDateTasks(dateKey, newTasks);
+  };
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
     if (!over || active.id === over.id) return;
 
-    const oldIndex = items.findIndex(item => item.id === active.id);
-    const newIndex = items.findIndex(item => item.id === over.id);
+    const oldIndex = tasks.findIndex(item => item.id === active.id);
+    const newIndex = tasks.findIndex(item => item.id === over.id);
 
-    setItems(arrayMove(items, oldIndex, newIndex));
+    updateTasksOrder(arrayMove(tasks, oldIndex, newIndex));
   };
 
   return (
@@ -54,9 +65,9 @@ export const UpcomingTaskBlock = ({ tasks, title, isOpened }: Props) => {
 
       <Accordion.Content>
         <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-          <SortableContext items={items.map(t => t.id)} strategy={verticalListSortingStrategy}>
-            {items.map(task => (
-              <UpcomingTaskRow key={task.id} task={task} />
+          <SortableContext items={tasks.map(t => t.id)} strategy={verticalListSortingStrategy}>
+            {tasks.map(task => (
+              <UpcomingTaskRow key={task.id} task={task} isEnableDrag={isEnableDrag} />
             ))}
           </SortableContext>
         </DndContext>

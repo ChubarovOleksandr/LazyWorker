@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { toJS } from 'mobx';
+import { observer } from 'mobx-react-lite';
 import { Accordion } from 'radix-ui';
 
 import { scheduleStore } from '@store/scheduleStore';
@@ -11,8 +12,9 @@ import { UpcomingTaskBlock } from './UpcomingTaskBlock';
 
 const defaultTaskBlockPeriod = Object.values(TaskGroupTitleEnum);
 
-export const UpcomingTaskGroups = () => {
+export const UpcomingTaskGroups = observer(() => {
   const [openedItems, setOpenedItems] = useState<string[]>(defaultTaskBlockPeriod);
+  const { schedule } = scheduleStore;
 
   return (
     <Accordion.Root
@@ -25,10 +27,10 @@ export const UpcomingTaskGroups = () => {
         <UpcomingTaskBlock
           key={groupTitle}
           title={groupTitle}
-          tasks={getTaskForGroup(groupTitle, toJS(scheduleStore.schedule))}
+          tasks={getTaskForGroup(groupTitle, toJS(schedule))}
           isOpened={openedItems.includes(groupTitle)}
         />
       ))}
     </Accordion.Root>
   );
-};
+});

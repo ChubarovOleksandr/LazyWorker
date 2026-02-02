@@ -1,9 +1,10 @@
-import { useState } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Badge, Box, Checkbox, Flex, HoverCard, Text } from '@radix-ui/themes';
 import { Flame, Grip } from 'lucide-react';
 
+import { scheduleStore } from '@store/scheduleStore';
+import { useAuth } from '@hooks/useAuth';
 import { TaskInterface } from '@interfaces/taskType';
 import { TaskPriorityEnum } from '@enums/priority';
 import { TaskStatusEnum } from '@enums/taskStatus';
@@ -11,13 +12,25 @@ import { isEmptyString } from '@utils/format';
 
 interface Props {
   task: TaskInterface;
+  isEnableDrag: boolean;
 }
 
-export const UpcomingTaskRow = ({ task }: Props) => {
+export const UpcomingTaskRow = ({ task, isEnableDrag }: Props) => {
   const { title, details, priority, id, status } = task;
 
-  const [isTaskDone, setIsTaskDone] = useState(status === TaskStatusEnum.Done);
+  const { user } = useAuth();
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: id });
+
+  const isTaskDone = status === TaskStatusEnum.Done;
+
+  const changeTaskStatus = () => {
+    const updatedTask = {
+      ...task,
+      status: isTaskDone ? TaskStatusEnum.InProgress : TaskStatusEnum.Done,
+    };
+
+    scheduleStore.updateTask(updatedTask, user.uid);
+  };
 
   return (
     <div
@@ -29,19 +42,28 @@ export const UpcomingTaskRow = ({ task }: Props) => {
     >
       <Flex justify={'between'} align={'center'} mt={'1'}>
         <Flex gap={'1'} align={'center'}>
-          <Grip
-            height={'14'}
-            width={'14'}
-            color={'gray'}
-            {...listeners}
-            {...attributes}
-            style={{ cursor: 'pointer' }}
-          />
+          {isEnableDrag ? (
+            <Grip
+              height={'14'}
+              width={'14'}
+              color={'gray'}
+              {...listeners}
+              {...attributes}
+              style={{ cursor: 'pointer' }}
+            />
+          ) : (
+            <Box width={'14px'} />
+          )}
 
           {!isEmptyString(details) ? (
             <HoverCard.Root>
               <HoverCard.Trigger>
-                <Text style={{ textDecoration: isTaskDone ? 'line-through' : 'none' }} size={'2'}>
+                <Text
+                  style={{
+                    textDecoration: isTaskDone ? 'line-through' : 'none',
+                  }}
+                  size={'2'}
+                >
                   {title}
                 </Text>
               </HoverCard.Trigger>
@@ -65,7 +87,7 @@ export const UpcomingTaskRow = ({ task }: Props) => {
               Важно
             </Badge>
           )}
-          <Checkbox checked={isTaskDone} onCheckedChange={isDone => setIsTaskDone(!!isDone)} />
+          <Checkbox checked={isTaskDone} onCheckedChange={changeTaskStatus} />
         </Flex>
       </Flex>
     </div>

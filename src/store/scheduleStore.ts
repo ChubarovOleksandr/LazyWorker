@@ -17,6 +17,14 @@ class ScheduleStore {
 
   // SYNC
 
+  setSchedule(schedule: CalendarDataType) {
+    this.schedule = schedule;
+  }
+
+  setDateTasks(date: string, tasks: TaskInterface[]) {
+    this.schedule[date].tasks = tasks;
+  }
+
   // ASYNC
 
   async addTask(task: TaskInterface, date: string, userId: string) {
@@ -34,6 +42,28 @@ class ScheduleStore {
       await scheduleService.updateSchedule(this.schedule, userId);
     } finally {
       runInAction(() => (this.loading = false));
+    }
+  }
+
+  async updateTask(task: TaskInterface, userId: string) {
+    const { id } = task;
+
+    try {
+      for (const date in this.schedule) {
+        const dateData = this.schedule[date];
+        const taskIndex = dateData.tasks.findIndex(t => t.id === id);
+
+        if (taskIndex !== -1) {
+          dateData.tasks[taskIndex] = task;
+          break;
+        }
+      }
+
+      await scheduleService.updateSchedule(this.schedule, userId);
+    } catch (error) {
+      toast.error('Ошибка при обновлении задачи. Попробуйте еще раз', {
+        toastId: 'taskUpdateError',
+      });
     }
   }
 
