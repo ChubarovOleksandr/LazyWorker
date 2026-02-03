@@ -18,7 +18,7 @@ interface Props {
 }
 
 export const UpcomingTaskForm = ({ period, handleSave, handleClose }: Props) => {
-  const { register, setValue, handleSubmit } = useFormContext<UpcomingTaskAddFormInterface>();
+  const { handleSubmit } = useFormContext<UpcomingTaskAddFormInterface>();
 
   return (
     <Dialog.Content>
