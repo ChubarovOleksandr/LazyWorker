@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import { makeAutoObservable, runInAction } from 'mobx';
+import { makeAutoObservable, runInAction, toJS } from 'mobx';
 
 import { scheduleService } from '@service/scheduleService/scheduleService';
 import { CalendarDataType } from '@interfaces/dateDataType';
@@ -28,18 +28,23 @@ class ScheduleStore {
   // ASYNC
 
   async addTask(task: TaskInterface, date: string, userId: string) {
+    const originalSchedule = structuredClone(toJS(this.schedule));
     const requiredDateData = this.schedule[date];
-    const isDateExist = isExist(requiredDateData);
 
-    if (isDateExist) {
+    if (isExist(requiredDateData)) {
+      console.log('date exist', requiredDateData, date);
       requiredDateData.tasks = [task, ...requiredDateData.tasks];
     } else {
+      console.log('date not exist', requiredDateData, date);
       this.schedule[date] = { tasks: [task], events: [] };
     }
 
     this.loading = true;
     try {
       await scheduleService.updateSchedule(this.schedule, userId);
+    } catch (error) {
+      runInAction(() => (this.schedule = originalSchedule));
+      toast.error('Ошибка при сохранении данных', { toastId: 'taskAddError' });
     } finally {
       runInAction(() => (this.loading = false));
     }
@@ -75,15 +80,13 @@ class ScheduleStore {
 
       runInAction(() => {
         this.schedule = scheduleData;
-        this.loading = false;
       });
     } catch (error) {
-      runInAction(() => {
-        toast.error('Ошибка при загрузке расписания. Попробуйте еще раз', {
-          toastId: 'scheduleLoadError',
-        });
-        this.loading = false;
+      toast.error('Ошибка при загрузке расписания. Попробуйте еще раз', {
+        toastId: 'scheduleLoadError',
       });
+    } finally {
+      runInAction(() => (this.loading = false));
     }
   }
 }

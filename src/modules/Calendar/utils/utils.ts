@@ -12,8 +12,8 @@ dayjs.extend(customParseFormat);
 
 export const prepareCalendarRows = (schedule: CalendarDataType, selectedPeriod: string) => {
   const result: CalendarDateInterface[][] = [];
-  const firstDayOfMonth = dayjs().date(1).weekday(); // 0 is Monday
-  const daysInMonth = dayjs().daysInMonth();
+  const firstDayOfMonth = dayjs(selectedPeriod, 'MM-YYYY').date(1).weekday(); // 0 is Monday
+  const daysInMonth = dayjs(selectedPeriod, 'MM-YYYY').daysInMonth();
 
   let week: CalendarDateInterface[] = [];
 

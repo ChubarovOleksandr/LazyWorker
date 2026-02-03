@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
 import { Box, Dialog, Flex, Text } from '@radix-ui/themes';
 import { Plus } from 'lucide-react';
 import { observer } from 'mobx-react-lite';
@@ -47,11 +46,7 @@ export const UpcomingAddTask = observer(({ period }: Props) => {
       status: TaskStatusEnum.InProgress,
     };
 
-    try {
-      await scheduleStore.addTask(newTask, fields[UpcomingTaskFieldsEnum.Date], user.uid);
-    } catch (error) {
-      toast.error('Ошибка при сохранении данных');
-    }
+    await scheduleStore.addTask(newTask, fields[UpcomingTaskFieldsEnum.Date], user.uid);
 
     reset();
     setIsOpen(false);
