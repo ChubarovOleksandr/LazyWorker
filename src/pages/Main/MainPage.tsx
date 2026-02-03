@@ -1,7 +1,7 @@
 import { Calendar } from '@modules/Calendar';
 import { Upcoming } from '@modules/Upcoming';
 
-import './styles/maiPage.scss';
+import './styles/mainPage.scss';
 
 export const MainPage = () => (
   <div className="mainPage">

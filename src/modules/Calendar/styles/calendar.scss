@@ -1,11 +1,9 @@
 .calendar {
+  flex: 9;
   padding: 10px;
   border-radius: 10px;
   background: #f2faff;
   box-shadow: rgb(171, 171, 171) 0px 0px 7px;
-  flex: 65%;
-  max-width: 65%;
-  max-height: 700px;
   overflow-y: scroll;
 
   .chevron {
