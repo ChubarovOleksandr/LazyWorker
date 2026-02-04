@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import '@configs/firebaseConfig';
@@ -5,16 +6,18 @@ import '@configs/firebaseConfig';
 import { AuthorizationLayout } from '@layouts/AuthorizationLayout/UnauthorizedLayout';
 import { NavigationLayout } from '@layouts/NavigationLayout/NavigationLayout';
 import { ComingSoonPage } from '@pages/ComingSoon/ComingSoonPage';
-import { MainPage } from '@pages/Main/MainPage';
-import { NotFoundPage } from '@pages/NotFound/NotFoundPage';
-import { SearchPage } from '@pages/Search/SearchPage';
 import { ResetPasswordForm } from '@modules/ResetPassword';
 import { SignInForm } from '@modules/SignIn';
 import { SignUpForm } from '@modules/SignUp';
+import { PageLoader } from '@components/Loader/Loader';
 import { RoutesEnum } from '@enums/routes';
 
-export const App = () => {
-  return (
+const MainPage = lazy(() => import('@pages/Main/MainPage'));
+const NotFoundPage = lazy(() => import('@pages/NotFound/NotFoundPage'));
+const SearchPage = lazy(() => import('@pages/Search/SearchPage'));
+
+export const App = () => (
+  <Suspense fallback={<PageLoader />}>
     <Routes>
       <Route element={<AuthorizationLayout />}>
         <Route path={RoutesEnum.SignIn} element={<SignInForm />} />
@@ -30,5 +33,5 @@ export const App = () => {
       <Route path={RoutesEnum.NotFound} element={<NotFoundPage />} />
       <Route path={RoutesEnum.ComingSoon} element={<ComingSoonPage />} />
     </Routes>
-  );
-};
+  </Suspense>
+);
