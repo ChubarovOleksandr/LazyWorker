@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   createUserWithEmailAndPassword,
@@ -13,11 +13,9 @@ import { getSafetyString } from '@utils/get-safety-string';
 import { SignUpFormInterface } from '../interface/interface';
 import { handleSignUpAttempt } from '../utils/utils';
 
-interface SignUpProps {
-  setFormError: Dispatch<SetStateAction<string>>;
-}
+export const useSignUp = () => {
+  const [formError, setFormError] = useState<string>();
 
-export const useSignUp = ({ setFormError }: SignUpProps) => {
   const navigate = useNavigate();
   const auth = getAuth();
 
@@ -46,5 +44,5 @@ export const useSignUp = ({ setFormError }: SignUpProps) => {
     }, setFormError);
   };
 
-  return { defaultSignUp, signUpWithGoogle };
+  return { formError, defaultSignUp, signUpWithGoogle };
 };

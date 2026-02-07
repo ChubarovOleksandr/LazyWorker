@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   getAuth,
@@ -12,11 +12,9 @@ import { RoutesEnum } from '@enums/routes';
 import { SignInFormInterface } from '../interface/interface';
 import { handleSignInAttempt } from '../utils/utils';
 
-interface SignInHookProps {
-  setFormError: Dispatch<SetStateAction<string>>;
-}
+export const useSignIn = () => {
+  const [formError, setFormError] = useState<string>();
 
-export const useSignIn = ({ setFormError }: SignInHookProps) => {
   const navigate = useNavigate();
   const auth = getAuth();
 
@@ -41,5 +39,5 @@ export const useSignIn = ({ setFormError }: SignInHookProps) => {
     }, setFormError);
   };
 
-  return { defaultSignIn, signInWithGoogle };
+  return { formError, defaultSignIn, signInWithGoogle };
 };
