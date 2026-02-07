@@ -3,20 +3,18 @@ import { Route, Routes } from 'react-router-dom';
 
 import '@configs/firebaseConfig';
 
-import { AuthorizationLayout } from '@layouts/AuthorizationLayout/UnauthorizedLayout';
-import { NavigationLayout } from '@layouts/NavigationLayout/NavigationLayout';
 import { ComingSoonPage } from '@pages/ComingSoon/ComingSoonPage';
-import { MainPage } from '@pages/Main/MainPage';
-import { NotFoundPage } from '@pages/NotFound/NotFoundPage';
-import ResetPasswordPage from '@pages/ResetPassword/ResetPasswordPage';
-import { SearchPage } from '@pages/Search/SearchPage';
-import SignInPage from '@pages/SignIn/SignInPage';
-import SignUpPage from '@pages/SignUp/SignUpPage';
+import { PageLoader } from '@components/PageLoader/PageLoader';
 import { RoutesEnum } from '@enums/routes';
 
 const MainPage = lazy(() => import('@pages/Main/MainPage'));
 const NotFoundPage = lazy(() => import('@pages/NotFound/NotFoundPage'));
 const SearchPage = lazy(() => import('@pages/Search/SearchPage'));
+const SignInPage = lazy(() => import('@pages/SignIn/SignInPage'));
+const SignUpPage = lazy(() => import('@pages/SignUp/SignUpPage'));
+const ResetPasswordPage = lazy(() => import('@pages/ResetPassword/ResetPasswordPage'));
+const AuthorizationLayout = lazy(() => import('@layouts/AuthorizationLayout/UnauthorizedLayout'));
+const NavigationLayout = lazy(() => import('@layouts/NavigationLayout/NavigationLayout'));
 
 export const App = () => (
   <Suspense fallback={<PageLoader />}>

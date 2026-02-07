@@ -6,7 +6,7 @@ import { useAuth } from '@hooks/useAuth';
 import { RoutesEnum } from '@enums/routes';
 import { isExist } from '@utils/format';
 
-export const AuthorizationLayout = () => {
+const AuthorizationLayout = () => {
   const navigate = useNavigate();
   const { user, loading } = useAuth();
 
@@ -24,3 +24,5 @@ export const AuthorizationLayout = () => {
     </Flex>
   );
 };
+
+export default AuthorizationLayout;
