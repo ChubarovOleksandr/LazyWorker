@@ -2,6 +2,7 @@ import { useFormContext } from 'react-hook-form';
 import { Text } from '@radix-ui/themes';
 
 import { FieldError } from '@ui/FieldError/FieldError';
+import { formConfig } from '@configs/formConfig';
 import { createClassName } from '@utils/create-class-name';
 import { isExist } from '@utils/format';
 
@@ -20,7 +21,7 @@ export const TextField = ({
   placeholder,
   required = false,
   minLength,
-  maxLength,
+  maxLength = formConfig.defaultMaxLength,
 }: TextFieldProps) => {
   const {
     register,
