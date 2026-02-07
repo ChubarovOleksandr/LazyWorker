@@ -3,7 +3,7 @@ import { Flex } from '@radix-ui/themes';
 import { observer } from 'mobx-react-lite';
 
 import { scheduleStore } from '@store/scheduleStore';
-import { PageLoader } from '@components/Loader/Loader';
+import { PageLoader } from '@components/PageLoader/PageLoader';
 import { useAuth } from '@hooks/useAuth';
 
 import { NavigationBar } from './components/NavigationBar';
