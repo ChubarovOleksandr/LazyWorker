@@ -10,10 +10,10 @@ import './styles/searchPage.scss';
 const SearchPage = () => (
   <Flex
     className="searchPage"
-    justify={'center'}
-    align={'center'}
-    direction={'column'}
-    gap={'50px'}
+    justify="center"
+    align="center"
+    direction="column"
+    gap="50px"
   >
     <GlobalSearch />
     <AsciiImage src={AsciiImages.earth} />

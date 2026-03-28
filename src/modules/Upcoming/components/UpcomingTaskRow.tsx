@@ -40,19 +40,19 @@ export const UpcomingTaskRow = ({ task, isEnableDrag }: Props) => {
         transition,
       }}
     >
-      <Flex justify={'between'} align={'center'} mt={'1'}>
-        <Flex gap={'1'} align={'center'}>
+      <Flex justify="between" align="center" mt="1">
+        <Flex gap="1" align="center">
           {isEnableDrag ? (
             <Grip
-              height={'14'}
-              width={'14'}
-              color={'gray'}
+              height="14"
+              width="14"
+              color="gray"
               {...listeners}
               {...attributes}
               style={{ cursor: 'pointer' }}
             />
           ) : (
-            <Box width={'14px'} />
+            <Box width="14px" />
           )}
 
           {!isEmptyString(details) ? (
@@ -62,28 +62,28 @@ export const UpcomingTaskRow = ({ task, isEnableDrag }: Props) => {
                   style={{
                     textDecoration: isTaskDone ? 'line-through' : 'none',
                   }}
-                  size={'2'}
+                  size="2"
                 >
                   {title}
                 </Text>
               </HoverCard.Trigger>
 
               <HoverCard.Content style={{ backgroundColor: '#f2faff' }}>
-                <Box overflowY={'scroll'} maxHeight={'300px'}>
-                  <Text size={'2'}>{details}</Text>
+                <Box overflowY="scroll" maxHeight="300px">
+                  <Text size="2">{details}</Text>
                 </Box>
               </HoverCard.Content>
             </HoverCard.Root>
           ) : (
-            <Text style={{ textDecoration: isTaskDone ? 'line-through' : 'none' }} size={'2'}>
+            <Text style={{ textDecoration: isTaskDone ? 'line-through' : 'none' }} size="2">
               {title}
             </Text>
           )}
         </Flex>
-        <Flex align={'center'} gap={'2'}>
+        <Flex align="center" gap="2">
           {priority === TaskPriorityEnum.Important && (
             <Badge color="orange">
-              <Flame height={'14'} width={'14'} color="orange" />
+              <Flame height="14" width="14" color="orange" />
               Важно
             </Badge>
           )}

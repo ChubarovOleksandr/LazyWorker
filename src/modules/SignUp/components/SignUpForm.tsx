@@ -47,8 +47,8 @@ export const SignUpForm = () => {
           placeholder="Введите ваш пароль"
         />
         <Button
-          mt={'4'}
-          size={'3'}
+          mt="4"
+          size="3"
           className="sign-up__submit-btn"
           loading={isSubmitting}
           type="submit"
@@ -56,8 +56,8 @@ export const SignUpForm = () => {
           Создать аккаунт
         </Button>
         <Button
-          mt={'4'}
-          size={'3'}
+          mt="4"
+          size="3"
           type="button"
           onClick={signUpWithGoogle}
           disabled={isSubmitting}
