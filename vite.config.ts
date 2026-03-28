@@ -20,15 +20,6 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            if (
-              id.includes('react') ||
-              id.includes('react-dom') ||
-              id.includes('scheduler') ||
-              id.includes('react-router')
-            ) {
-              return 'vendor-react';
-            }
-
             if (id.includes('mobx')) {
               return 'vendor-mobx';
             }
@@ -39,6 +30,14 @@ export default defineConfig({
 
             if (id.includes('@dnd-kit')) {
               return 'vendor-dnd';
+            }
+
+            if (
+              /[/\\]node_modules[/\\](react|react-dom|scheduler|react-router)([/\\]|$)/.test(
+                id,
+              )
+            ) {
+              return 'vendor-react';
             }
 
             return 'vendor-others';
