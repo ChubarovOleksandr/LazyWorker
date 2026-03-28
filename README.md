@@ -1,73 +1,55 @@
-# React + TypeScript + Vite
+# LazyWorker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+LazyWorker — клиентское приложение для личных задач с календарем, списком дел и глобальным поиском. Авторизация и хранение расписания выполнены через Firebase.
 
-Currently, two official plugins are available:
+**Возможности**
+1. Регистрация и вход через email/пароль и Google.
+2. Сброс пароля по email.
+3. Календарь с управлением периодом.
+4. Список дел с группировкой по периоду, приоритетом и описанием.
+5. Поисковик с подсказками по истории запросов.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Технологии**
+1. React 19, TypeScript, Vite (rolldown-vite).
+2. Firebase Auth + Firestore.
+3. MobX для состояния.
+4. Radix UI Themes, react-hook-form, dnd-kit, dayjs.
 
-## React Compiler
+**Быстрый старт**
+1. Установить зависимости: `yarn`.
+2. Создать `.env` с переменными Firebase (пример ниже).
+3. Запустить dev-сервер: `yarn dev`.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+**Переменные окружения**
+Создайте файл `.env` в корне проекта и укажите ключи, которые вы можете получить в консоли Firebase:
+```env
+VITE_FIREBASE_API_KEY="..."
+VITE_FIREBASE_AUTH_DOMAIN="..."
+VITE_FIREBASE_PROJECT_ID="..."
+VITE_FIREBASE_STORAGE_BUCKET="..."
+VITE_FIREBASE_MESSAGING_SENDER_ID="..."
+VITE_FIREBASE_APP_ID="..."
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+**Скрипты**
+1. `yarn dev` — запуск в режиме разработки.
+2. `yarn build` — типизация и сборка в `dist`.
+3. `yarn preview` — локальный предпросмотр сборки.
+4. `yarn lint` — линтинг.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+**Структура проекта**
+1. `src/modules` — крупные фичи (Calendar, Upcoming, GlobalSearch, Auth).
+2. `src/pages` — страницы и роуты.
+3. `src/layouts` — layout-и для авторизации и основной навигации.
+4. `src/store` — MobX store (расписание).
+5. `src/service` — работа с Firebase.
+6. `src/ui` и `src/components` — общие UI-компоненты.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+**Firebase**
+1. Auth используется для регистрации, входа, выхода и сброса пароля.
+2. Firestore хранит расписание пользователя в коллекции `schedule`.
+3. Настройки хостинга и правил находятся в `firebase.json`, `firestore.rules`, `firestore.indexes.json`.
+
+**Требования к окружению**
+1. Node.js `>= 22`.
+2. Yarn `>= 1.22`.
