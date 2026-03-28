@@ -82,6 +82,7 @@ export default [
         },
       ],
       'simple-import-sort/exports': 'error',
+      'react/jsx-curly-brace-presence': ['error', { props: 'never', children: 'never' }],
     },
   },
 ];

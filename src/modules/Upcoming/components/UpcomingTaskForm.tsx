@@ -23,7 +23,7 @@ export const UpcomingTaskForm = ({ period, handleSave, handleClose }: Props) => 
   return (
     <Dialog.Content>
       <Dialog.Title>
-        <Text size={'3'} mb={'4'}>
+        <Text size="3" mb="4">
           Создать новую задачу
         </Text>
       </Dialog.Title>
@@ -43,14 +43,14 @@ export const UpcomingTaskForm = ({ period, handleSave, handleClose }: Props) => 
         required
       />
 
-      <Flex mt={'3'} mb={'3'} gap={'2'}>
+      <Flex mt="3" mb="3" gap="2">
         <UpcomingTaskDate period={period} />
         <UpcomingTaskPriority />
       </Flex>
 
       <TextAreaField name={UpcomingTaskFieldsEnum.Details} placeholder="Описание" />
-      <Flex align={'center'} justify={'end'} gap={'5'} mt={'5'}>
-        <Button variant="ghost" size={'3'} onClick={handleClose}>
+      <Flex align="center" justify="end" gap="5" mt="5">
+        <Button variant="ghost" size="3" onClick={handleClose}>
           Закрыть
         </Button>
         <Button variant="solid" onClick={handleSubmit(handleSave)}>

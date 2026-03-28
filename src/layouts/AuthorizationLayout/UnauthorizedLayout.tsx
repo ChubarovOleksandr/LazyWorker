@@ -19,7 +19,7 @@ export const AuthorizationLayout = () => {
   }
 
   return (
-    <Flex justify={'center'} align={'center'} style={{ height: '100vh' }}>
+    <Flex justify="center" align="center" style={{ height: '100vh' }}>
       <Outlet />
     </Flex>
   );

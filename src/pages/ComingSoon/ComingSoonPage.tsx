@@ -10,13 +10,13 @@ export const ComingSoonPage = () => {
 
   return (
     <Flex
-      justify={'center'}
-      align={'center'}
-      direction={'column'}
+      justify="center"
+      align="center"
+      direction="column"
       style={{ height: '100vh' }}
-      gap={'4'}
+      gap="4"
     >
-      <Text size={'5'}>Страница находится в разработке. Скоро она будет доступна!</Text>
+      <Text size="5">Страница находится в разработке. Скоро она будет доступна!</Text>
       <Button color="gray" highContrast onClick={goBack}>
         Вернуться
       </Button>

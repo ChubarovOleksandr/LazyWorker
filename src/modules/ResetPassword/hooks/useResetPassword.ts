@@ -12,7 +12,6 @@ export const useResetPassword = () => {
   const [formError, setFormError] = useState<string>();
 
   const methods = useForm<ResetPasswordFormInterface>();
-
   const { open } = modalStore;
 
   const {
