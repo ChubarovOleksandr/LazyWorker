@@ -39,7 +39,7 @@ export const AccordionBlock = ({
           ) : (
             <Plus width={18} height={18} color="gray" />
           )}
-          <Text size={'4'} {...triggerStyle}>
+          <Text size="4" {...triggerStyle}>
             {triggerLabel}
           </Text>
         </Accordion.Trigger>

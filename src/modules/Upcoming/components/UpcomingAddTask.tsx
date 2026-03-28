@@ -58,12 +58,12 @@ export const UpcomingAddTask = observer(({ period }: Props) => {
   };
 
   return (
-    <Box mt={'2'} mb={'1'} pb={'2'}>
+    <Box mt="2" mb="1" pb="2">
       <Dialog.Root open={isOpen}>
         <Dialog.Trigger className="upcoming__create-task-btn" onClick={() => setIsOpen(true)}>
-          <Flex justify={'start'} align={'center'} gap={'1'} pb={'1'}>
-            <Plus color={'gray'} height={'14'} width={'14'} />
-            <Text color={'gray'} size={'1'}>
+          <Flex justify="start" align="center" gap="1" pb="1">
+            <Plus color="gray" height="14" width="14" />
+            <Text color="gray" size="1">
               Создать
             </Text>
           </Flex>

@@ -21,19 +21,19 @@ export const UpcomingTaskPriority = () => {
   return (
     <Select.Root defaultValue={TaskPriorityEnum.Default} onValueChange={onChangePriority}>
       <Select.Trigger>
-        <Text size={'1'} color="gray" weight={'medium'}>
+        <Text size="1" color="gray" weight="medium">
           Приоритет: {selectedPriority === TaskPriorityEnum.Default ? 'Обычный' : 'Высокий'}
         </Text>
       </Select.Trigger>
       <Select.Content position="popper">
         <Select.Group>
           <Select.Item value={TaskPriorityEnum.Default}>
-            <Text size={'2'} weight={'medium'}>
+            <Text size="2" weight="medium">
               Обычный
             </Text>
           </Select.Item>
           <Select.Item value={TaskPriorityEnum.Important}>
-            <Text size={'2'} weight={'medium'}>
+            <Text size="2" weight="medium">
               Высокий
             </Text>
           </Select.Item>

@@ -8,9 +8,9 @@ export const CalendarTabs = () => {
 
   return (
     <Tabs.Root onValueChange={value => setSelectedTab(value)} defaultValue={selectedTab}>
-      <Tabs.List className="tabs" color="gray" highContrast size={'1'}>
+      <Tabs.List className="tabs" color="gray" highContrast size="1">
         <Tabs.Trigger value={defaultTabValue} className="tabs__item">
-          <Flex justify={'between'} align={'center'} gap={'1'}>
+          <Flex justify="between" align="center" gap="1">
             {defaultTabValue}
           </Flex>
         </Tabs.Trigger>

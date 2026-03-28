@@ -27,8 +27,8 @@ export const ResetPasswordForm = () => {
           maxLength={formConfig.email.maxLength}
         />
         <Button
-          mt={'4'}
-          size={'3'}
+          mt="4"
+          size="3"
           loading={isSubmitting}
           type="submit"
           highContrast

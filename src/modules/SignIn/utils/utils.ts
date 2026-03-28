@@ -1,17 +1,17 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import { getSafetyString } from '@utils/get-safety-string';
+import { getAuthErrorMessage } from '@utils/get-auth-error-message';
 
 export const handleSignInAttempt = async (
-  fetchFn: any,
+  fetchFn: () => Promise<unknown>,
   setError: Dispatch<SetStateAction<string>>,
 ) => {
   try {
-    // TODO ADD PARSE ERRORS
     setError(null);
 
     return await fetchFn();
-  } catch (responseError: any) {
-    setError(getSafetyString(responseError?.message));
+  } catch (error: unknown) {
+    setError(getAuthErrorMessage(error, 'Произошла ошибка при авторизации.'));
+    console.error('Sign-in error:', error);
   }
 };

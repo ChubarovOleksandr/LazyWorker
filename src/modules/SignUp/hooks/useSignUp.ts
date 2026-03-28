@@ -8,27 +8,21 @@ import {
 } from 'firebase/auth';
 
 import { RoutesEnum } from '@enums/routes';
-import { getSafetyString } from '@utils/get-safety-string';
 
 import { SignUpFormInterface } from '../interface/interface';
 import { handleSignUpAttempt } from '../utils/utils';
 
 export const useSignUp = () => {
-  const [formError, setFormError] = useState<string>();
+  const [formError, setFormError] = useState<string>('');
 
   const navigate = useNavigate();
   const auth = getAuth();
 
   const defaultSignUp = async ({ email, password }: SignUpFormInterface) => {
-    setFormError(null);
-
-    try {
+    await handleSignUpAttempt(async () => {
       await createUserWithEmailAndPassword(auth, email, password);
-
       navigate(RoutesEnum.Main);
-    } catch (responseError: any) {
-      setFormError(getSafetyString(responseError?.message));
-    }
+    }, setFormError);
   };
 
   const signUpWithGoogle = () => {

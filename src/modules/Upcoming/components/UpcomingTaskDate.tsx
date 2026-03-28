@@ -22,16 +22,16 @@ const defaultIconSize = 20;
 
 const iconsDateMap = {
   [UpcomingTaskDateVariantEnum.Today]: (
-    <Calendar1 color={'green'} width={defaultIconSize} height={defaultIconSize} />
+    <Calendar1 color="green" width={defaultIconSize} height={defaultIconSize} />
   ),
   [UpcomingTaskDateVariantEnum.Tomorrow]: (
-    <Sun color={'orange'} width={defaultIconSize} height={defaultIconSize} />
+    <Sun color="orange" width={defaultIconSize} height={defaultIconSize} />
   ),
   [UpcomingTaskDateVariantEnum.Weekend]: (
-    <Sofa color={'#00a3c7'} width={defaultIconSize} height={defaultIconSize} />
+    <Sofa color="#00a3c7" width={defaultIconSize} height={defaultIconSize} />
   ),
   [UpcomingTaskDateVariantEnum.NextWeek]: (
-    <CalendarClock color={'purple'} width={defaultIconSize} height={defaultIconSize} />
+    <CalendarClock color="purple" width={defaultIconSize} height={defaultIconSize} />
   ),
 };
 
@@ -56,7 +56,7 @@ export const UpcomingTaskDate = ({ period }: Props) => {
       onOpenChange={() => setIsOpenDatePopover(prevState => !prevState)}
     >
       <Popover.Trigger>
-        <Button size={'2'} variant="outline" aria-label="Выбрать дату" color="gray">
+        <Button size="2" variant="outline" aria-label="Выбрать дату" color="gray">
           <Calendar width="18" height="18" />
           <Text size="1">{dateToShow}</Text>
         </Button>
@@ -64,7 +64,7 @@ export const UpcomingTaskDate = ({ period }: Props) => {
 
       <Popover.Content
         className="select-date__content"
-        width={'275px'}
+        width="275px"
         side="bottom"
         align="start"
         sideOffset={5}
@@ -73,28 +73,28 @@ export const UpcomingTaskDate = ({ period }: Props) => {
           overflowY: 'auto',
         }}
       >
-        <Flex direction={'column'} className="select-date__section">
+        <Flex direction="column" className="select-date__section">
           {defaultDateVariants.map(variant => (
             <Flex
-              justify={'between'}
+              justify="between"
               key={variant.label}
-              align={'center'}
+              align="center"
               onClick={() => handleSelectVariant(variant)}
               className="select-date__section-item"
             >
-              <Flex gap="3" align={'center'}>
+              <Flex gap="3" align="center">
                 {iconsDateMap[variant.label]}
-                <Text size="2" weight={'medium'}>
+                <Text size="2" weight="medium">
                   {getTranslateDateVariant(variant.label)}
                 </Text>
               </Flex>
-              <Text size={'2'} color="gray" weight={'light'}>
+              <Text size="2" color="gray" weight="light">
                 {variant.value}
               </Text>
             </Flex>
           ))}
         </Flex>
-        <Flex direction={'column'} className="select-date__section">
+        <Flex direction="column" className="select-date__section">
           <DayPicker
             animate
             locale={ru}

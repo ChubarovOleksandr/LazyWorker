@@ -27,8 +27,8 @@ export const GlobalSearchSuggestions = ({
             <Flex
               key={suggestion}
               className="global-search__suggestion"
-              align={'center'}
-              justify={'between'}
+              align="center"
+              justify="between"
             >
               {suggestion}
               <DeleteIcon

@@ -15,13 +15,13 @@ export const NotFoundPage = () => {
 
   return (
     <Flex
-      justify={'center'}
-      align={'center'}
-      direction={'column'}
+      justify="center"
+      align="center"
+      direction="column"
       style={{ height: '100vh' }}
-      gap={'4'}
+      gap="4"
     >
-      <Text size={'5'}>Страница не найдена</Text>
+      <Text size="5">Страница не найдена</Text>
       <Button color="gray" highContrast onClick={handleReturn}>
         Вернуться
       </Button>

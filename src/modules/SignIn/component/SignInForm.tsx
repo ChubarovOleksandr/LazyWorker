@@ -52,8 +52,8 @@ export const SignInForm = () => {
           label="Забыл пароль"
         />
         <Button
-          mt={'4'}
-          size={'3'}
+          mt="4"
+          size="3"
           className="sign-in__submit-btn"
           loading={isSubmitting}
           type="submit"

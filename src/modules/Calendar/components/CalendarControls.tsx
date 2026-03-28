@@ -24,12 +24,12 @@ export const CalendarControls = observer(() => {
   };
 
   return (
-    <Flex justify={'between'} align={'center'} mt={'2'} ml={'1'} gap={'1'}>
-      <ChevronLeft width={'20'} height={'20'} className="chevron" onClick={minusMonth} />
-      <Text size={'2'} weight={'bold'}>
+    <Flex justify="between" align="center" mt="2" ml="1" gap="1">
+      <ChevronLeft width="20" height="20" className="chevron" onClick={minusMonth} />
+      <Text size="2" weight="bold">
         {formatSelectedPeriodDate(selectedPeriod)}
       </Text>
-      <ChevronRight width={'20'} height={'20'} className="chevron" onClick={addMonth} />
+      <ChevronRight width="20" height="20" className="chevron" onClick={addMonth} />
     </Flex>
   );
 });

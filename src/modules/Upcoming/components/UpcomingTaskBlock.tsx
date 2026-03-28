@@ -46,17 +46,17 @@ export const UpcomingTaskBlock = ({ tasks, title, isOpened }: Props) => {
   return (
     <Accordion.Item value={title} className="upcoming__group-item">
       <Accordion.Trigger className="upcoming__group-trigger">
-        <Flex justify={'center'} align={'center'} gap={'1'} mb={'2'} mt={'2'}>
+        <Flex justify="center" align="center" gap="1" mb="2" mt="2">
           {isOpened ? (
-            <ChevronUp height={'14'} width={'14'} />
+            <ChevronUp height="14" width="14" />
           ) : (
-            <ChevronDown height={'14'} width={'14'} />
+            <ChevronDown height="14" width="14" />
           )}
 
-          <Text size={'1'}>{title}</Text>
+          <Text size="1">{title}</Text>
 
           <Box className="upcoming__group-counter">
-            <Text size={'1'} color="gray">
+            <Text size="1" color="gray">
               {tasks.length}
             </Text>
           </Box>

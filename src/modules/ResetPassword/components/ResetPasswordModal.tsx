@@ -7,15 +7,15 @@ import { RoutesEnum } from '@enums/routes';
 export const ResetPasswordModal = ({ resolve }: ModalComponentProps) => (
   <Dialog.Root defaultOpen>
     <Dialog.Content>
-      <Flex justify={'center'} align={'start'} direction={'column'}>
+      <Flex justify="center" align="start" direction="column">
         <Dialog.Title style={{ display: 'none' }}>Письмо отправлено</Dialog.Title>
         <Text>Письмо успешно отправлено. В случае, если письмо не пришло, проверьте "Спам"</Text>
         <Button
           color="gray"
           onClick={() => resolve()}
           highContrast
-          mt={'4'}
-          size={'3'}
+          mt="4"
+          size="3"
           style={{ alignSelf: 'flex-end' }}
         >
           <Link

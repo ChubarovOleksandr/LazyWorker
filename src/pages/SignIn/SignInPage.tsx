@@ -6,7 +6,7 @@ import { Link } from '@ui/Link/Link';
 import { RoutesEnum } from '@enums/routes';
 
 const SignInPage = () => (
-  <Flex justify={'center'} align={'center'} direction="column" className="sign-in">
+  <Flex justify="center" align="center" direction="column" className="sign-in">
     <FormTitles mainLabel="Вход" secondLabel="С возвращением! Пожалуйста введите ваши данные" />
 
     <SignInForm />
