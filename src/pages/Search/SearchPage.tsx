@@ -7,7 +7,7 @@ import { AsciiImages } from '../../assets/images/AsciiImages';
 
 import './styles/searchPage.scss';
 
-export const SearchPage = () => (
+const SearchPage = () => (
   <Flex
     className="searchPage"
     justify="center"
@@ -19,3 +19,5 @@ export const SearchPage = () => (
     <AsciiImage src={AsciiImages.earth} />
   </Flex>
 );
+
+export default SearchPage;

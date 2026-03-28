@@ -5,7 +5,7 @@ import { getAuth } from 'firebase/auth';
 import { RoutesEnum } from '@enums/routes';
 import { isExist } from '@utils/format';
 
-export const NotFoundPage = () => {
+const NotFoundPage = () => {
   const navigate = useNavigate();
   const { currentUser } = getAuth();
 
@@ -28,3 +28,5 @@ export const NotFoundPage = () => {
     </Flex>
   );
 };
+
+export default NotFoundPage;

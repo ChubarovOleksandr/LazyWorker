@@ -12,7 +12,7 @@ import { useSchedule } from './hooks/useSchedule';
 
 import './style/navigationModule.scss';
 
-export const NavigationLayout = observer(() => {
+const NavigationLayout = observer(() => {
   const isCheckingAuth = useCheckAuth();
   const isLoadingSchedule = scheduleStore.loading;
 
@@ -31,3 +31,5 @@ export const NavigationLayout = observer(() => {
     </Flex>
   );
 });
+
+export default NavigationLayout;

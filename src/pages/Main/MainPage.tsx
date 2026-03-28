@@ -3,9 +3,11 @@ import { Upcoming } from '@modules/Upcoming';
 
 import './styles/mainPage.scss';
 
-export const MainPage = () => (
+const MainPage = () => (
   <div className="mainPage">
     <Calendar />
     <Upcoming />
   </div>
 );
+
+export default MainPage;

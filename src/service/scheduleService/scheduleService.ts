@@ -1,6 +1,6 @@
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
-import { db } from '@configs/firebaseConfig';
+import { db } from '@configs/firestoreConfig';
 import { CalendarDataType } from '@interfaces/dateDataType';
 import { CollectionNamesEnum } from '@enums/collectionNames';
 

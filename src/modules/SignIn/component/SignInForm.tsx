@@ -14,6 +14,8 @@ import { SignInFormInterface } from '../interface/interface';
 
 import '../styles/signInForm.scss';
 
+// TODO (REFACTOR) - create common Form component with FormProvider inside, also create SignInPage, SignUpPage, and import they in App.tsx + use lazy loading and check code splitting
+
 export const SignInForm = () => {
   const methods = useForm<SignInFormInterface>();
 
