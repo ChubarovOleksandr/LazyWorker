@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 
 import { localStorageKeys } from '@enums/localStorageKeys';
-import { saveInLocalStorage } from '@utils/localStorage';
+import { saveInLocalStorage } from '@utils/local-storage';
 
 class GlobalSearchStore {
   searchHistory: string[] = [];

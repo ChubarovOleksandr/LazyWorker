@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { isEmptyString } from '@utils/format';
+import { useHandleClickOutside } from '@hooks/useHandleClickOutside';
 
 import { globalSearchStore } from '../store/globalSearchStore';
 import { findSuggestionsByText, getRequestHistory } from '../utils/utils';
@@ -12,6 +12,9 @@ import { GlobalSearchSuggestions } from './GlobalSearchSuggestions';
 import '../styles/globalSearch.scss';
 
 export const GlobalSearch = observer(() => {
+  const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
+  const globalSearchRef = useRef(null);
+
   const { searchHistory, searchText, setSearchText, setSearchHistory } = globalSearchStore;
   const filteredHistory = findSuggestionsByText(searchHistory, searchText);
 
@@ -19,11 +22,21 @@ export const GlobalSearch = observer(() => {
     setSearchHistory(getRequestHistory());
   }, []);
 
+  useHandleClickOutside({
+    ref: globalSearchRef,
+    callback: () => setIsSuggestionsOpen(false),
+  });
+
   return (
-    <div className="global-search">
-      <GlobalSearchInput searchText={searchText} setSearchText={setSearchText} />
+    <div className="global-search" ref={globalSearchRef}>
+      <GlobalSearchInput
+        searchText={searchText}
+        setSearchText={setSearchText}
+        setIsSuggestionsOpen={setIsSuggestionsOpen}
+        isSuggestionsOpen={isSuggestionsOpen}
+      />
       <GlobalSearchSuggestions
-        isOpen={!isEmptyString(searchText)}
+        isOpen={isSuggestionsOpen}
         searchHistory={filteredHistory}
         setSearchHistory={setSearchHistory}
       />
