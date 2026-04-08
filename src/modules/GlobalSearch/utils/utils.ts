@@ -1,6 +1,6 @@
 import { localStorageKeys } from '@enums/localStorageKeys';
 import { isEmptyString } from '@utils/format';
-import { getFromLocalStorage, saveInLocalStorage } from '@utils/localStorage';
+import { getFromLocalStorage, saveInLocalStorage } from '@utils/local-storage';
 
 export const updateRequestHistory = (text: string) => {
   const history = getFromLocalStorage<string[]>(localStorageKeys.GlobalSearchHistory, []);

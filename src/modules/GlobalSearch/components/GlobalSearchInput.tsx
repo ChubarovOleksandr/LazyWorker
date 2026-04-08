@@ -1,23 +1,33 @@
 import { SearchIcon } from 'lucide-react';
 
+import { SetStateType } from '@interfaces/utils/setStateType';
 import { createClassName } from '@utils/create-class-name';
-import { isEmptyString } from '@utils/format';
+import { isString } from '@utils/format';
 
 import { updateRequestHistory } from '../utils/utils';
 
 interface GlobalSearchInputProps {
   searchText: string;
   setSearchText: (text: string) => void;
+  isSuggestionsOpen: boolean;
+  setIsSuggestionsOpen: SetStateType<boolean>;
 }
 
-export const GlobalSearchInput = ({ searchText, setSearchText }: GlobalSearchInputProps) => {
+export const GlobalSearchInput = ({
+  searchText,
+  setSearchText,
+  isSuggestionsOpen,
+  setIsSuggestionsOpen,
+}: GlobalSearchInputProps) => {
+  const isInputNotEmpty = isString(searchText.trim());
+
   const onSearch = () => {
     updateRequestHistory(searchText);
     window.location.href = `https://www.google.com/search?q=${encodeURIComponent(searchText)}`;
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && isInputNotEmpty) {
       onSearch();
     }
   };
@@ -29,13 +39,14 @@ export const GlobalSearchInput = ({ searchText, setSearchText }: GlobalSearchInp
         type="text"
         value={searchText}
         onKeyDown={onKeyDown}
+        onFocus={() => setIsSuggestionsOpen(true)}
         onChange={e => setSearchText(e.target.value)}
         className={createClassName({
-          condition: !isEmptyString(searchText),
-          value: 'isNotEmpty',
+          condition: isSuggestionsOpen,
+          value: 'isOpen',
         })}
       />
-      <button className="global-search__find-btn" onClick={onSearch}>
+      <button className="global-search__find-btn" onClick={onSearch} disabled={!isInputNotEmpty}>
         <SearchIcon />
       </button>
     </label>
