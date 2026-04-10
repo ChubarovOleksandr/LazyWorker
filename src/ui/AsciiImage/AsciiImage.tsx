@@ -1,3 +1,7 @@
+import { AsciiImages } from '@assets/images/AsciiImages';
+
+import { getRandomKey } from '@utils/get-random-key';
+
 const defaultPreStyle: React.CSSProperties = {
   fontFamily: 'monospace',
   lineHeight: '1.1',
@@ -5,10 +9,11 @@ const defaultPreStyle: React.CSSProperties = {
 };
 
 interface AsciiImageProps {
-  src: string;
+  src?: string;
   style?: React.CSSProperties;
+  random?: boolean;
 }
 
-export const AsciiImage = ({ src, style = defaultPreStyle }: AsciiImageProps) => {
-  return <pre style={style}>{src}</pre>;
-};
+export const AsciiImage = ({ src, style = defaultPreStyle, random = false }: AsciiImageProps) => (
+  <pre style={style}>{random ? AsciiImages[getRandomKey(AsciiImages)] : src}</pre>
+);
