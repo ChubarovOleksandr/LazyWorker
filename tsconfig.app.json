@@ -23,21 +23,20 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
-    "baseUrl": ".",
     "paths": {
-      "@assets/*": ["src/assets/*"],
-      "@configs/*": ["src/configs/*"],
-      "@service/*": ["src/service/*"],
-      "@pages/*": ["src/pages/*"],
-      "@modules/*": ["src/modules/*"],
-      "@store/*": ["src/store/*"],
-      "@components/*": ["src/components/*"],
-      "@ui/*": ["src/ui/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@interfaces/*": ["src/interfaces/*"],
-      "@enums/*": ["src/enums/*"],
-      "@utils/*": ["src/utils/*"],
-      "@layouts/*": ["src/layouts/*"]
+      "@assets/*": ["./src/assets/*"],
+      "@configs/*": ["./src/configs/*"],
+      "@service/*": ["./src/service/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@modules/*": ["./src/modules/*"],
+      "@store/*": ["./src/store/*"],
+      "@components/*": ["./src/components/*"],
+      "@ui/*": ["./src/ui/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@interfaces/*": ["./src/interfaces/*"],
+      "@enums/*": ["./src/enums/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@layouts/*": ["./src/layouts/*"]
     }
   },
   "include": ["src", "declarations.d.ts", "vite.config.ts"]

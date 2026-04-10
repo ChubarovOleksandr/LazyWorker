@@ -14,9 +14,14 @@ export const GlobalSearchSuggestions = ({
   searchHistory,
   setSearchHistory,
 }: GlobalSearchSuggestionsProps) => {
-  const deleteSuggestion = (suggestion: string) => {
+  const deleteSuggestion = (e: React.MouseEvent<SVGSVGElement>, suggestion: string) => {
+    e.stopPropagation();
     const updatedHistory = searchHistory.filter(item => item !== suggestion);
     setSearchHistory(updatedHistory);
+  };
+
+  const handleSuggestionClick = (suggestion: string) => {
+    window.location.href = `https://www.google.com/search?q=${encodeURIComponent(suggestion)}`;
   };
 
   return (
@@ -29,11 +34,12 @@ export const GlobalSearchSuggestions = ({
               className="global-search__suggestion"
               align="center"
               justify="between"
+              onClick={() => handleSuggestionClick(suggestion)}
             >
               {suggestion}
               <DeleteIcon
                 className="global-search__delete-btn"
-                onClick={() => deleteSuggestion(suggestion)}
+                onClick={e => deleteSuggestion(e, suggestion)}
               />
             </Flex>
           ))}

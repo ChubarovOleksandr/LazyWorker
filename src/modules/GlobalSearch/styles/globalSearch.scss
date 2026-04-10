@@ -26,6 +26,8 @@
   &__suggestions {
     position: absolute;
     width: 600px;
+    max-height: 500px;
+    overflow-y: auto;
     box-shadow: rgb(171, 171, 171) 0px 0px 7px;
     border-radius: 0 0 8px 8px;
     backdrop-filter: blur(6px);

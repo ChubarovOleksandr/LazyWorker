@@ -4,6 +4,11 @@ import { getFromLocalStorage, saveInLocalStorage } from '@utils/local-storage';
 
 export const updateRequestHistory = (text: string) => {
   const history = getFromLocalStorage<string[]>(localStorageKeys.GlobalSearchHistory, []);
+
+  if (history.includes(text)) {
+    return;
+  }
+
   const updatedHistory = [text, ...history];
   saveInLocalStorage(localStorageKeys.GlobalSearchHistory, updatedHistory);
 };
