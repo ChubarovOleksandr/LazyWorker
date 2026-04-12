@@ -4,7 +4,6 @@ import { Badge, Box, Checkbox, Flex, HoverCard, Text } from '@radix-ui/themes';
 import { Flame, Grip } from 'lucide-react';
 
 import { scheduleStore } from '@store/scheduleStore';
-import { useAuth } from '@hooks/useAuth';
 import { TaskInterface } from '@interfaces/taskType';
 import { TaskPriorityEnum } from '@enums/priority';
 import { TaskStatusEnum } from '@enums/taskStatus';
@@ -16,9 +15,8 @@ interface Props {
 }
 
 export const UpcomingTaskRow = ({ task, isEnableDrag }: Props) => {
-  const { title, details, priority, id, status } = task;
+  const { title, description, priority, id, status } = task;
 
-  const { user } = useAuth();
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: id });
 
   const isTaskDone = status === TaskStatusEnum.Done;
@@ -29,7 +27,7 @@ export const UpcomingTaskRow = ({ task, isEnableDrag }: Props) => {
       status: isTaskDone ? TaskStatusEnum.InProgress : TaskStatusEnum.Done,
     };
 
-    scheduleStore.updateTask(updatedTask, user.uid);
+    void scheduleStore.updateTask(updatedTask);
   };
 
   return (
@@ -55,7 +53,7 @@ export const UpcomingTaskRow = ({ task, isEnableDrag }: Props) => {
             <Box width="14px" />
           )}
 
-          {!isEmptyString(details) ? (
+          {!isEmptyString(description) ? (
             <HoverCard.Root>
               <HoverCard.Trigger>
                 <Text
@@ -70,7 +68,7 @@ export const UpcomingTaskRow = ({ task, isEnableDrag }: Props) => {
 
               <HoverCard.Content style={{ backgroundColor: '#f2faff' }}>
                 <Box overflowY="scroll" maxHeight="300px">
-                  <Text size="2">{details}</Text>
+                  <Text size="2">{description}</Text>
                 </Box>
               </HoverCard.Content>
             </HoverCard.Root>

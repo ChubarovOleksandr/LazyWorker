@@ -1,11 +1,13 @@
 import { toast } from 'react-toastify';
+import dayjs from 'dayjs';
 import { makeAutoObservable, runInAction, toJS } from 'mobx';
 
 import { scheduleService } from '@service/scheduleService/scheduleService';
+import { authStore } from '@store/authStore';
 import { CalendarDataType } from '@interfaces/dateDataType';
 import { TaskInterface } from '@interfaces/taskType';
-
-import { isExist } from '../utils/format';
+import { isExist } from '@utils/format.ts';
+import { groupTasksByDateKey } from '@utils/group-tasks-by-date-key';
 
 class ScheduleStore {
   schedule: CalendarDataType = {};
@@ -15,78 +17,127 @@ class ScheduleStore {
     makeAutoObservable(this);
   }
 
-  // SYNC
-
-  setSchedule(schedule: CalendarDataType) {
-    this.schedule = schedule;
+  private getUserId(): string | undefined {
+    return authStore.userId;
   }
 
-  setDateTasks(date: string, tasks: TaskInterface[]) {
-    this.schedule[date].tasks = tasks;
-  }
+  async setDateTasks(dateKey: string, tasks: TaskInterface[]) {
+    const userId = this.getUserId();
 
-  // ASYNC
-
-  async addTask(task: TaskInterface, date: string, userId: string) {
-    const originalSchedule = structuredClone(toJS(this.schedule));
-    const requiredDateData = this.schedule[date];
-
-    if (isExist(requiredDateData)) {
-      console.log('date exist', requiredDateData, date);
-      requiredDateData.tasks = [task, ...requiredDateData.tasks];
-    } else {
-      console.log('date not exist', requiredDateData, date);
-      this.schedule[date] = { tasks: [task], events: [] };
+    if (!isExist(userId)) {
+      toast.error('Войдите в аккаунт', { toastId: 'authRequiredOrder' });
+      return;
     }
+
+    const withOrder = tasks.map((t, i) => ({ ...t, order: i, userId }));
+
+    runInAction(() => {
+      if (!this.schedule[dateKey]) {
+        this.schedule[dateKey] = { tasks: [] };
+      }
+      this.schedule[dateKey].tasks = withOrder;
+    });
+
+    try {
+      await Promise.all(withOrder.map(t => scheduleService.updateTask(t)));
+    } catch (error) {
+      console.error(error);
+      toast.error('Не удалось сохранить порядок задач', { toastId: 'taskOrderError' });
+    }
+  }
+
+  async addTask(task: Omit<TaskInterface, 'userId'>) {
+    const userId = this.getUserId();
+
+    if (!isExist(userId)) {
+      toast.error('Войдите в аккаунт', { toastId: 'authRequiredAddTask' });
+      return;
+    }
+
+    const originalSchedule = structuredClone(toJS(this.schedule));
+    const dateKey = dayjs(task.date.toDate()).format('DD-MM-YYYY');
+    const taskWithUser: TaskInterface = { ...task, userId };
+    const oldTasks = this.schedule[dateKey]?.tasks ?? [];
+    const newList = [taskWithUser, ...oldTasks].map((t, i) => ({ ...t, order: i }));
+
+    runInAction(() => {
+      this.schedule[dateKey] = { tasks: newList };
+    });
 
     this.loading = true;
     try {
-      await scheduleService.updateSchedule(this.schedule, userId);
+      await scheduleService.createTask(newList[0]);
+      await Promise.all(newList.slice(1).map(t => scheduleService.updateTask(t)));
     } catch (error) {
-      runInAction(() => (this.schedule = originalSchedule));
+      runInAction(() => {
+        this.schedule = originalSchedule;
+      });
+      console.error(error);
       toast.error('Ошибка при сохранении данных', { toastId: 'taskAddError' });
     } finally {
-      runInAction(() => (this.loading = false));
+      runInAction(() => {
+        this.loading = false;
+      });
     }
   }
 
-  async updateTask(task: TaskInterface, userId: string) {
-    const { id } = task;
+  async updateTask(task: TaskInterface) {
+    const userId = this.getUserId();
+
+    if (!isExist(userId)) {
+      toast.error('Войдите в аккаунт', { toastId: 'authRequiredUpdateTask' });
+      return;
+    }
+
+    const taskWithUser: TaskInterface = { ...task, userId };
 
     try {
       for (const date in this.schedule) {
         const dateData = this.schedule[date];
-        const taskIndex = dateData.tasks.findIndex(t => t.id === id);
+        const taskIndex = dateData.tasks.findIndex(t => t.id === task.id);
 
         if (taskIndex !== -1) {
-          dateData.tasks[taskIndex] = task;
+          dateData.tasks[taskIndex] = taskWithUser;
           break;
         }
       }
 
-      await scheduleService.updateSchedule(this.schedule, userId);
+      await scheduleService.updateTask(taskWithUser);
     } catch (error) {
+      console.error(error);
       toast.error('Ошибка при обновлении задачи. Попробуйте еще раз', {
         toastId: 'taskUpdateError',
       });
     }
   }
 
-  async loadSchedule(userId: string) {
+  async loadSchedule() {
+    const userId = this.getUserId();
+
+    if (!isExist(userId)) {
+      runInAction(() => {
+        this.schedule = {};
+      });
+      return;
+    }
+
     this.loading = true;
 
     try {
-      const scheduleData = await scheduleService.getSchedule(userId);
+      const tasks = await scheduleService.getTasksByUserId(userId);
 
       runInAction(() => {
-        this.schedule = scheduleData;
+        this.schedule = groupTasksByDateKey(tasks);
       });
     } catch (error) {
+      console.error(error);
       toast.error('Ошибка при загрузке расписания. Попробуйте еще раз', {
         toastId: 'scheduleLoadError',
       });
     } finally {
-      runInAction(() => (this.loading = false));
+      runInAction(() => {
+        this.loading = false;
+      });
     }
   }
 }

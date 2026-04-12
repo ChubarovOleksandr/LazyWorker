@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Box, Dialog, Flex, Text } from '@radix-ui/themes';
+import dayjs from 'dayjs';
+import { Timestamp } from 'firebase/firestore';
 import { Plus } from 'lucide-react';
 import { observer } from 'mobx-react-lite';
 import { v4 as uuidv4 } from 'uuid';
 
 import { scheduleStore } from '@store/scheduleStore';
-import { useAuth } from '@hooks/useAuth';
 import { TaskInterface } from '@interfaces/taskType';
 import { TaskPriorityEnum } from '@enums/priority';
 import { TaskStatusEnum } from '@enums/taskStatus';
+import { getSafetyString } from '@utils/get-safety-string.ts';
 
 import { TaskGroupTitleEnum, UpcomingTaskFieldsEnum } from '../enums/enum';
 import { UpcomingTaskAddFormInterface } from '../interfaces/interface';
@@ -24,7 +26,7 @@ const defaultFormValues: UpcomingTaskAddFormInterface = {
   [UpcomingTaskFieldsEnum.Priority]: TaskPriorityEnum.Default,
   [UpcomingTaskFieldsEnum.Title]: '',
   [UpcomingTaskFieldsEnum.Details]: '',
-  [UpcomingTaskFieldsEnum.Date]: null,
+  [UpcomingTaskFieldsEnum.Date]: dayjs().format('DD-MM-YYYY'),
 };
 
 export const UpcomingAddTask = observer(({ period }: Props) => {
@@ -35,18 +37,22 @@ export const UpcomingAddTask = observer(({ period }: Props) => {
   const { reset } = methods;
 
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useAuth();
 
   const handleSave = async (fields: UpcomingTaskAddFormInterface) => {
-    const newTask: TaskInterface = {
-      title: fields[UpcomingTaskFieldsEnum.Title],
-      details: fields[UpcomingTaskFieldsEnum.Details],
-      priority: fields[UpcomingTaskFieldsEnum.Priority],
+    const dateKey = fields[UpcomingTaskFieldsEnum.Date];
+
+    const newTask: Omit<TaskInterface, 'userId'> = {
       id: uuidv4(),
+      title: fields[UpcomingTaskFieldsEnum.Title],
+      description: getSafetyString(fields[UpcomingTaskFieldsEnum.Details]),
+      priority: fields[UpcomingTaskFieldsEnum.Priority],
       status: TaskStatusEnum.InProgress,
+      category: '',
+      order: 0,
+      date: Timestamp.fromDate(dayjs(dateKey, 'DD-MM-YYYY').toDate()),
     };
 
-    await scheduleStore.addTask(newTask, fields[UpcomingTaskFieldsEnum.Date], user.uid);
+    await scheduleStore.addTask(newTask);
 
     reset();
     setIsOpen(false);

@@ -1,11 +1,5 @@
-import { TaskPriorityEnum } from '@enums/priority';
-import { TaskStatusEnum } from '@enums/taskStatus';
+import type { TaskDocumentInterface } from './taskDocumentType';
 
-export interface TaskInterface {
-  title: string;
-  details?: string;
-  priority: TaskPriorityEnum;
+export type TaskInterface = TaskDocumentInterface & {
   id: string;
-  status: TaskStatusEnum;
-  group?: string[];
-}
+};

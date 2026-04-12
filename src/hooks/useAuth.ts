@@ -1,37 +1,41 @@
-import { useEffect, useState } from 'react';
-import type { User } from 'firebase/auth';
+import { useSyncExternalStore } from 'react';
+import { User } from 'firebase/auth';
+import { autorun } from 'mobx';
 
-import { isExist } from '@utils/format';
+import { authStore } from '@store/authStore';
+
+type AuthSnapshot = {
+  user: User;
+  loading: boolean;
+};
+
+const subscribe = (onChange: () => void) => {
+  return autorun(() => {
+    void authStore.user;
+    void authStore.loading;
+    onChange();
+  });
+};
+
+let snapshot: AuthSnapshot = {
+  user: authStore.user,
+  loading: authStore.loading,
+};
+
+const getSnapshot = () => {
+  if (
+    snapshot.user !== authStore.user ||
+    snapshot.loading !== authStore.loading
+  ) {
+    snapshot = {
+      user: authStore.user,
+      loading: authStore.loading,
+    };
+  }
+
+  return snapshot;
+};
 
 export const useAuth = () => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    let unsubscribe: () => void;
-
-    const initAuth = async () => {
-      try {
-        const { authService } = await import('@service/authService/authService');
-
-        unsubscribe = authService.onAuthStateChanged(currentUser => {
-          setUser(currentUser);
-          setLoading(false);
-        });
-      } catch (error) {
-        console.error('Ошибка при загрузке Auth:', error);
-        setLoading(false);
-      }
-    };
-
-    initAuth();
-
-    return () => {
-      if (isExist(unsubscribe)) {
-        unsubscribe();
-      }
-    };
-  }, []);
-
-  return { user, loading };
+  return useSyncExternalStore(subscribe, getSnapshot);
 };
