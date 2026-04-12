@@ -53,9 +53,6 @@
     "vite": "8.0.5",
     "vite-tsconfig-paths": "^6.1.1"
   },
-  "overrides": {
-    "vite": "npm:rolldown-vite@8.0.5"
-  },
   "engines": {
     "node": ">=22.0.0",
     "yarn": ">=1.22.0"
