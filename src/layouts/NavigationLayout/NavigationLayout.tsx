@@ -4,7 +4,6 @@ import { observer } from 'mobx-react-lite';
 
 import { scheduleStore } from '@store/scheduleStore';
 import { PageLoader } from '@components/PageLoader/PageLoader';
-import { useAuth } from '@hooks/useAuth';
 
 import { NavigationBar } from './components/NavigationBar';
 import { useCheckAuth } from './hooks/useCheckAuth';
@@ -16,9 +15,7 @@ const NavigationLayout = observer(() => {
   const isCheckingAuth = useCheckAuth();
   const isLoadingSchedule = scheduleStore.loading;
 
-  const { user } = useAuth();
-
-  useSchedule(true, user?.uid);
+  useSchedule(true);
 
   if (isCheckingAuth || isLoadingSchedule) {
     return <PageLoader />;

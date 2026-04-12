@@ -7,8 +7,8 @@ import { Accordion } from 'radix-ui';
 
 import { scheduleStore } from '@store/scheduleStore';
 import { TaskInterface } from '@interfaces/taskType';
+import { isNotEmptyArray } from '@utils/format.ts';
 
-import { isNotEmptyArray } from '../../../utils/format';
 import { TaskGroupTitleEnum } from '../enums/enum';
 
 import { UpcomingAddTask } from './UpcomingAddTask';
@@ -29,7 +29,7 @@ export const UpcomingTaskBlock = ({ tasks, title, isOpened }: Props) => {
       ? dayjs().format('DD-MM-YYYY')
       : dayjs().add(1, 'day').format('DD-MM-YYYY');
 
-    scheduleStore.setDateTasks(dateKey, newTasks);
+    void scheduleStore.setDateTasks(dateKey, newTasks);
   };
 
   const handleDragEnd = (event: DragEndEvent) => {

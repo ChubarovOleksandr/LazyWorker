@@ -1,32 +1,43 @@
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  type DocumentData,
+  getDocs,
+  query,
+  type QueryDocumentSnapshot,
+  setDoc,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
 
 import { db } from '@configs/firestoreConfig';
-import { CalendarDataType } from '@interfaces/dateDataType';
+import { TaskDocumentInterface } from '@interfaces/taskDocumentType';
+import { TaskInterface } from '@interfaces/taskType';
 import { CollectionNamesEnum } from '@enums/collectionNames';
 
-export const scheduleService = {
-  getSchedule: async (userId: string): Promise<CalendarDataType> => {
-    try {
-      const docRef = doc(db, CollectionNamesEnum.Schedule, userId);
-      const snap = await getDoc(docRef);
+const scheduleCollectionRef = collection(db, CollectionNamesEnum.Schedule);
 
-      return snap.exists() ? (snap.data() as CalendarDataType) : {};
-    } catch (error) {
-      console.error('Error fetching schedule:', error);
-      throw error;
-    }
+const snapshotToTask = (docSnap: QueryDocumentSnapshot<DocumentData>): TaskInterface => ({
+  id: docSnap.id,
+  ...(docSnap.data() as TaskDocumentInterface),
+});
+
+export const scheduleService = {
+  getTasksByUserId: async (userId: string): Promise<TaskInterface[]> => {
+    const q = query(scheduleCollectionRef, where('userId', '==', userId));
+    const snap = await getDocs(q);
+    const tasks = snap.docs.map(snapshotToTask);
+    tasks.sort((a, b) => a.date.toMillis() - b.date.toMillis());
+    return tasks;
   },
 
-  updateSchedule: async (schedule: CalendarDataType, userId: string) => {
-    try {
-      const docRef = doc(db, CollectionNamesEnum.Schedule, userId);
+  createTask: async (task: TaskInterface): Promise<void> => {
+    const { id, ...payload } = task;
+    await setDoc(doc(db, CollectionNamesEnum.Schedule, id), payload);
+  },
 
-      await setDoc(docRef, schedule, { merge: true });
-
-      return true;
-    } catch (error) {
-      console.error('Error updating schedule:', error);
-      throw error;
-    }
+  updateTask: async (task: TaskInterface): Promise<void> => {
+    const { id, ...payload } = task;
+    await updateDoc(doc(db, CollectionNamesEnum.Schedule, id), payload);
   },
 };

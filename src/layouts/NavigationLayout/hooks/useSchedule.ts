@@ -1,12 +1,19 @@
 import { useEffect } from 'react';
 
+import { authStore } from '@store/authStore';
 import { scheduleStore } from '@store/scheduleStore';
-import { isExist } from '@utils/format';
+import { isExist } from '@utils/format.ts';
 
-export const useSchedule = (autoLoad: boolean = true, userId: string) => {
+export const useSchedule = (autoLoad: boolean = true) => {
+  const uid = authStore.user?.uid;
+
   useEffect(() => {
-    if (autoLoad && isExist(userId)) {
-      scheduleStore.loadSchedule(userId);
+    if (!isExist(uid)) {
+      return;
     }
-  }, [userId]);
+
+    if (autoLoad) {
+      void scheduleStore.loadSchedule();
+    }
+  }, [autoLoad, uid]);
 };

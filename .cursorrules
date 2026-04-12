@@ -1,0 +1,12 @@
+---
+description: 
+alwaysApply: true
+---
+
+- use kebab-case for utils, store, styles
+- use PascalCase for components
+- use camelCase for hooks, types, enums, styles, configs
+- use alias and sort import using settings
+- always answer on russian
+- always reference 'project.md' for project architecture and 'spec.md' for functional requirements before generating code or suggesting changes
+- dont comment, just the most complex logic

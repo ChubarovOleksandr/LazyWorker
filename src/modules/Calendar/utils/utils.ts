@@ -19,13 +19,13 @@ export const prepareCalendarRows = (schedule: CalendarDataType, selectedPeriod: 
 
   if (firstDayOfMonth !== 0) {
     for (let j = 0; j < firstDayOfMonth; j++) {
-      week.push({ date: null, events: [], tasks: [] });
+      week.push({ date: null, tasks: [] });
     }
   }
 
   for (let i = 1; i <= daysInMonth; i++) {
     const dateKey = dayjs(selectedPeriod, 'MM-YYYY').date(i).format('DD-MM-YYYY');
-    const dateData: CalendarDateInterface = schedule[dateKey] ?? { events: [], tasks: [] };
+    const dateData: CalendarDateInterface = schedule[dateKey] ?? { tasks: [] };
 
     dateData.date = String(i);
 
