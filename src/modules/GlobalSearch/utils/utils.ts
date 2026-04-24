@@ -1,4 +1,4 @@
-import { localStorageKeys } from '@enums/localStorageKeys';
+import { localStorageKeys } from '@enums/locale-storage-key.enum';
 import { isEmptyString } from '@utils/format';
 import { getFromLocalStorage, saveInLocalStorage } from '@utils/local-storage';
 

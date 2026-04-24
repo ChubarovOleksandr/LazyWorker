@@ -11,7 +11,7 @@ import '../styles/calendar.scss';
 export const Calendar = () => {
   return (
     <div className="calendar">
-      <AccordionBlock itemValue="calendar" triggerLabel="Календарь" openByDefault>
+      <AccordionBlock triggerLabel="Календарь" openByDefault>
         <>
           <CalendarTabs />
           <CalendarControls />

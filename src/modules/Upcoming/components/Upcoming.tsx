@@ -7,15 +7,13 @@ import { UpcomingTaskGroups } from './UpcomingTaskGroups';
 
 import '../styles/upcoming.scss';
 
-export const Upcoming = () => {
-  return (
-    <Flex className="upcoming">
-      <AccordionBlock itemValue="upcoming" triggerLabel="Список дел" openByDefault>
-        <>
-          <UpcomingSelectType />
-          <UpcomingTaskGroups />
-        </>
-      </AccordionBlock>
-    </Flex>
-  );
-};
+export const Upcoming = () => (
+  <Flex className="upcoming">
+    <AccordionBlock triggerLabel="Список дел" openByDefault>
+      <>
+        <UpcomingSelectType />
+        <UpcomingTaskGroups />
+      </>
+    </AccordionBlock>
+  </Flex>
+);

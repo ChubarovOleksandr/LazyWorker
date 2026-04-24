@@ -1,26 +1,31 @@
 import { ForwardRefExoticComponent, RefAttributes, useState } from 'react';
 import { Text, TextProps } from '@radix-ui/themes';
-import { Minus, Plus } from 'lucide-react';
+import { Minus, Plus, X } from 'lucide-react';
 import { Accordion } from 'radix-ui';
 
-import { isExist } from '@utils/format';
+import { OnEventTypeEmpty } from '@interfaces/utils/onEventTypeEmpty';
 
 import './accordionBlock.scss';
 
 interface AccordionBlockInterface {
-  itemValue: string;
   triggerLabel: string;
   triggerStyle?: ForwardRefExoticComponent<TextProps & RefAttributes<HTMLSpanElement>>;
   openByDefault?: boolean;
   children: React.ReactElement | string;
+  canClose?: boolean;
+  onClose?: OnEventTypeEmpty;
 }
 
+const iconSize = { width: 18, height: 18 };
+const itemValue = 'accordion-item';
+
 export const AccordionBlock = ({
-  itemValue,
   triggerLabel,
   openByDefault,
   children,
   triggerStyle,
+  canClose = false,
+  onClose,
 }: AccordionBlockInterface) => {
   const [isOpen, setIsOpen] = useState<boolean>(openByDefault);
 
@@ -28,20 +33,29 @@ export const AccordionBlock = ({
     <Accordion.Root
       type="single"
       collapsible
-      className="accordionRoot"
+      className="accordion__root"
       onValueChange={value => setIsOpen(value === itemValue)}
-      defaultValue={isExist(openByDefault) ? itemValue : null}
+      defaultValue={openByDefault ? itemValue : null}
     >
-      <Accordion.Item value={itemValue} className="accordionItem">
-        <Accordion.Trigger className="accordionTrigger">
+      <Accordion.Item value={itemValue} className="accordion__item">
+        <Accordion.Trigger className="accordion__trigger">
           {isOpen ? (
-            <Minus width={18} height={18} color="gray" />
+            <Minus width={iconSize.width} height={iconSize.height} color="gray" />
           ) : (
-            <Plus width={18} height={18} color="gray" />
+            <Plus width={iconSize.width} height={iconSize.height} color="gray" />
           )}
           <Text size="4" {...triggerStyle}>
             {triggerLabel}
           </Text>
+          {canClose ? (
+            <X
+              className="accordion__close-btn"
+              width={iconSize.width}
+              height={iconSize.height}
+              color="gray"
+              onClick={onClose}
+            />
+          ) : null}
         </Accordion.Trigger>
         <Accordion.Content>{children}</Accordion.Content>
       </Accordion.Item>

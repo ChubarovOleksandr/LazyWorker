@@ -7,7 +7,7 @@ import {
   signInWithPopup,
 } from 'firebase/auth';
 
-import { RoutesEnum } from '@enums/routes';
+import { RoutesEnum } from '@enums/routes.enum';
 
 import { SignUpFormInterface } from '../interface/interface';
 import { handleSignUpAttempt } from '../utils/utils';

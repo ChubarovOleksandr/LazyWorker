@@ -3,13 +3,12 @@ import { Timestamp } from 'firebase/firestore';
 
 import { CalendarDataType } from '@interfaces/dateDataType';
 import { TaskInterface } from '@interfaces/taskType';
-import { TaskPriorityEnum } from '@enums/priority';
-import { TaskStatusEnum } from '@enums/taskStatus';
+import { TaskPriorityEnum } from '@enums/task-priority.enum';
+import { TaskStatusEnum } from '@enums/task-status.enum';
 
 const MOCK_USER_ID = 'mock-user-id';
 
-const taskDate = (dateKey: string) =>
-  Timestamp.fromDate(dayjs(dateKey, 'DD-MM-YYYY').toDate());
+const taskDate = (dateKey: string) => Timestamp.fromDate(dayjs(dateKey, 'DD-MM-YYYY').toDate());
 
 const task = (
   id: string,

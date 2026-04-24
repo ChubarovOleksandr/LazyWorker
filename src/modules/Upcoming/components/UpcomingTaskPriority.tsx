@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Select, Text } from '@radix-ui/themes';
 
-import { TaskPriorityEnum } from '@enums/priority';
+import { TaskPriorityEnum } from '@enums/task-priority.enum';
 
 import { UpcomingTaskFieldsEnum } from '../enums/enum';
 import { UpcomingTaskAddFormInterface } from '../interfaces/interface';

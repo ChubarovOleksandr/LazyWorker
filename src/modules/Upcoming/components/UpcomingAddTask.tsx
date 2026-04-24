@@ -9,8 +9,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { scheduleStore } from '@store/scheduleStore';
 import { TaskInterface } from '@interfaces/taskType';
-import { TaskPriorityEnum } from '@enums/priority';
-import { TaskStatusEnum } from '@enums/taskStatus';
+import { TaskPriorityEnum } from '@enums/task-priority.enum';
+import { TaskStatusEnum } from '@enums/task-status.enum';
 import { getSafetyString } from '@utils/get-safety-string.ts';
 
 import { TaskGroupTitleEnum, UpcomingTaskFieldsEnum } from '../enums/enum';

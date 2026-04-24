@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { Text, TextProps } from '@radix-ui/themes';
 
-import { RoutesEnum } from '@enums/routes';
+import { RoutesEnum } from '@enums/routes.enum';
 import { getSafetyString } from '@utils/get-safety-string';
 
 import { isExist } from '../../utils/format';

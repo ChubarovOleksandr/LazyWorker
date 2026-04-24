@@ -6,13 +6,14 @@ import { CalendarTableCell } from './CalendarTableCell';
 
 interface Props {
   week: CalendarDateInterface[];
+  selectedPeriod: string;
 }
 
-export const CalendarTableRow = ({ week }: Props) => {
+export const CalendarTableRow = ({ week, selectedPeriod }: Props) => {
   return (
     <Table.Row>
       {week.map((day, index) => (
-        <CalendarTableCell day={day} key={index} />
+        <CalendarTableCell day={day} key={index} selectedPeriod={selectedPeriod} />
       ))}
     </Table.Row>
   );

@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Flex, Text } from '@radix-ui/themes';
 import { getAuth } from 'firebase/auth';
 
-import { RoutesEnum } from '@enums/routes';
+import { RoutesEnum } from '@enums/routes.enum';
 import { isExist } from '@utils/format';
 
 const NotFoundPage = () => {
@@ -14,13 +14,7 @@ const NotFoundPage = () => {
   };
 
   return (
-    <Flex
-      justify="center"
-      align="center"
-      direction="column"
-      style={{ height: '100vh' }}
-      gap="4"
-    >
+    <Flex justify="center" align="center" direction="column" style={{ height: '100vh' }} gap="4">
       <Text size="5">Страница не найдена</Text>
       <Button color="gray" highContrast onClick={handleReturn}>
         Вернуться

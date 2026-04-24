@@ -3,7 +3,7 @@ import { Flex } from '@radix-ui/themes';
 import { SignInForm } from '@modules/SignIn';
 import { FormTitles } from '@ui/FormTitles/FormTitles';
 import { Link } from '@ui/Link/Link';
-import { RoutesEnum } from '@enums/routes';
+import { RoutesEnum } from '@enums/routes.enum';
 
 const SignInPage = () => (
   <Flex justify="center" align="center" direction="column" className="sign-in">

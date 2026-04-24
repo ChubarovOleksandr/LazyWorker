@@ -1,4 +1,4 @@
-import { TaskPriorityEnum } from '@enums/priority';
+import { TaskPriorityEnum } from '@enums/task-priority.enum';
 
 import { UpcomingTaskDateVariantEnum, UpcomingTaskFieldsEnum } from '../enums/enum';
 

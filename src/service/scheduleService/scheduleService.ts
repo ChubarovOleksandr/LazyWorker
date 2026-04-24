@@ -13,7 +13,7 @@ import {
 import { db } from '@configs/firestoreConfig';
 import { TaskDocumentInterface } from '@interfaces/taskDocumentType';
 import { TaskInterface } from '@interfaces/taskType';
-import { CollectionNamesEnum } from '@enums/collectionNames';
+import { CollectionNamesEnum } from '@enums/collection-name.enum';
 
 const scheduleCollectionRef = collection(db, CollectionNamesEnum.Schedule);
 

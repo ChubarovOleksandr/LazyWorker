@@ -3,7 +3,7 @@ import { Flex } from '@radix-ui/themes';
 import { SignUpForm } from '@modules/SignUp';
 import { FormTitles } from '@ui/FormTitles/FormTitles';
 import { Link } from '@ui/Link/Link';
-import { RoutesEnum } from '@enums/routes';
+import { RoutesEnum } from '@enums/routes.enum';
 
 const SignUpPage = () => (
   <Flex justify="center" align="center" direction="column" className="sign-up">
