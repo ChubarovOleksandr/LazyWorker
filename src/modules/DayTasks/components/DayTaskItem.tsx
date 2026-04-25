@@ -59,7 +59,7 @@ export const DayTaskItem = ({ task }: DayTaskItemProps) => {
         <Text
           className={createClassName('item__title', {
             condition: isDone,
-            value: 'done',
+            value: 'item__title--done',
           })}
         >
           {title}
