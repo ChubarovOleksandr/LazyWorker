@@ -1,11 +1,15 @@
+// For Hover Cards
+
+.hover-card__description {
+  background-color: #f2faff !important;
+}
+
 .upcoming {
   flex: 3;
-  padding: 10px;
   border-radius: 10px;
   background: #f2faff;
   box-shadow: rgb(171, 171, 171) 0px 0px 7px;
-  max-height: 550px;
-  overflow-y: scroll;
+  padding: 10px;
 
   &__type-selector-wrapper {
     box-shadow: inset 0 -1px 0 0 #0009321f;
@@ -17,82 +21,46 @@
     }
   }
 
-  &__group-selector {
-    margin-top: 5px;
+  &__groups {
+    scrollbar-width: thin;
+    max-height: 568px;
+    overflow: scroll;
+    margin-right: -13px;
+    padding-right: 13px;
+    scrollbar-color: #a8a8a8 #f2faff;
+    scrollbar-width: 1px;
 
-    .upcoming__group-item {
+    .group {
       box-shadow: inset 0 -1px 0 0 #0009321f;
-    }
 
-    .upcoming__group-trigger {
-      background: none;
-      box-shadow: none;
-    }
-
-    .upcoming__group-counter {
-      width: 20px;
-      height: 20px;
-      margin-left: 7px;
-      border: 1px solid gray;
-      border-radius: 100%;
-    }
-  }
-
-  &__create-task-btn {
-    cursor: pointer;
-  }
-}
-
-.select-date__content {
-  padding: 0 !important;
-
-  .select-date__section {
-    &-item {
-      transition: background-color 0.2s ease;
-      padding: 10px 15px;
-      cursor: pointer;
-      &:hover {
-        background-color: #f0f0f0;
+      &__trigger {
+        background: none;
+        box-shadow: none;
       }
-    }
 
-    &:first-child {
-      border-bottom: 1px solid #e0e0e0;
-    }
+      &__counter {
+        width: 20px;
+        height: 20px;
+        margin-left: 7px;
+        border: 1px solid gray;
+        border-radius: 100%;
+      }
 
-    .rdp-selected .rdp-day_button {
-      background-color: #00a3c7;
-      color: #fff;
-      border: none;
-    }
+      .task {
+        &__title {
+          width: 100%;
+          text-align: left;
 
-    .rdp-root {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+          &--done {
+            color: #999;
+            text-decoration: line-through;
+          }
+        }
+      }
 
-    .rdp-today:not(.rdp-outside) {
-      font-weight: 600;
-      color: #00a3c7;
-      background: none;
-    }
-
-    .rdp-chevron {
-      width: 16px;
-      height: 16px;
-      fill: #565656;
-    }
-    .rdp-caption_label {
-      font-weight: 600;
-      font-size: 14px;
-      color: #222;
-    }
-    .rdp-day,
-    .rdp-day_button {
-      width: 35px;
-      height: 35px;
-      font-size: 14px;
+      &__create-btn {
+        cursor: pointer;
+      }
     }
   }
 }

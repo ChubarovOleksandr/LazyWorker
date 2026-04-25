@@ -16,8 +16,11 @@ interface AccordionBlockInterface {
   onClose?: OnEventTypeEmpty;
 }
 
-const iconSize = { width: 18, height: 18 };
 const itemValue = 'accordion-item';
+const iconSize = {
+  close: 22,
+  default: 18,
+};
 
 export const AccordionBlock = ({
   triggerLabel,
@@ -40,18 +43,17 @@ export const AccordionBlock = ({
       <Accordion.Item value={itemValue} className="accordion__item">
         <Accordion.Trigger className="accordion__trigger">
           {isOpen ? (
-            <Minus width={iconSize.width} height={iconSize.height} color="gray" />
+            <Minus size={iconSize.default} color="gray" />
           ) : (
-            <Plus width={iconSize.width} height={iconSize.height} color="gray" />
+            <Plus size={iconSize.default} color="gray" />
           )}
           <Text size="4" {...triggerStyle}>
             {triggerLabel}
           </Text>
           {canClose ? (
             <X
+              size={iconSize.close}
               className="accordion__close-btn"
-              width={iconSize.width}
-              height={iconSize.height}
               color="gray"
               onClick={onClose}
             />

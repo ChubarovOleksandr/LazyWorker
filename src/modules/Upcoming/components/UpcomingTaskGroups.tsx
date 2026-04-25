@@ -19,7 +19,7 @@ export const UpcomingTaskGroups = observer(() => {
   return (
     <Accordion.Root
       type="multiple"
-      className="upcoming__group-selector"
+      className="upcoming__groups"
       onValueChange={changedValues => setOpenedItems(changedValues)}
       defaultValue={defaultTaskBlockPeriod}
     >

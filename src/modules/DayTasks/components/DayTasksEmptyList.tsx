@@ -1,30 +1,20 @@
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Box, Dialog, Flex, Text } from '@radix-ui/themes';
+import { Dialog } from '@radix-ui/themes';
 import dayjs from 'dayjs';
 import { Timestamp } from 'firebase/firestore';
-import { Plus } from 'lucide-react';
-import { observer } from 'mobx-react-lite';
 
 import { scheduleStore } from '@store/scheduleStore';
 import { TaskFieldsEnum } from '@components/TaskForm/enum';
 import { TaskFormInterface } from '@components/TaskForm/interface';
+import { defaultTaskFormValues, TaskFormModal } from '@components/TaskForm/TaskForm';
 import { TaskInterface } from '@interfaces/taskType';
 import { TaskStatusEnum } from '@enums/task-status.enum';
-import { getSafetyString } from '@utils/get-safety-string.ts';
+import { today } from '@utils/date';
+import { getSafetyString } from '@utils/get-safety-string';
 import { uuidv4 } from '@utils/uuidv4';
 
-import { defaultTaskFormValues, TaskFormModal } from '../../../components/TaskForm/TaskForm';
-import { TaskGroupTitleEnum } from '../enums/enum';
-import { parseGroupTitleToDate } from '../utils/utils';
-
-interface Props {
-  period: TaskGroupTitleEnum;
-}
-
-const iconSize = 14;
-
-export const UpcomingAddTask = observer(({ period }: Props) => {
+export const DayTasksEmptyList = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const methods = useForm<TaskFormInterface>({
@@ -59,25 +49,16 @@ export const UpcomingAddTask = observer(({ period }: Props) => {
   };
 
   return (
-    <Box mt="2" mb="1" pb="2">
-      <Dialog.Root open={isOpen}>
-        <Dialog.Trigger className="group__create-btn" onClick={() => setIsOpen(true)}>
-          <Flex justify="start" align="center" gap="1" pb="1">
-            <Plus color="gray" size={iconSize} />
-            <Text color="gray" size="1">
-              Создать
-            </Text>
-          </Flex>
-        </Dialog.Trigger>
+    <Dialog.Root open={isOpen}>
+      <Dialog.Trigger className="group__create-btn" onClick={() => setIsOpen(true)}>
+        <p className="day-task__list-text">
+          Нет задач. <button className="day-task__list-create-btn">Создайте</button> первую задачу
+        </p>
+      </Dialog.Trigger>
 
-        <FormProvider {...methods}>
-          <TaskFormModal
-            date={parseGroupTitleToDate(period)}
-            handleClose={handleClose}
-            handleSave={handleSave}
-          />
-        </FormProvider>
-      </Dialog.Root>
-    </Box>
+      <FormProvider {...methods}>
+        <TaskFormModal date={today} handleClose={handleClose} handleSave={handleSave} />
+      </FormProvider>
+    </Dialog.Root>
   );
-});
+};

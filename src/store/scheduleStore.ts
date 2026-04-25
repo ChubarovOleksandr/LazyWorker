@@ -11,7 +11,9 @@ import { groupTasksByDateKey } from '@utils/group-tasks-by-date-key';
 
 class ScheduleStore {
   schedule: CalendarDataType = {};
+  daySchedule: CalendarDataType = {};
   loading = false;
+  dayLoading = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -36,6 +38,10 @@ class ScheduleStore {
         this.schedule[dateKey] = { tasks: [] };
       }
       this.schedule[dateKey].tasks = withOrder;
+
+      if (this.daySchedule && this.daySchedule[dateKey]) {
+        this.daySchedule[dateKey].tasks = withOrder;
+      }
     });
 
     try {
@@ -89,7 +95,7 @@ class ScheduleStore {
       return;
     }
 
-    const taskWithUser: TaskInterface = { ...task, userId };
+    const taskWithUserId: TaskInterface = { ...task, userId };
 
     try {
       for (const date in this.schedule) {
@@ -97,12 +103,21 @@ class ScheduleStore {
         const taskIndex = dateData.tasks.findIndex(t => t.id === task.id);
 
         if (taskIndex !== -1) {
-          dateData.tasks[taskIndex] = taskWithUser;
+          dateData.tasks[taskIndex] = taskWithUserId;
           break;
         }
       }
 
-      await scheduleService.updateTask(taskWithUser);
+      const dateKey = dayjs(task.date.toDate()).format('DD-MM-YYYY');
+      const dayData = this.daySchedule[dateKey];
+      if (dayData) {
+        const idx = dayData.tasks.findIndex(t => t.id === task.id);
+        if (idx !== -1) {
+          dayData.tasks[idx] = taskWithUserId;
+        }
+      }
+
+      await scheduleService.updateTask(taskWithUserId);
     } catch (error) {
       console.error(error);
       toast.error('Ошибка при обновлении задачи. Попробуйте еще раз', {
@@ -137,6 +152,35 @@ class ScheduleStore {
     } finally {
       runInAction(() => {
         this.loading = false;
+      });
+    }
+  }
+
+  async loadScheduleForDay(day: Date) {
+    const userId = this.getUserId();
+
+    if (!isExist(userId)) {
+      runInAction(() => {
+        this.daySchedule = {};
+      });
+      return;
+    }
+
+    this.dayLoading = true;
+
+    try {
+      const tasks = await scheduleService.getTasksForDay(userId, day);
+      runInAction(() => {
+        this.daySchedule = groupTasksByDateKey(tasks);
+      });
+    } catch (error) {
+      console.error(error);
+      toast.error('Ошибка при загрузке задач за день. Попробуйте еще раз', {
+        toastId: 'scheduleDayLoadError',
+      });
+    } finally {
+      runInAction(() => {
+        this.dayLoading = false;
       });
     }
   }

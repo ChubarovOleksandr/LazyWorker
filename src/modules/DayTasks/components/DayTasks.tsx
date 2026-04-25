@@ -1,21 +1,20 @@
-import { useSearchParams } from 'react-router-dom';
 import { Flex } from '@radix-ui/themes';
+import { observer } from 'mobx-react-lite';
 
 import { AccordionBlock } from '@components/AccordionBlock/AccordionBlock';
-import { SearchParamsEnum } from '@enums/search-params.enum';
+import { isNotEmptyArray } from '@utils/format';
 
+import { useDayTask } from '../hooks/useDayTask';
 import { getDayTaskLabel } from '../utils/utils';
 
+import { DayTasksEmptyList } from './DayTasksEmptyList';
 import { DayTasksList } from './DayTasksList';
 import { DayTasksSelectType } from './DayTasksSelectType';
 
 import '../styles/dayTask.scss';
 
-export const DayTasks = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const selectedDate = searchParams.get(SearchParamsEnum.SelectedDate);
-
-  const onClose = () => setSearchParams({});
+export const DayTasks = observer(() => {
+  const { selectedDate, onClose, tasks, isLoading } = useDayTask();
 
   return (
     <Flex className="day-task">
@@ -27,9 +26,13 @@ export const DayTasks = () => {
       >
         <>
           <DayTasksSelectType />
-          <DayTasksList />
+          {isLoading ? null : isNotEmptyArray(tasks) ? (
+            <DayTasksList tasks={tasks} />
+          ) : (
+            <DayTasksEmptyList />
+          )}
         </>
       </AccordionBlock>
     </Flex>
   );
-};
+});

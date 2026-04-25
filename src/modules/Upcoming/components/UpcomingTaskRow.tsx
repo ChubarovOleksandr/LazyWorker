@@ -1,18 +1,22 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Badge, Box, Checkbox, Flex, HoverCard, Text } from '@radix-ui/themes';
-import { Flame, Grip } from 'lucide-react';
+import { Box, Checkbox, Flex, HoverCard, Text } from '@radix-ui/themes';
+import { Grip } from 'lucide-react';
 
 import { scheduleStore } from '@store/scheduleStore';
+import { ImportantBadge } from '@ui/ImportantBadge/ImportantBadge';
 import { TaskInterface } from '@interfaces/taskType';
 import { TaskPriorityEnum } from '@enums/task-priority.enum';
 import { TaskStatusEnum } from '@enums/task-status.enum';
-import { isEmptyString } from '@utils/format';
+import { createClassName } from '@utils/create-class-name';
+import { isString } from '@utils/format';
 
 interface Props {
   task: TaskInterface;
   isEnableDrag: boolean;
 }
+
+const iconSize = 14;
 
 export const UpcomingTaskRow = ({ task, isEnableDrag }: Props) => {
   const { title, description, priority, id, status } = task;
@@ -20,6 +24,7 @@ export const UpcomingTaskRow = ({ task, isEnableDrag }: Props) => {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: id });
 
   const isTaskDone = status === TaskStatusEnum.Done;
+  const isTaskImportant = priority === TaskPriorityEnum.Important;
 
   const changeTaskStatus = () => {
     const updatedTask = {
@@ -38,54 +43,50 @@ export const UpcomingTaskRow = ({ task, isEnableDrag }: Props) => {
         transition,
       }}
     >
-      <Flex justify="between" align="center" mt="1">
-        <Flex gap="1" align="center">
-          {isEnableDrag ? (
+      <Flex justify="between" align="center" className="task" mt="1" gap="1">
+        {isEnableDrag ? (
+          <Box width="14px">
             <Grip
-              height="14"
-              width="14"
+              size={iconSize}
               color="gray"
               {...listeners}
               {...attributes}
               style={{ cursor: 'pointer' }}
             />
-          ) : (
-            <Box width="14px" />
-          )}
+          </Box>
+        ) : (
+          <Box width="14px" />
+        )}
 
-          {!isEmptyString(description) ? (
-            <HoverCard.Root>
-              <HoverCard.Trigger>
-                <Text
-                  style={{
-                    textDecoration: isTaskDone ? 'line-through' : 'none',
-                  }}
-                  size="2"
-                >
-                  {title}
-                </Text>
-              </HoverCard.Trigger>
-
-              <HoverCard.Content style={{ backgroundColor: '#f2faff' }}>
-                <Box overflowY="scroll" maxHeight="300px">
-                  <Text size="2">{description}</Text>
-                </Box>
-              </HoverCard.Content>
-            </HoverCard.Root>
-          ) : (
-            <Text style={{ textDecoration: isTaskDone ? 'line-through' : 'none' }} size="2">
+        <HoverCard.Root>
+          <HoverCard.Trigger>
+            <Text
+              className={createClassName('task__title', {
+                condition: isTaskDone,
+                value: 'task__title--done',
+              })}
+              size="2"
+            >
               {title}
             </Text>
+          </HoverCard.Trigger>
+
+          {isString(description) && (
+            <HoverCard.Content className="hover-card__description">
+              <Box overflowY="scroll" maxHeight="300px">
+                <Text size="2">{description}</Text>
+              </Box>
+            </HoverCard.Content>
           )}
-        </Flex>
+        </HoverCard.Root>
+
         <Flex align="center" gap="2">
-          {priority === TaskPriorityEnum.Important && (
-            <Badge color="orange">
-              <Flame height="14" width="14" color="orange" />
-              Важно
-            </Badge>
-          )}
-          <Checkbox checked={isTaskDone} onCheckedChange={changeTaskStatus} />
+          {isTaskImportant && <ImportantBadge />}
+          <Checkbox
+            checked={isTaskDone}
+            onCheckedChange={changeTaskStatus}
+            color={isTaskImportant ? 'orange' : 'blue'}
+          />
         </Flex>
       </Flex>
     </div>

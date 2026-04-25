@@ -19,7 +19,10 @@ export const CalendarTableCell = ({ day: { date, tasks }, selectedPeriod }: Prop
   const [searchParams, setSearchParams] = useSearchParams();
 
   const onSelectDay = () => {
-    if (!isExist(date)) {
+    const isDateAlreadySelected =
+      searchParams.get(SearchParamsEnum.SelectedDate) === `${date}-${selectedPeriod}`;
+
+    if (!isExist(date) || isDateAlreadySelected) {
       return;
     }
 

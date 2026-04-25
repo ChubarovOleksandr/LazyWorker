@@ -1,0 +1,12 @@
+.textarea-field {
+  resize: none;
+  border: 1px solid rgba($color: #000000, $alpha: 0.2);
+  width: 100%;
+  padding: 10px;
+  font-size: 13px;
+  border-radius: 5px;
+
+  &:focus {
+    border: 1px solid rgba($color: #000000, $alpha: 0.4);
+  }
+}

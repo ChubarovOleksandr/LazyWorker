@@ -5,10 +5,10 @@ const selectorMockData = ['Учеба', 'Работа', 'Хобби'];
 
 export const DayTasksSelectType = () => {
   return (
-    <Box mt="1" pb="1" className="upcoming__type-selector-wrapper">
+    <Box mt="1" pb="1" className="day-task__categories">
       <Select.Root defaultValue={defaultSelectOption} size="1">
-        <Select.Trigger className="upcoming__type-selector-trigger" />
-        <Select.Content>
+        <Select.Trigger className="day-task__categories-trigger" />
+        <Select.Content color="gray">
           <Select.Group>
             <Select.Item value={defaultSelectOption}>
               <Flex justify="center" align="center" gap="1" pr="1">
