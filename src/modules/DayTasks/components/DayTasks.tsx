@@ -27,9 +27,9 @@ export const DayTasks = observer(() => {
         <>
           <DayTasksSelectType />
           {isLoading ? null : isNotEmptyArray(tasks) ? (
-            <DayTasksList tasks={tasks} />
+            <DayTasksList tasks={tasks} date={selectedDate} />
           ) : (
-            <DayTasksEmptyList />
+            <DayTasksEmptyList date={selectedDate} />
           )}
         </>
       </AccordionBlock>

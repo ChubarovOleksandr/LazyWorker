@@ -68,6 +68,10 @@ class ScheduleStore {
 
     runInAction(() => {
       this.schedule[dateKey] = { tasks: newList };
+
+      if (this.daySchedule && this.daySchedule[dateKey]) {
+        this.daySchedule[dateKey].tasks = newList;
+      }
     });
 
     this.loading = true;
@@ -110,6 +114,7 @@ class ScheduleStore {
 
       const dateKey = dayjs(task.date.toDate()).format('DD-MM-YYYY');
       const dayData = this.daySchedule[dateKey];
+
       if (dayData) {
         const idx = dayData.tasks.findIndex(t => t.id === task.id);
         if (idx !== -1) {
@@ -170,8 +175,9 @@ class ScheduleStore {
 
     try {
       const tasks = await scheduleService.getTasksForDay(userId, day);
+
       runInAction(() => {
-        this.daySchedule = groupTasksByDateKey(tasks);
+        this.daySchedule = groupTasksByDateKey(tasks, day);
       });
     } catch (error) {
       console.error(error);

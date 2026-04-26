@@ -10,6 +10,8 @@ export const useDayTask = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedDate = searchParams.get(SearchParamsEnum.SelectedDate);
 
+  const formattedSelectedDate = dayjs(selectedDate, 'D-MM-YYYY').format('DD-MM-YYYY');
+
   const onClose = () => setSearchParams({});
 
   const { daySchedule, dayLoading: isLoading } = scheduleStore;
@@ -19,9 +21,9 @@ export const useDayTask = () => {
   }, [selectedDate]);
 
   return {
-    selectedDate,
     onClose,
-    tasks: toJS(daySchedule[selectedDate]?.tasks),
     isLoading,
+    selectedDate: formattedSelectedDate,
+    tasks: toJS(daySchedule[formattedSelectedDate]?.tasks),
   };
 };

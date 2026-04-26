@@ -1,18 +1,10 @@
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Box, Dialog, Flex, Text } from '@radix-ui/themes';
-import dayjs from 'dayjs';
-import { Timestamp } from 'firebase/firestore';
 import { Plus } from 'lucide-react';
 import { observer } from 'mobx-react-lite';
 
-import { scheduleStore } from '@store/scheduleStore';
-import { TaskFieldsEnum } from '@components/TaskForm/enum';
 import { TaskFormInterface } from '@components/TaskForm/interface';
-import { TaskInterface } from '@interfaces/taskType';
-import { TaskStatusEnum } from '@enums/task-status.enum';
-import { getSafetyString } from '@utils/get-safety-string.ts';
-import { uuidv4 } from '@utils/uuidv4';
 
 import { defaultTaskFormValues, TaskFormModal } from '../../../components/TaskForm/TaskForm';
 import { TaskGroupTitleEnum } from '../enums/enum';
@@ -31,33 +23,6 @@ export const UpcomingAddTask = observer(({ period }: Props) => {
     defaultValues: defaultTaskFormValues,
   });
 
-  const { reset } = methods;
-
-  const handleSave = async (fields: TaskFormInterface) => {
-    const dateKey = fields[TaskFieldsEnum.Date];
-
-    const newTask: Omit<TaskInterface, 'userId'> = {
-      id: uuidv4(),
-      title: fields[TaskFieldsEnum.Title],
-      description: getSafetyString(fields[TaskFieldsEnum.Details]),
-      priority: fields[TaskFieldsEnum.Priority],
-      status: TaskStatusEnum.InProgress,
-      category: '',
-      order: 0,
-      date: Timestamp.fromDate(dayjs(dateKey, 'DD-MM-YYYY').toDate()),
-    };
-
-    await scheduleStore.addTask(newTask);
-
-    reset();
-    setIsOpen(false);
-  };
-
-  const handleClose = () => {
-    reset();
-    setIsOpen(false);
-  };
-
   return (
     <Box mt="2" mb="1" pb="2">
       <Dialog.Root open={isOpen}>
@@ -71,11 +36,7 @@ export const UpcomingAddTask = observer(({ period }: Props) => {
         </Dialog.Trigger>
 
         <FormProvider {...methods}>
-          <TaskFormModal
-            date={parseGroupTitleToDate(period)}
-            handleClose={handleClose}
-            handleSave={handleSave}
-          />
+          <TaskFormModal date={parseGroupTitleToDate(period)} setIsOpen={setIsOpen} />
         </FormProvider>
       </Dialog.Root>
     </Box>

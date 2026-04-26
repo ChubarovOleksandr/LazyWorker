@@ -4,7 +4,7 @@ export const getDayTaskLabel = (selectedDate: string) => {
   const hasOtherYear = dayjs(selectedDate, 'D-MM-YYYY').year() !== dayjs().year();
 
   const formattedDate = dayjs(selectedDate, 'D-MM-YYYY').format(
-    hasOtherYear ? 'DD MMMM YYYY' : 'DD MMMM',
+    hasOtherYear ? 'D MMMM YYYY' : 'D MMMM',
   );
 
   return `Задачи на ${formattedDate}`;

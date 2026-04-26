@@ -1,9 +1,14 @@
+import { useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { closestCenter, DndContext, DragEndEvent } from '@dnd-kit/core';
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { Flex } from '@radix-ui/themes';
+import { Dialog, Flex } from '@radix-ui/themes';
 import dayjs from 'dayjs';
+import { Plus } from 'lucide-react';
 
 import { scheduleStore } from '@store/scheduleStore';
+import { TaskFormInterface } from '@components/TaskForm/interface';
+import { defaultTaskFormValues, TaskFormModal } from '@components/TaskForm/TaskForm';
 import { TaskInterface } from '@interfaces/taskType';
 
 import { isEmptyArray, isExist } from '../../../utils/format';
@@ -12,9 +17,16 @@ import { DayTaskItem } from './DayTaskItem';
 
 interface DayTasksListProps {
   tasks: TaskInterface[];
+  date: string;
 }
 
-export const DayTasksList = ({ tasks }: DayTasksListProps) => {
+export const DayTasksList = ({ tasks, date }: DayTasksListProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const methods = useForm<TaskFormInterface>({
+    defaultValues: defaultTaskFormValues,
+  });
+
   const updateTasksOrder = (newTasks: TaskInterface[]) => {
     if (!isExist(newTasks) || isEmptyArray(newTasks)) return;
 
@@ -40,10 +52,19 @@ export const DayTasksList = ({ tasks }: DayTasksListProps) => {
           {tasks.map(task => (
             <DayTaskItem key={task.id} task={task} />
           ))}
-          {/* <Flex className="item" align="center" justify="start" gap="2">
-            <Plus size={18} color="gray" />
-            Добавить задачу
-          </Flex> */}
+
+          <Dialog.Root open={isOpen}>
+            <Dialog.Trigger className="group__create-btn" onClick={() => setIsOpen(true)}>
+              <Flex className="item" align="center" justify="start" gap="2">
+                <Plus size={18} color="gray" />
+                Добавить задачу
+              </Flex>
+            </Dialog.Trigger>
+
+            <FormProvider {...methods}>
+              <TaskFormModal date={date} setIsOpen={setIsOpen} />
+            </FormProvider>
+          </Dialog.Root>
         </SortableContext>
       </DndContext>
     </Flex>

@@ -1,11 +1,18 @@
 import { useFormContext } from 'react-hook-form';
 import { Button, Dialog, Flex, Text } from '@radix-ui/themes';
 import dayjs from 'dayjs';
+import { Timestamp } from 'firebase/firestore';
 
+import { scheduleStore } from '@store/scheduleStore';
 import { TextAreaField } from '@components/TextAreaField/TextAreaField';
 import { TextField } from '@components/TextField/TextField';
 import { formConfig } from '@configs/formConfig';
+import { TaskInterface } from '@interfaces/taskType';
+import { SetStateType } from '@interfaces/utils/setStateType';
 import { TaskPriorityEnum } from '@enums/task-priority.enum';
+import { TaskStatusEnum } from '@enums/task-status.enum';
+import { getSafetyString } from '@utils/get-safety-string';
+import { uuidv4 } from '@utils/uuidv4';
 
 import { TaskFormDate } from './components/TaskFormDate';
 import { TaskFormPriority } from './components/TaskFormPriority';
@@ -16,8 +23,7 @@ import './style.scss';
 
 interface Props {
   date: string;
-  handleSave: (fields: TaskFormInterface) => Promise<void>;
-  handleClose: () => void;
+  setIsOpen: SetStateType<boolean>;
 }
 
 export const defaultTaskFormValues: TaskFormInterface = {
@@ -27,8 +33,33 @@ export const defaultTaskFormValues: TaskFormInterface = {
   [TaskFieldsEnum.Date]: dayjs().format('DD-MM-YYYY'),
 };
 
-export const TaskFormModal = ({ date, handleSave, handleClose }: Props) => {
-  const { handleSubmit } = useFormContext<TaskFormInterface>();
+export const TaskFormModal = ({ date, setIsOpen }: Props) => {
+  const { handleSubmit, reset } = useFormContext<TaskFormInterface>();
+
+  const handleSave = async (fields: TaskFormInterface) => {
+    const dateKey = fields[TaskFieldsEnum.Date];
+
+    const newTask: Omit<TaskInterface, 'userId'> = {
+      id: uuidv4(),
+      title: fields[TaskFieldsEnum.Title],
+      description: getSafetyString(fields[TaskFieldsEnum.Details]),
+      priority: fields[TaskFieldsEnum.Priority],
+      status: TaskStatusEnum.InProgress,
+      category: '',
+      order: 0,
+      date: Timestamp.fromDate(dayjs(dateKey, 'DD-MM-YYYY').toDate()),
+    };
+
+    await scheduleStore.addTask(newTask);
+
+    reset();
+    setIsOpen(false);
+  };
+
+  const handleClose = () => {
+    reset();
+    setIsOpen(false);
+  };
 
   return (
     <Dialog.Content className="task-modal">
