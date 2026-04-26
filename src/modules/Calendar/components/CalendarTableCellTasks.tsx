@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Flex, Radio, Text } from '@radix-ui/themes';
 
-import { TaskPriorityEnum } from '@enums/priority';
-import { TaskStatusEnum } from '@enums/taskStatus';
+import { TaskPriorityEnum } from '@enums/task-priority.enum';
+import { TaskStatusEnum } from '@enums/task-status.enum';
 
 import { CalendarDateInterface } from '../interfaces/interfaces';
 

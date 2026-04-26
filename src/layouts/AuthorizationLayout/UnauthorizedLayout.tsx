@@ -3,7 +3,7 @@ import { Flex } from '@radix-ui/themes';
 
 import { PageLoader } from '@components/PageLoader/PageLoader';
 import { useAuth } from '@hooks/useAuth';
-import { RoutesEnum } from '@enums/routes';
+import { RoutesEnum } from '@enums/routes.enum';
 import { isExist } from '@utils/format';
 
 const AuthorizationLayout = () => {

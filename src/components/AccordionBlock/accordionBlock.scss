@@ -1,12 +1,19 @@
-.accordionRoot {
-  width: 100%;
-  .accordionItem {
-    .accordionTrigger {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: none;
-      gap: 5px;
-    }
+.accordion {
+  &__root,
+  &__item,
+  &__trigger {
+    width: 100%;
+  }
+
+  &__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: none;
+    gap: 5px;
+  }
+
+  &__close-btn {
+    margin-left: auto;
   }
 }

@@ -7,37 +7,37 @@ import { Calendar, Calendar1, CalendarClock, Sofa, Sun } from 'lucide-react';
 
 import 'dayjs/locale/ru';
 
-import { TaskGroupTitleEnum, UpcomingTaskDateVariantEnum } from '../enums/enum';
-import { useSelectDate } from '../hooks/useSelectDate';
-import { UpcomingTaskAddFormInterface } from '../interfaces/interface';
-import { defaultDateVariants, getTranslateDateVariant } from '../utils/utils';
+import { TaskFormDateVariantEnum } from '../enum';
+import { useSelectDate } from '../hooks';
+import { TaskFormInterface } from '../interface';
+import { defaultDateVariants, getTranslateDateVariant } from '../utils';
 
 import 'react-day-picker/dist/style.css';
 
 interface Props {
-  period: TaskGroupTitleEnum;
+  date: string;
 }
 
 const defaultIconSize = 20;
 
-const iconsDateMap = {
-  [UpcomingTaskDateVariantEnum.Today]: (
+const iconsDateMap: Record<TaskFormDateVariantEnum, React.ReactElement> = {
+  [TaskFormDateVariantEnum.Today]: (
     <Calendar1 color="green" width={defaultIconSize} height={defaultIconSize} />
   ),
-  [UpcomingTaskDateVariantEnum.Tomorrow]: (
+  [TaskFormDateVariantEnum.Tomorrow]: (
     <Sun color="orange" width={defaultIconSize} height={defaultIconSize} />
   ),
-  [UpcomingTaskDateVariantEnum.Weekend]: (
+  [TaskFormDateVariantEnum.Weekend]: (
     <Sofa color="#00a3c7" width={defaultIconSize} height={defaultIconSize} />
   ),
-  [UpcomingTaskDateVariantEnum.NextWeek]: (
+  [TaskFormDateVariantEnum.NextWeek]: (
     <CalendarClock color="purple" width={defaultIconSize} height={defaultIconSize} />
   ),
 };
 
-export const UpcomingTaskDate = ({ period }: Props) => {
+export const TaskFormDate = ({ date }: Props) => {
   const [isOpenDatePopover, setIsOpenDatePopover] = useState(false);
-  const { setValue } = useFormContext<UpcomingTaskAddFormInterface>();
+  const { setValue } = useFormContext<TaskFormInterface>();
 
   const closeDatePopover = () => {
     setIsOpenDatePopover(false);
@@ -48,7 +48,7 @@ export const UpcomingTaskDate = ({ period }: Props) => {
     dateToShow,
     setSelectedDate: onDateSelect,
     handleSelectVariant,
-  } = useSelectDate(period, setValue, closeDatePopover);
+  } = useSelectDate(date, setValue, closeDatePopover);
 
   return (
     <Popover.Root
@@ -63,7 +63,7 @@ export const UpcomingTaskDate = ({ period }: Props) => {
       </Popover.Trigger>
 
       <Popover.Content
-        className="select-date__content"
+        className="select-date"
         width="275px"
         side="bottom"
         align="start"

@@ -5,7 +5,7 @@ import '@configs/firebaseConfig';
 
 import { ComingSoonPage } from '@pages/ComingSoon/ComingSoonPage';
 import { PageLoader } from '@components/PageLoader/PageLoader';
-import { RoutesEnum } from '@enums/routes';
+import { RoutesEnum } from '@enums/routes.enum';
 
 const MainPage = lazy(() => import('@pages/Main/MainPage'));
 const NotFoundPage = lazy(() => import('@pages/NotFound/NotFoundPage'));

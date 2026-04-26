@@ -17,7 +17,7 @@ export const CalendarTableBody = observer(() => {
   return (
     <Table.Body>
       {preparedRows.map((week, index) => (
-        <CalendarTableRow week={week} key={index} />
+        <CalendarTableRow week={week} key={index} selectedPeriod={selectedPeriod} />
       ))}
     </Table.Body>
   );

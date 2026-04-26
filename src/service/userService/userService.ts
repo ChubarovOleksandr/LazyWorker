@@ -2,7 +2,7 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 import { db } from '@configs/firestoreConfig';
 import { UserDocumentInterface } from '@interfaces/userDocumentType';
-import { CollectionNamesEnum } from '@enums/collectionNames';
+import { CollectionNamesEnum } from '@enums/collection-name.enum';
 
 export const userService = {
   getUserDocument: async (userId: string): Promise<UserDocumentInterface | null> => {

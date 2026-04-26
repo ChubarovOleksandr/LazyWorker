@@ -2,7 +2,7 @@ import { Button, Dialog, Flex, Text } from '@radix-ui/themes';
 
 import { ModalComponentProps } from '@store/modalStore/interface';
 import { Link } from '@ui/Link/Link';
-import { RoutesEnum } from '@enums/routes';
+import { RoutesEnum } from '@enums/routes.enum';
 
 export const ResetPasswordModal = ({ resolve }: ModalComponentProps) => (
   <Dialog.Root defaultOpen>

@@ -6,6 +6,7 @@ import {
   query,
   type QueryDocumentSnapshot,
   setDoc,
+  Timestamp,
   updateDoc,
   where,
 } from 'firebase/firestore';
@@ -13,7 +14,7 @@ import {
 import { db } from '@configs/firestoreConfig';
 import { TaskDocumentInterface } from '@interfaces/taskDocumentType';
 import { TaskInterface } from '@interfaces/taskType';
-import { CollectionNamesEnum } from '@enums/collectionNames';
+import { CollectionNamesEnum } from '@enums/collection-name.enum';
 
 const scheduleCollectionRef = collection(db, CollectionNamesEnum.Schedule);
 
@@ -27,6 +28,7 @@ export const scheduleService = {
     const q = query(scheduleCollectionRef, where('userId', '==', userId));
     const snap = await getDocs(q);
     const tasks = snap.docs.map(snapshotToTask);
+
     tasks.sort((a, b) => a.date.toMillis() - b.date.toMillis());
     return tasks;
   },
@@ -39,5 +41,27 @@ export const scheduleService = {
   updateTask: async (task: TaskInterface): Promise<void> => {
     const { id, ...payload } = task;
     await updateDoc(doc(db, CollectionNamesEnum.Schedule, id), payload);
+  },
+
+  getTasksForDay: async (userId: string, day: Date): Promise<TaskInterface[]> => {
+    const start = new Date(day);
+    start.setHours(0, 0, 0, 0);
+    const end = new Date(start);
+    end.setDate(start.getDate() + 1);
+
+    const startTs = Timestamp.fromDate(start);
+    const endTs = Timestamp.fromDate(end);
+
+    const q = query(
+      scheduleCollectionRef,
+      where('userId', '==', userId),
+      where('date', '>=', startTs),
+      where('date', '<', endTs),
+    );
+
+    const snap = await getDocs(q);
+    const tasks = snap.docs.map(snapshotToTask);
+    tasks.sort((a, b) => a.date.toMillis() - b.date.toMillis());
+    return tasks;
   },
 };

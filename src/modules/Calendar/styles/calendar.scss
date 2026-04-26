@@ -26,6 +26,10 @@
       position: relative;
       padding: 5px;
 
+      &--selected {
+        background: #dfeaf0;
+      }
+
       &:last-child {
         border-right: 1px solid #0009321f;
       }

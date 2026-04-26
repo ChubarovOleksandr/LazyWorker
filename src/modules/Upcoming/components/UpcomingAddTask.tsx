@@ -1,74 +1,34 @@
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Box, Dialog, Flex, Text } from '@radix-ui/themes';
-import dayjs from 'dayjs';
-import { Timestamp } from 'firebase/firestore';
 import { Plus } from 'lucide-react';
 import { observer } from 'mobx-react-lite';
-import { v4 as uuidv4 } from 'uuid';
 
-import { scheduleStore } from '@store/scheduleStore';
-import { TaskInterface } from '@interfaces/taskType';
-import { TaskPriorityEnum } from '@enums/priority';
-import { TaskStatusEnum } from '@enums/taskStatus';
-import { getSafetyString } from '@utils/get-safety-string.ts';
+import { TaskFormInterface } from '@components/TaskForm/interface';
 
-import { TaskGroupTitleEnum, UpcomingTaskFieldsEnum } from '../enums/enum';
-import { UpcomingTaskAddFormInterface } from '../interfaces/interface';
-
-import { UpcomingTaskForm } from './UpcomingTaskForm';
+import { defaultTaskFormValues, TaskFormModal } from '../../../components/TaskForm/TaskForm';
+import { TaskGroupTitleEnum } from '../enums/enum';
+import { parseGroupTitleToDate } from '../utils/utils';
 
 interface Props {
   period: TaskGroupTitleEnum;
 }
 
-const defaultFormValues: UpcomingTaskAddFormInterface = {
-  [UpcomingTaskFieldsEnum.Priority]: TaskPriorityEnum.Default,
-  [UpcomingTaskFieldsEnum.Title]: '',
-  [UpcomingTaskFieldsEnum.Details]: '',
-  [UpcomingTaskFieldsEnum.Date]: dayjs().format('DD-MM-YYYY'),
-};
+const iconSize = 14;
 
 export const UpcomingAddTask = observer(({ period }: Props) => {
-  const methods = useForm<UpcomingTaskAddFormInterface>({
-    defaultValues: defaultFormValues,
-  });
-
-  const { reset } = methods;
-
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleSave = async (fields: UpcomingTaskAddFormInterface) => {
-    const dateKey = fields[UpcomingTaskFieldsEnum.Date];
-
-    const newTask: Omit<TaskInterface, 'userId'> = {
-      id: uuidv4(),
-      title: fields[UpcomingTaskFieldsEnum.Title],
-      description: getSafetyString(fields[UpcomingTaskFieldsEnum.Details]),
-      priority: fields[UpcomingTaskFieldsEnum.Priority],
-      status: TaskStatusEnum.InProgress,
-      category: '',
-      order: 0,
-      date: Timestamp.fromDate(dayjs(dateKey, 'DD-MM-YYYY').toDate()),
-    };
-
-    await scheduleStore.addTask(newTask);
-
-    reset();
-    setIsOpen(false);
-  };
-
-  const handleClose = () => {
-    reset();
-    setIsOpen(false);
-  };
+  const methods = useForm<TaskFormInterface>({
+    defaultValues: defaultTaskFormValues,
+  });
 
   return (
     <Box mt="2" mb="1" pb="2">
       <Dialog.Root open={isOpen}>
-        <Dialog.Trigger className="upcoming__create-task-btn" onClick={() => setIsOpen(true)}>
+        <Dialog.Trigger className="group__create-btn" onClick={() => setIsOpen(true)}>
           <Flex justify="start" align="center" gap="1" pb="1">
-            <Plus color="gray" height="14" width="14" />
+            <Plus color="gray" size={iconSize} />
             <Text color="gray" size="1">
               Создать
             </Text>
@@ -76,7 +36,7 @@ export const UpcomingAddTask = observer(({ period }: Props) => {
         </Dialog.Trigger>
 
         <FormProvider {...methods}>
-          <UpcomingTaskForm period={period} handleClose={handleClose} handleSave={handleSave} />
+          <TaskFormModal date={parseGroupTitleToDate(period)} setIsOpen={setIsOpen} />
         </FormProvider>
       </Dialog.Root>
     </Box>

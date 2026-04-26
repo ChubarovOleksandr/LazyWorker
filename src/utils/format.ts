@@ -10,3 +10,6 @@ export const isArray = (value: unknown): value is unknown[] => Array.isArray(val
 export const isNotEmptyArray = (value: unknown[]): boolean => isArray(value) && value.length > 0;
 
 export const isEmptyArray = (value: unknown[]): boolean => isArray(value) && value.length === 0;
+
+export const isEmptyObject = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null && Object.keys(value).length === 0;

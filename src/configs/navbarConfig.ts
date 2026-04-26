@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 
 import { NavBarItemInterface } from '@layouts/NavigationLayout/interface/interface';
-import { RoutesEnum } from '@enums/routes';
+import { RoutesEnum } from '@enums/routes.enum';
 
 const onSignOut = () => {
   const auth = getAuth();

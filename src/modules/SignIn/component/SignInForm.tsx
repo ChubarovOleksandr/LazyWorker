@@ -6,15 +6,13 @@ import { FormError } from '@ui/FormError/FormError';
 import { GoogleIcon } from '@ui/GoogleIcon/GoogleIcon';
 import { Link } from '@ui/Link/Link';
 import { formConfig } from '@configs/formConfig';
-import { RoutesEnum } from '@enums/routes';
+import { RoutesEnum } from '@enums/routes.enum';
 
 import { SignInFieldsEnum } from '../enum/enum';
 import { useSignIn } from '../hooks/useSignIn';
 import { SignInFormInterface } from '../interface/interface';
 
 import '../styles/signInForm.scss';
-
-// TODO (REFACTOR) - create common Form component with FormProvider inside, also create SignInPage, SignUpPage, and import they in App.tsx + use lazy loading and check code splitting
 
 export const SignInForm = () => {
   const methods = useForm<SignInFormInterface>();

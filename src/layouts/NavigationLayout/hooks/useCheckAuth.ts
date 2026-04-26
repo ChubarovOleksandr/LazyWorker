@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { useAuth } from '@hooks/useAuth';
-import { RoutesEnum } from '@enums/routes';
+import { RoutesEnum } from '@enums/routes.enum';
 import { isExist } from '@utils/format';
 
 export const useCheckAuth = () => {
