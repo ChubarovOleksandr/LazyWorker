@@ -20,7 +20,7 @@
     padding: 10px 13px 0 0;
     scrollbar-width: thin;
     max-height: 573px;
-    overflow: scroll;
+    overflow-y: auto;
     scrollbar-color: #a8a8a8 #f2faff;
     scrollbar-width: 1px;
 
@@ -57,7 +57,7 @@
         padding-right: 5px;
         color: #666;
         max-height: 80px;
-        overflow: scroll;
+        overflow: auto;
         hyphens: auto;
         word-wrap: break-word;
         overflow-wrap: break-word;

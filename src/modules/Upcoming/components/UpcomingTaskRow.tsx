@@ -73,7 +73,7 @@ export const UpcomingTaskRow = ({ task, isEnableDrag }: Props) => {
 
           {isString(description) && (
             <HoverCard.Content className="hover-card__description">
-              <Box overflowY="scroll" maxHeight="300px">
+              <Box overflowY="auto" maxHeight="300px">
                 <Text size="2">{description}</Text>
               </Box>
             </HoverCard.Content>
