@@ -56,7 +56,13 @@ export const TaskFormDate = ({ date }: Props) => {
       onOpenChange={() => setIsOpenDatePopover(prevState => !prevState)}
     >
       <Popover.Trigger>
-        <Button size="2" variant="outline" aria-label="Выбрать дату" color="gray">
+        <Button
+          size="2"
+          variant="outline"
+          aria-label="Выбрать дату"
+          className="task-modal__date-trigger"
+          color="gray"
+        >
           <Calendar width="18" height="18" />
           <Text size="1">{dateToShow}</Text>
         </Button>
@@ -69,7 +75,7 @@ export const TaskFormDate = ({ date }: Props) => {
         align="start"
         sideOffset={5}
         style={{
-          maxHeight: '40vh',
+          maxHeight: '45vh',
           overflowY: 'auto',
         }}
       >

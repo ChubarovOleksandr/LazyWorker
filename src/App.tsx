@@ -15,6 +15,7 @@ const SignUpPage = lazy(() => import('@pages/SignUp/SignUpPage'));
 const ResetPasswordPage = lazy(() => import('@pages/ResetPassword/ResetPasswordPage'));
 const AuthorizationLayout = lazy(() => import('@layouts/AuthorizationLayout/UnauthorizedLayout'));
 const NavigationLayout = lazy(() => import('@layouts/NavigationLayout/NavigationLayout'));
+const SettingsPage = lazy(() => import('@pages/Settings/SettingsPage'));
 
 export const App = () => (
   <Suspense fallback={<PageLoader />}>
@@ -28,6 +29,7 @@ export const App = () => (
       <Route element={<NavigationLayout />}>
         <Route path={RoutesEnum.Search} element={<SearchPage />} />
         <Route path={RoutesEnum.Main} index element={<MainPage />} />
+        <Route path={RoutesEnum.Settings} element={<SettingsPage />} />
       </Route>
 
       <Route path={RoutesEnum.NotFound} element={<NotFoundPage />} />

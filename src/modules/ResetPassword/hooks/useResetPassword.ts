@@ -20,12 +20,12 @@ export const useResetPassword = () => {
   } = methods;
 
   const onSubmit = ({ email }: ResetPasswordFormInterface) => {
-    handleResetAttempt(async () => {
+    void handleResetAttempt(async () => {
       const auth = getAuth();
 
       await sendPasswordResetEmail(auth, email);
 
-      open(ResetPasswordModal);
+      void open(ResetPasswordModal);
     }, setFormError);
   };
 

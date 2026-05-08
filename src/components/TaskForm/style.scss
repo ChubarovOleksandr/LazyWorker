@@ -1,25 +1,29 @@
 .select-date {
   padding: 0 0 5px 0 !important;
-  scrollbar-color: #a8a8a8 #f2faff;
-  scrollbar-width: 1px;
+  scrollbar-color: var(--scrollbar-color-primary) var(--scrollbar-color-secondary);
+  scrollbar-width: thin;
+  background: var(--bg-modal-primary);
 
   .select-date__section {
     &-item {
       transition: background-color 0.2s ease;
       padding: 10px 15px;
       cursor: pointer;
+      color: var(--text-color-secondary);
+
       &:hover {
-        background-color: #f0f0f0;
+        background-color: var(--bg-color-primary);
       }
     }
 
     &:first-child {
-      border-bottom: 1px solid #e0e0e0;
+      border-bottom: 1px solid var(--border-primary);
     }
 
     .rdp-selected .rdp-day_button {
-      background-color: black;
-      color: #fff;
+      font-weight: 500;
+      background-color: var(--bg-color-primary);
+      color: var(--text-color-primary);
       border: none;
     }
 
@@ -30,21 +34,27 @@
     }
 
     .rdp-today:not(.rdp-outside) {
-      font-weight: 700;
-      color: black;
+      font-weight: 800;
+      color: var(--text-color-primary);
       background: none;
     }
 
     .rdp-chevron {
       width: 16px;
       height: 16px;
-      fill: #565656;
+      fill: var(--text-color-secondary);
+
+      &:hover {
+        fill: var(--text-color-primary);
+      }
     }
+
     .rdp-caption_label {
       font-weight: 600;
       font-size: 14px;
-      color: #222;
+      color: var(--text-color-secondary);
     }
+
     .rdp-day,
     .rdp-day_button {
       width: 35px;
@@ -55,8 +65,25 @@
 }
 
 .task-modal {
+  background: var(--bg-modal-primary);
+
+  &__date-trigger, &__priority-trigger {
+    background: none;
+  }
+
+  &__cancel-btn {
+    cursor: pointer;
+    background: none;
+    color: var(--text-color-secondary);
+    transition: all .25s;
+
+    &:hover {
+      background: var(--bg-color-primary);
+    }
+  }
+
   &__save-btn {
-    background-color: black;
-    border: none;
+    background: var(--bg-btn-primary);
+    cursor: pointer;
   }
 }

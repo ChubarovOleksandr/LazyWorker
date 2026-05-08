@@ -1,10 +1,10 @@
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Text, TextProps } from '@radix-ui/themes';
 
 import { RoutesEnum } from '@enums/routes.enum';
+import { isExist } from '@utils/format.ts';
 import { getSafetyString } from '@utils/get-safety-string';
-
-import { isExist } from '../../utils/format';
 
 import './link.scss';
 
@@ -19,7 +19,7 @@ interface LinkProps {
 
 export const Link = ({ to, label, children, textProps, linkStyles, className }: LinkProps) => {
   return (
-    <NavLink className={'custom-link' + getSafetyString(className)} style={linkStyles} to={to}>
+    <NavLink className={`custom-link ${getSafetyString(className)}`} style={linkStyles} to={to}>
       <Text {...textProps}>{isExist(label) ? label : children}</Text>
     </NavLink>
   );

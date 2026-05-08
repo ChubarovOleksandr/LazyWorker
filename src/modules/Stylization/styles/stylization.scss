@@ -1,0 +1,18 @@
+.stylization {
+  margin-top: 20px;
+  padding-left: 15px;
+
+  .theme {
+    max-width: 420px;
+
+    &__select-trigger {
+      width: 100%;
+      min-width: 200px;
+    }
+
+    &__hint {
+      color: var(--text-color-secondary);
+      font-weight: 400;
+    }
+  }
+}

@@ -1,9 +1,9 @@
 import { FormProvider, useForm } from 'react-hook-form';
-import { Button, Text } from '@radix-ui/themes';
+import { Button } from '@radix-ui/themes';
 
+import { AuthGoogleButton } from '@components/AuthGoogleButton/AuthGoogleButton.tsx';
 import { TextField } from '@components/TextField/TextField';
 import { FormError } from '@ui/FormError/FormError';
-import { GoogleIcon } from '@ui/GoogleIcon/GoogleIcon';
 import { formConfig } from '@configs/formConfig';
 
 import { SignUpFieldsEnum } from '../enum/enum';
@@ -55,19 +55,11 @@ export const SignUpForm = () => {
         >
           Создать аккаунт
         </Button>
-        <Button
-          mt="4"
-          size="3"
-          type="button"
-          onClick={signUpWithGoogle}
-          disabled={isSubmitting}
-          className="sign-up__google-btn"
-        >
-          <GoogleIcon width="24" height="24" />
-          <Text color="gray" highContrast>
-            Зарегистрироваться c Google
-          </Text>
-        </Button>
+        <AuthGoogleButton
+          label=" Зарегистрироваться c Google"
+          callback={signUpWithGoogle}
+          isSubmitting={isSubmitting}
+        />
       </form>
     </FormProvider>
   );

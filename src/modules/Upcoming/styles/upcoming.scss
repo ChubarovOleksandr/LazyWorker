@@ -1,18 +1,19 @@
 // For Hover Cards
 
 .hover-card__description {
-  background-color: #f2faff !important;
+  background-color: var(----bg-color-primary) !important;
 }
 
 .upcoming {
   flex: 3;
-  border-radius: 10px;
-  background: #f2faff;
-  box-shadow: rgb(171, 171, 171) 0px 0px 7px;
   padding: 10px;
+  border-radius: 10px;
+  background: var(--bg-color-secondary);
+  box-shadow: var(--box-shadow-color-secondary) 0 0 7px;
+  max-height: 550px;
 
   &__type-selector-wrapper {
-    box-shadow: inset 0 -1px 0 0 #0009321f;
+    box-shadow: inset 0 -1px 0 0 var(--border-primary);
     width: 100%;
 
     .upcoming__type-selector-trigger {
@@ -22,16 +23,15 @@
   }
 
   &__groups {
-    scrollbar-width: thin;
     max-height: 568px;
     overflow-y: auto;
     margin-right: -13px;
     padding-right: 13px;
-    scrollbar-color: #a8a8a8 #f2faff;
-    scrollbar-width: 1px;
+    scrollbar-color: var(--scrollbar-color-primary) var(--scrollbar-color-secondary);
+    scrollbar-width: thin;
 
     .group {
-      box-shadow: inset 0 -1px 0 0 #0009321f;
+      box-shadow: inset 0 -1px 0 0 var(--border-primary);
 
       &__trigger {
         background: none;
@@ -39,11 +39,19 @@
       }
 
       &__counter {
+        position: relative;
         width: 20px;
         height: 20px;
         margin-left: 7px;
         border: 1px solid gray;
         border-radius: 100%;
+
+        span {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-46%, -55%);
+        }
       }
 
       .task {

@@ -1,9 +1,9 @@
 import { FormProvider, useForm } from 'react-hook-form';
-import { Button, Text } from '@radix-ui/themes';
+import { Button } from '@radix-ui/themes';
 
+import { AuthGoogleButton } from '@components/AuthGoogleButton/AuthGoogleButton.tsx';
 import { TextField } from '@components/TextField/TextField';
 import { FormError } from '@ui/FormError/FormError';
-import { GoogleIcon } from '@ui/GoogleIcon/GoogleIcon';
 import { Link } from '@ui/Link/Link';
 import { formConfig } from '@configs/formConfig';
 import { RoutesEnum } from '@enums/routes.enum';
@@ -48,6 +48,7 @@ export const SignInForm = () => {
         />
         <Link
           to={RoutesEnum.ResetPassword}
+          className="sign-in__forget-link"
           textProps={{ size: '2', weight: 'bold' }}
           label="Забыл пароль"
         />
@@ -60,19 +61,11 @@ export const SignInForm = () => {
         >
           Войти
         </Button>
-        <Button
-          mt="4"
-          size="3"
-          type="button"
-          onClick={signInWithGoogle}
-          disabled={isSubmitting}
-          className="sign-in__google-btn"
-        >
-          <GoogleIcon width="24" height="24" />
-          <Text color="gray" highContrast>
-            Авторизоваться с Google
-          </Text>
-        </Button>
+        <AuthGoogleButton
+          label="Авторизоваться с Google"
+          callback={signInWithGoogle}
+          isSubmitting={isSubmitting}
+        />
       </form>
     </FormProvider>
   );

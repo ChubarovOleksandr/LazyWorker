@@ -1,5 +1,6 @@
 .textarea-field {
   resize: none;
+  background: var(--bg-input-field);
   border: 1px solid rgba($color: #000000, $alpha: 0.2);
   width: 100%;
   padding: 10px;

@@ -11,7 +11,12 @@ const SignInPage = () => (
 
     <SignInForm />
 
-    <Link to={RoutesEnum.SignUp} linkStyles={{ marginTop: '20px' }} textProps={{ size: '3' }}>
+    <Link
+      to={RoutesEnum.SignUp}
+      className="sign-in__link"
+      linkStyles={{ marginTop: '20px' }}
+      textProps={{ size: '3' }}
+    >
       Нет аккаунта? <b>Создайте новый</b>
     </Link>
   </Flex>

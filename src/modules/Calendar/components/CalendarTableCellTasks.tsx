@@ -3,8 +3,11 @@ import { Box, Flex, Radio, Text } from '@radix-ui/themes';
 
 import { TaskPriorityEnum } from '@enums/task-priority.enum';
 import { TaskStatusEnum } from '@enums/task-status.enum';
+import { createClassName } from '@utils/create-class-name.ts';
 
 import { CalendarDateInterface } from '../interfaces/interfaces';
+
+const getIsTaskImportant = (taskStatus: TaskPriorityEnum) => taskStatus === TaskPriorityEnum.Important;
 
 export const CalendarTableCellTasks = ({ tasks }: Pick<CalendarDateInterface, 'tasks'>) => {
   return (
@@ -22,8 +25,11 @@ export const CalendarTableCellTasks = ({ tasks }: Pick<CalendarDateInterface, 't
                   size="1"
                   value={task.title}
                   checked={task.status === TaskStatusEnum.Done}
-                  color={task.priority === TaskPriorityEnum.Important ? 'orange' : 'gray'}
                   variant="soft"
+                  className={createClassName({
+                    condition: getIsTaskImportant(task.priority),
+                    value: 'important',
+                  })}
                 />
                 <Text as="label" size="1" className="table__cell-task-title">
                   {task.title}

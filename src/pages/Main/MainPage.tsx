@@ -5,7 +5,7 @@ import { DayTasks } from '@modules/DayTasks';
 import { Upcoming } from '@modules/Upcoming';
 import { SearchParamsEnum } from '@enums/search-params.enum';
 
-import './styles/mainPage.scss';
+import './mainPage.scss';
 
 const MainPage = () => {
   const [searchParams] = useSearchParams();

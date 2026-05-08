@@ -22,7 +22,7 @@ export const TaskFormPriority = () => {
 
   return (
     <Select.Root defaultValue={TaskPriorityEnum.Default} onValueChange={onChangePriority}>
-      <Select.Trigger>
+      <Select.Trigger className="task-modal__priority-trigger">
         <Text size="1" color="gray" weight="medium">
           Приоритет: {getIsDefaultPriority(selectedPriority) ? 'Обычный' : 'Высокий'}
         </Text>

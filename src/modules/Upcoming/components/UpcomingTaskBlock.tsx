@@ -52,9 +52,7 @@ export const UpcomingTaskBlock = ({ tasks, title, isOpened }: Props) => {
           <Text size="1">{title}</Text>
 
           <Box className="group__counter">
-            <Text size="1" color="gray">
-              {tasks.length}
-            </Text>
+            <span>{tasks.length}</span>
           </Box>
         </Flex>
       </Accordion.Trigger>
