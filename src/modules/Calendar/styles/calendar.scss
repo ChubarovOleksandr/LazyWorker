@@ -4,7 +4,7 @@
   border-radius: 10px;
   background: var(--bg-color-secondary);
   box-shadow: var(--box-shadow-color-secondary) 0 0 7px;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   .chevron {
     cursor: pointer;

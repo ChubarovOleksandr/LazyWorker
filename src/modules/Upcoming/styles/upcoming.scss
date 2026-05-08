@@ -24,7 +24,7 @@
 
   &__groups {
     max-height: 568px;
-    overflow: scroll;
+    overflow-y: auto;
     margin-right: -13px;
     padding-right: 13px;
     scrollbar-color: var(--scrollbar-color-primary) var(--scrollbar-color-secondary);

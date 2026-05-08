@@ -19,7 +19,7 @@
     margin: 0 -13px 0 0;
     padding: 10px 13px 0 0;
     max-height: 573px;
-    overflow: scroll;
+    overflow: auto;
     scrollbar-color: var(--scrollbar-color-primary) var(--scrollbar-color-secondary);
     scrollbar-width: thin;
 
@@ -57,7 +57,7 @@
         padding-right: 5px;
         color: #666;
         max-height: 80px;
-        overflow: scroll;
+        overflow: auto;
         hyphens: auto;
         word-wrap: break-word;
         overflow-wrap: break-word;
