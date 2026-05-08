@@ -27,7 +27,7 @@
     "react-loading-skeleton": "^3.5.0",
     "react-router-dom": "^7.14.0",
     "react-toastify": "^11.0.5",
-    "uuid": "^13.0.0"
+    "uuid": "^13.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -46,6 +46,7 @@
     "eslint-plugin-simple-import-sort": "^13.0.0",
     "eslint-plugin-unused-imports": "^4.4.1",
     "globals": "^17.4.0",
+    "prettier": "^3.8.3",
     "rollup-plugin-visualizer": "^7.0.1",
     "sass": "^1.99.0",
     "typescript": "^6.0.2",

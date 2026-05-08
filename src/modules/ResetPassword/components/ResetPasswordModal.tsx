@@ -20,8 +20,8 @@ export const ResetPasswordModal = ({ resolve }: ModalComponentProps) => (
         >
           <Link
             to={RoutesEnum.SignIn}
-            textProps={{ size: '2', weight: 'bold' }}
-            linkStyles={{ color: '#fff' }}
+            textProps={{ size: '2' }}
+            className="reset-password__modal-btn"
             label="Вернуться"
           />
         </Button>

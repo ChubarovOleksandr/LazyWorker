@@ -5,7 +5,11 @@
     width: 400px;
   }
 
-  .sign-in__submit-btn {
+  &__forget-link, &__link {
+    color: var(--text-color-primary) !important;
+  }
+
+  &__submit-btn {
     background: #000;
     transition: background 0.2s;
 
@@ -17,10 +21,5 @@
     &:disabled {
       background: rgb(157, 157, 157);
     }
-  }
-
-  .sign-in__google-btn {
-    background: #fff;
-    border: 1px solid rgb(211, 211, 211);
   }
 }

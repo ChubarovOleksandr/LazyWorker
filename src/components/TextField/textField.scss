@@ -6,12 +6,14 @@
   width: 100%;
 
   .textField-input {
-    border: 1px solid rgba($color: #000000, $alpha: 0.3);
+    background: var(--bg-input-field);
+    border: 1px solid var(--border-primary);
     border-radius: 10px;
     height: 40px;
     padding: 0 12px;
+
     &.error {
-      border-color: #c40006d3;
+      border-color: var(--error-color);
     }
   }
 }

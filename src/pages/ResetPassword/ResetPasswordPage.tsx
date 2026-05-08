@@ -16,6 +16,7 @@ const ResetPasswordPage = () => (
 
     <Link
       to={RoutesEnum.SignIn}
+      className="reset-password__link"
       textProps={{ size: '2', weight: 'bold' }}
       linkStyles={{ marginTop: '16px' }}
       label="Вернуться"

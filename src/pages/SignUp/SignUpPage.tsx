@@ -14,7 +14,12 @@ const SignUpPage = () => (
 
     <SignUpForm />
 
-    <Link to={RoutesEnum.SignIn} linkStyles={{ marginTop: '20px' }} textProps={{ size: '3' }}>
+    <Link
+      to={RoutesEnum.SignIn}
+      className="sign-up__link"
+      linkStyles={{ marginTop: '20px' }}
+      textProps={{ size: '3' }}
+    >
       Уже есть аккаунт? <b>Авторизуйтесь</b>
     </Link>
   </Flex>

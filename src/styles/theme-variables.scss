@@ -1,0 +1,49 @@
+:root {
+  // background
+  --bg-color-primary: #dfeaf0;
+  --bg-color-secondary: #f2faff;
+  --bg-color-important: #fb7845;
+  --bg-input-field: rgba(0, 0, 0, 0);
+  --bg-modal-primary: #ffffff;
+  --bg-btn-primary: #000000;
+
+  // text color
+  --text-color-primary: #000000;
+  --text-color-secondary: #737373;
+
+  // box shadow
+  --box-shadow-color-secondary: #ABABABFF;
+
+  // border
+  --border-primary: #0009321f;
+
+  // other
+  --error-color: #c40006d3;
+  --scrollbar-color-primary: #a8a8a8;
+  --scrollbar-color-secondary: #f2faff;
+}
+
+html[data-theme="dark"] {
+  // background
+  --bg-color-primary: #1a1b26;
+  --bg-color-secondary: #121219;
+  --bg-color-important: #ac3004;
+  --bg-input-field: rgba(255, 255, 255, 0.1);
+  --bg-modal-primary: #121219;
+  --bg-btn-primary: #0d0d13;
+
+  // text color
+  --text-color-primary: #ffffff;
+  --text-color-secondary: #979191;
+
+  // box shadow
+  --box-shadow-color-secondary: #1d2430; // for bg-color-secondary
+
+  // border
+  --border-primary: #F8F8F81F;
+
+  // other
+  --error-color: #c40006d3;
+  --scrollbar-color-primary: #979191;
+  --scrollbar-color-secondary: rgba(0, 0, 0, 0);
+}

@@ -12,6 +12,6 @@ export const handleSignUpAttempt = async (
     return await fetchFn();
   } catch (error: unknown) {
     setError(getAuthErrorMessage(error, 'Не удалось зарегистрироваться.'));
-    console.log('Sign-up error:', error);
+    console.error('Sign-up error:', error);
   }
 };

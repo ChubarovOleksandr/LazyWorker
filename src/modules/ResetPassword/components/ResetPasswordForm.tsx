@@ -31,7 +31,6 @@ export const ResetPasswordForm = () => {
           size="3"
           loading={isSubmitting}
           type="submit"
-          highContrast
           className="reset-password__send-btn"
         >
           Отправить

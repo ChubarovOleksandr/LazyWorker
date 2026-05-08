@@ -39,7 +39,7 @@ export const navbarList: NavBarItemInterface[] = [
   },
   {
     icon: Settings,
-    linkTo: RoutesEnum.ComingSoon,
+    linkTo: RoutesEnum.Settings,
     title: 'Настройки',
   },
   {

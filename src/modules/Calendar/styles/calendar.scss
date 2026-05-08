@@ -2,8 +2,8 @@
   flex: 9;
   padding: 10px;
   border-radius: 10px;
-  background: #f2faff;
-  box-shadow: rgb(171, 171, 171) 0px 0px 7px;
+  background: var(--bg-color-secondary);
+  box-shadow: var(--box-shadow-color-secondary) 0 0 7px;
   overflow-y: scroll;
 
   .chevron {
@@ -22,16 +22,16 @@
 
     &__cell {
       height: 100px;
-      border-left: 1px solid #0009321f;
+      border-left: 1px solid var(--border-primary);
       position: relative;
       padding: 5px;
 
       &--selected {
-        background: #dfeaf0;
+        background: var(--bg-color-primary);
       }
 
       &:last-child {
-        border-right: 1px solid #0009321f;
+        border-right: 1px solid var(--border-primary);
       }
 
       &-date {
@@ -43,6 +43,7 @@
         right: 3px;
         width: 25px;
         height: 25px;
+
         &.current-day {
           font-weight: bold;
           font-size: 16px;
@@ -55,6 +56,11 @@
 
       &-task {
         margin-bottom: 5px;
+
+        .important {
+          background: var(--bg-color-important);
+          border-radius: 100%;
+        }
 
         &-title {
           white-space: nowrap;

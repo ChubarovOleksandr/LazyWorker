@@ -1,12 +1,12 @@
 .day-task {
   flex: 3;
   border-radius: 10px;
-  background: #f2faff;
-  box-shadow: rgb(171, 171, 171) 0px 0px 7px;
+  background: var(--bg-color-secondary);
+  box-shadow: var(--box-shadow-color-secondary) 0 0 7px;
   padding: 10px;
 
   &__categories {
-    box-shadow: inset 0 -1px 0 0 #0009321f;
+    box-shadow: inset 0 -1px 0 0 var(--box-shadow-color-secondary);
     width: 100%;
 
     &-trigger {
@@ -18,22 +18,22 @@
   &__list {
     margin: 0 -13px 0 0;
     padding: 10px 13px 0 0;
-    scrollbar-width: thin;
     max-height: 573px;
     overflow: scroll;
-    scrollbar-color: #a8a8a8 #f2faff;
-    scrollbar-width: 1px;
+    scrollbar-color: var(--scrollbar-color-primary) var(--scrollbar-color-secondary);
+    scrollbar-width: thin;
 
     .item {
-      background: rgba($color: #dfeaf0, $alpha: 0.5);
+      display: grid;
+      grid-template-columns: 1fr 18fr 1fr;
+      align-items: center;
+      column-gap: 10px;
+      background: var(--bg-color-primary);
       padding: 10px;
       border-radius: 10px;
-      flex-wrap: wrap;
-      flex: 1 9 1;
 
       &__content {
-        max-width: 90%;
-        padding-left: 10px;
+        min-width: 0;
       }
 
       &__title {
@@ -48,7 +48,7 @@
 
         &--done {
           text-decoration: line-through;
-          color: #999;
+          color: gray;
         }
       }
 
@@ -61,15 +61,16 @@
         hyphens: auto;
         word-wrap: break-word;
         overflow-wrap: break-word;
-        scrollbar-color: #afafaf #f2faff;
+        scrollbar-color: var(--scrollbar-color-primary) var(--scrollbar-color-secondary);
         scrollbar-width: thin;
       }
 
       &__checkbox {
-        margin-left: auto;
+        justify-self: end;
       }
 
       &__categories {
+        grid-column: 1 / -1;
         margin: 13px 0 0 23px;
         width: 100%;
       }

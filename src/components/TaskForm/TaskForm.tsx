@@ -90,11 +90,16 @@ export const TaskFormModal = ({ date, setIsOpen }: Props) => {
       </Flex>
 
       <TextAreaField name={TaskFieldsEnum.Details} placeholder="Описание" />
-      <Flex align="center" justify="end" gap="5" mt="5">
-        <Button variant="ghost" size="3" color="gray" onClick={handleClose}>
+      <Flex align="center" justify="end" gap="4" mt="5">
+        <Button size="2" className="task-modal__cancel-btn" onClick={handleClose}>
           Закрыть
         </Button>
-        <Button variant="solid" className="task-modal__save-btn" onClick={handleSubmit(handleSave)}>
+        <Button
+          variant="solid"
+          size="2"
+          className="task-modal__save-btn"
+          onClick={handleSubmit(handleSave)}
+        >
           Сохранить
         </Button>
       </Flex>

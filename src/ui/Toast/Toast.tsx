@@ -1,6 +1,9 @@
 import { ToastContainer } from 'react-toastify';
+import { observer } from 'mobx-react-lite';
 
-export const Toast = () => (
+import { themeStore } from '@store/themeStore';
+
+export const Toast = observer(() => (
   <ToastContainer
     position="top-center"
     autoClose={2500}
@@ -12,6 +15,6 @@ export const Toast = () => (
     pauseOnFocusLoss
     draggable
     pauseOnHover
-    theme="light"
+    theme={themeStore.radixAppearance}
   />
-);
+));

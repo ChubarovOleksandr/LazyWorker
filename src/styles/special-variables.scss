@@ -1,0 +1,13 @@
+:root {
+  // google button
+  --text-google-btn: #0d0d13;
+  --bg-google-btn: rgba(0, 0, 0, 0);
+  --border-google-btn: #cfcfcf;
+}
+
+html[data-theme="dark"] {
+  // google button
+  --text-google-btn: #d6d6d6;
+  --bg-google-btn: rgba(0, 0, 0, 0);
+  --border-google-btn: #5c5c5c;
+}

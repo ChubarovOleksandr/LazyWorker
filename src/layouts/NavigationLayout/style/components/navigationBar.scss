@@ -4,9 +4,9 @@
   justify-content: space-between;
   margin: 10px 5px;
   padding: 2px;
-  background: #f2faff;
+  background: var(--bg-color-secondary);
   border-radius: 10px;
-  box-shadow: rgb(171, 171, 171) 0px 0px 7px;
+  box-shadow: var(--box-shadow-color-secondary) 0 0 7px;
   height: 97vh;
 
   .top .navbar__item {
@@ -14,7 +14,7 @@
   }
 
   .bottom .navbar__item {
-    margin-top: 3px 0 0 0;
+    margin-top: 3px;
   }
 
   .navbar__item {
@@ -27,7 +27,7 @@
     transition: all 0.2s;
 
     &:hover {
-      background: #e0e8f0;
+      background: var(--bg-color-primary);
     }
     &.active {
       background: rgb(47, 47, 47);

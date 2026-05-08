@@ -1,0 +1,24 @@
+.settingsPage {
+  padding: 10px;
+  margin: 10px 20px;
+  border-radius: 10px;
+  background: var(--bg-color-secondary);
+  box-shadow: var(--box-shadow-color-secondary) 0 0 7px;
+
+  h1 {
+    font-size: 18px;
+    font-weight: 400;
+    padding-left: 15px;
+  }
+
+  h2 {
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  h3 {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-color-secondary);
+  }
+}
