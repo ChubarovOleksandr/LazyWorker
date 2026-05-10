@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import { useHandleClickOutside } from '@hooks/useHandleClickOutside';
+import { isNotEmptyArray } from '@utils/format.ts';
 
 import { globalSearchStore } from '../store/globalSearchStore';
 import { findSuggestionsByText, getRequestHistory } from '../utils/utils';
@@ -33,7 +34,7 @@ export const GlobalSearch = observer(() => {
         searchText={searchText}
         setSearchText={setSearchText}
         setIsSuggestionsOpen={setIsSuggestionsOpen}
-        isSuggestionsOpen={isSuggestionsOpen}
+        isSuggestionsOpen={isSuggestionsOpen && isNotEmptyArray(filteredHistory)}
       />
       <GlobalSearchSuggestions
         isOpen={isSuggestionsOpen}

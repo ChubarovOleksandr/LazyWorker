@@ -46,9 +46,11 @@ export const GlobalSearchInput = ({
           value: 'isOpen',
         })}
       />
-      <button className="global-search__find-btn" onClick={onSearch} disabled={!isInputNotEmpty}>
-        <SearchIcon />
-      </button>
+      {isInputNotEmpty && (
+        <button className="global-search__find-btn" onClick={onSearch}>
+          <SearchIcon color="black" />
+        </button>
+      )}
     </label>
   );
 };

@@ -1,7 +1,7 @@
 import { Flex } from '@radix-ui/themes';
 import { DeleteIcon } from 'lucide-react';
 
-import { isArray } from '../../../utils/format';
+import { isNotEmptyArray } from '@utils/format.ts';
 
 interface GlobalSearchSuggestionsProps {
   isOpen: boolean;
@@ -25,24 +25,24 @@ export const GlobalSearchSuggestions = ({
   };
 
   return (
-    isOpen && (
+    isOpen &&
+    isNotEmptyArray(searchHistory) && (
       <Flex className="global-search__suggestions" direction="column" gap="1">
-        {isArray(searchHistory) &&
-          searchHistory.map(suggestion => (
-            <Flex
-              key={suggestion}
-              className="global-search__suggestion"
-              align="center"
-              justify="between"
-              onClick={() => handleSuggestionClick(suggestion)}
-            >
-              {suggestion}
-              <DeleteIcon
-                className="global-search__delete-btn"
-                onClick={e => deleteSuggestion(e, suggestion)}
-              />
-            </Flex>
-          ))}
+        {searchHistory.map(suggestion => (
+          <Flex
+            key={suggestion}
+            className="global-search__suggestion"
+            align="center"
+            justify="between"
+            onClick={() => handleSuggestionClick(suggestion)}
+          >
+            {suggestion}
+            <DeleteIcon
+              className="global-search__delete-btn"
+              onClick={e => deleteSuggestion(e, suggestion)}
+            />
+          </Flex>
+        ))}
       </Flex>
     )
   );
