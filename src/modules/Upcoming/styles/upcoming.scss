@@ -11,6 +11,8 @@
   background: var(--bg-color-secondary);
   box-shadow: var(--box-shadow-color-secondary) 0 0 7px;
   max-height: 550px;
+  display: flex;
+  flex-direction: column;
 
   &__type-selector-wrapper {
     box-shadow: inset 0 -1px 0 0 var(--border-primary);
