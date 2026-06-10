@@ -11,6 +11,7 @@ import { App } from './App';
 
 import '@radix-ui/themes/styles.css';
 import './styles/nullstyle.scss';
+import './styles/fonts.scss';
 import './styles/theme-variables.scss';
 import './styles/special-variables.scss';
 

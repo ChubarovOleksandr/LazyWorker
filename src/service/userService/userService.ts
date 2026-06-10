@@ -12,10 +12,17 @@ export const userService = {
   },
 
   setUserDocument: async (userId: string, data: UserDocumentInterface): Promise<void> => {
-    await setDoc(doc(db, CollectionNamesEnum.User, userId), data, { merge: true });
+    await setDoc(doc(db, CollectionNamesEnum.User, userId), data);
   },
 
-  mergeUserSettings: async (userId: string, partial: Partial<UserSettingsInterface>): Promise<void> => {
-    await setDoc(doc(db, CollectionNamesEnum.User, userId), { settings: partial }, { merge: true });
+  mergeUserSettings: async (
+    userId: string,
+    newSettings: Partial<UserSettingsInterface>,
+  ): Promise<void> => {
+    await setDoc(
+      doc(db, CollectionNamesEnum.User, userId),
+      { settings: newSettings },
+      { merge: true },
+    );
   },
 };

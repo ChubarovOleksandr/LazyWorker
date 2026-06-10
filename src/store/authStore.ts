@@ -11,8 +11,20 @@ class AuthStore {
     makeAutoObservable(this);
   }
 
-  get userId(): string | undefined {
+  get userId() {
     return this.user?.uid;
+  }
+
+  get isAuthenticated(): boolean {
+    return Boolean(this.userId);
+  }
+
+  get requiredUserId(): string {
+    if (!this.userId) {
+      throw new Error('User is not authenticated');
+    }
+
+    return this.userId;
   }
 }
 
