@@ -21,19 +21,30 @@ class ThemeStore {
     return this.theme === AppThemeEnum.Dark ? AppThemeEnum.Dark : AppThemeEnum.Light;
   }
 
-  syncFromSources = async () => {
-    const userId = authStore.userId;
+  private syncFromLocalStorage() {
+    const local = getFromLocalStorage(localStorageKeys.AppTheme, AppThemeEnum.Light);
 
-    const persist =
-      (await userService.getUserDocument(userId))?.settings?.shouldUseThemeByDefault ?? false;
+    runInAction(() => {
+      this.persistToAccount = false;
+      this.theme = isAppTheme(local) ? local : AppThemeEnum.Light;
+    });
+  }
+
+  syncFromSources = async () => {
+    if (!authStore.isAuthenticated) {
+      this.syncFromLocalStorage();
+      return;
+    }
+
+    const userDocument = await userService.getUserDocument(authStore.requiredUserId);
+    const persist = userDocument?.settings?.shouldUseThemeByDefault ?? false;
 
     runInAction(() => {
       this.persistToAccount = persist;
     });
 
-    if (persist && userId) {
-      const doc = await userService.getUserDocument(userId);
-      const t = doc?.settings?.theme;
+    if (persist) {
+      const t = userDocument?.settings?.theme;
 
       if (isAppTheme(t)) {
         runInAction(() => {
@@ -43,11 +54,7 @@ class ThemeStore {
       return;
     }
 
-    const local = getFromLocalStorage(localStorageKeys.AppTheme, AppThemeEnum.Light);
-
-    runInAction(() => {
-      this.theme = isAppTheme(local) ? local : AppThemeEnum.Light;
-    });
+    this.syncFromLocalStorage();
   };
 
   setTheme = async (next: AppThemeEnum) => {
@@ -55,8 +62,10 @@ class ThemeStore {
       this.theme = next;
     });
 
-    if (this.persistToAccount && authStore.userId) {
-      await userService.mergeUserSettings(authStore.userId, { theme: next });
+    if (this.persistToAccount && authStore.isAuthenticated) {
+      saveInLocalStorage(localStorageKeys.AppTheme, next);
+
+      await userService.mergeUserSettings(authStore.requiredUserId, { theme: next });
       return;
     }
 
@@ -68,8 +77,8 @@ class ThemeStore {
       this.persistToAccount = value;
     });
 
-    if (authStore.userId) {
-      await userService.mergeUserSettings(authStore.userId, {
+    if (authStore.isAuthenticated) {
+      await userService.mergeUserSettings(authStore.requiredUserId, {
         theme: this.theme,
         shouldUseThemeByDefault: value,
       });

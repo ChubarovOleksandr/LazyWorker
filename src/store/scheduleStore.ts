@@ -6,7 +6,6 @@ import { scheduleService } from '@service/scheduleService/scheduleService';
 import { authStore } from '@store/authStore';
 import { CalendarDataType } from '@interfaces/dateDataType';
 import { TaskInterface } from '@interfaces/taskType';
-import { isExist } from '@utils/format.ts';
 import { groupTasksByDateKey } from '@utils/group-tasks-by-date-key';
 
 class ScheduleStore {
@@ -19,19 +18,12 @@ class ScheduleStore {
     makeAutoObservable(this);
   }
 
-  private getUserId(): string | undefined {
-    return authStore.userId;
+  private getUserId(): string {
+    return authStore.requiredUserId;
   }
 
   async setDateTasks(dateKey: string, tasks: TaskInterface[]) {
-    const userId = this.getUserId();
-
-    if (!isExist(userId)) {
-      toast.error('Войдите в аккаунт', { toastId: 'authRequiredOrder' });
-      return;
-    }
-
-    const withOrder = tasks.map((t, i) => ({ ...t, order: i, userId }));
+    const withOrder = tasks.map((t, i) => ({ ...t, order: i, userId: this.getUserId() }));
 
     runInAction(() => {
       if (!this.schedule[dateKey]) {
@@ -53,16 +45,9 @@ class ScheduleStore {
   }
 
   async addTask(task: Omit<TaskInterface, 'userId'>) {
-    const userId = this.getUserId();
-
-    if (!isExist(userId)) {
-      toast.error('Войдите в аккаунт', { toastId: 'authRequiredAddTask' });
-      return;
-    }
-
     const originalSchedule = structuredClone(toJS(this.schedule));
     const dateKey = dayjs(task.date.toDate()).format('DD-MM-YYYY');
-    const taskWithUser: TaskInterface = { ...task, userId };
+    const taskWithUser: TaskInterface = { ...task, userId: this.getUserId() };
     const oldTasks = this.schedule[dateKey]?.tasks ?? [];
     const newList = [taskWithUser, ...oldTasks].map((t, i) => ({ ...t, order: i }));
 
@@ -92,14 +77,7 @@ class ScheduleStore {
   }
 
   async updateTask(task: TaskInterface) {
-    const userId = this.getUserId();
-
-    if (!isExist(userId)) {
-      toast.error('Войдите в аккаунт', { toastId: 'authRequiredUpdateTask' });
-      return;
-    }
-
-    const taskWithUserId: TaskInterface = { ...task, userId };
+    const taskWithUserId: TaskInterface = { ...task, userId: this.getUserId() };
 
     try {
       for (const date in this.schedule) {
@@ -134,13 +112,6 @@ class ScheduleStore {
   async loadSchedule() {
     const userId = this.getUserId();
 
-    if (!isExist(userId)) {
-      runInAction(() => {
-        this.schedule = {};
-      });
-      return;
-    }
-
     this.loading = true;
 
     try {
@@ -163,13 +134,6 @@ class ScheduleStore {
 
   async loadScheduleForDay(day: Date) {
     const userId = this.getUserId();
-
-    if (!isExist(userId)) {
-      runInAction(() => {
-        this.daySchedule = {};
-      });
-      return;
-    }
 
     this.dayLoading = true;
 

@@ -1,10 +1,12 @@
 .stylization {
-  margin-top: 20px;
   padding-left: 15px;
+  max-width: 420px;
+
+  > div {
+    margin-top: 20px;
+  }
 
   .theme {
-    max-width: 420px;
-
     &__select-trigger {
       width: 100%;
       min-width: 200px;
@@ -14,5 +16,9 @@
       color: var(--text-color-secondary);
       font-weight: 400;
     }
+  }
+
+  .search-page-stylization {
+    margin-top: 20px;
   }
 }
