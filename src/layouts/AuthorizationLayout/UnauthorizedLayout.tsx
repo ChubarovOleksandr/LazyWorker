@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { Flex } from '@radix-ui/themes';
 
 import { PageLoader } from '@components/PageLoader/PageLoader';
@@ -7,7 +7,6 @@ import { RoutesEnum } from '@enums/routes.enum';
 import { isExist } from '@utils/format';
 
 const AuthorizationLayout = () => {
-  const navigate = useNavigate();
   const { user, loading } = useAuth();
 
   if (loading) {
@@ -15,7 +14,7 @@ const AuthorizationLayout = () => {
   }
 
   if (isExist(user)) {
-    navigate(RoutesEnum.Main, { replace: true });
+    return <Navigate replace to={RoutesEnum.Main} />;
   }
 
   return (
